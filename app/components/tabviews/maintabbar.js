@@ -1,0 +1,200 @@
+'use strict';
+
+var React = require('react-native');
+var Router = require('../../utils/services/router');
+var Dimensions = require('Dimensions');
+var Home = require('./home/home');
+var Search = require('./search/search');
+var Lists = require('./lists/lists');
+var Profile = require('./profile/profile');
+var Settings = require('./settings/settings');
+var SkyhitzTab = require('../tabbar/skyhitz');
+var HomeTab = require('../tabbar/home');
+var SearchTab = require('../tabbar/search');
+var ProfileTab = require('../tabbar/profile');
+var SettingsTab = require('../tabbar/settings');
+var Player = require('../player/player');
+var Entry = require('../entryviews/entry');
+var Subscribable = require('Subscribable');
+var TabNavigator = require('react-native-tab-navigator');
+
+var {
+    Navigator,
+    StyleSheet,
+    Animated,
+    View,
+    Image,
+    Text,
+    PanResponder,
+    TabBarIOS,
+    Component
+    } = React;
+
+var styles = StyleSheet.create({
+    tabBar:{
+        height:68,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        position: 'absolute',
+        backgroundColor:'transparent',
+        alignItems:'flex-end',
+        left: 0,
+        right:0
+    },
+    tabBars:{
+        height:50,
+        position: 'absolute',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor:'rgba(74,74,74,0.8)',
+        alignItems:'flex-end',
+        left: 0,
+        right:0
+    },
+    tabs:{
+        height:50
+    },
+    tab:{
+        backgroundColor:'transparent'
+    },
+    appContainer: {
+        flex: 1,
+        backgroundColor:'white'
+    },
+    searchTab:{
+        backgroundColor:'white'
+    },
+    modalPlayer:{
+        width:Dimensions.get('window').width,
+        height:Dimensions.get('window').height + 40,
+        backgroundColor:'transparent',
+        position:'absolute',
+        top:0
+    },
+    modalPlayerIn:{
+        flex:1,
+        backgroundColor:'blue'
+    },
+    tabImg: {
+        width:30,
+        height:30
+    },
+    tabImgO: {
+        width:30,
+        height:30,
+        opacity:0.6
+    }
+});
+
+
+
+var MainTabBar = React.createClass({
+    mixins: [Subscribable.Mixin],
+    getInitialState(){
+        return{
+            selectedTab : Router.route.selectedTab ? Router.route.selectedTab : 'home',
+            isOpen : false,
+            isHidden:true,
+            opacity: new Animated.Value(0),
+            pan: new Animated.ValueXY(),
+            tabBarPosition: new Animated.Value(0)
+        }
+    },
+    render(){
+
+        return(
+            <View style={styles.appContainer}>
+
+                <TabNavigator>
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'home'}
+                        renderIcon={() => <Image source={require('image!home-tab-icon-white')} style={styles.tabImgO}/>}
+                        renderSelectedIcon={() => <Image source={require('image!home-tab-icon-white')} style={styles.tabImg}/>}
+                        badgeText="1"
+                        onPress={() => this.setState({ selectedTab: 'home' })}>
+                        <Home/>
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'search'}
+                        renderIcon={() => <Image source={require('image!search-tab-icon-white')} style={styles.tabImgO}/>}
+                        renderSelectedIcon={() => <Image source={require('image!search-tab-icon-white')} style={styles.tabImg}/>}
+                        onPress={() => this.setState({ selectedTab: 'search' })}>
+                        <Search/>
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
+                        skyhitzTab={true}
+                        selected={this.state.selectedTab === 'lists'}
+                        renderIcon={() => <SkyhitzTab onPress={() => this.setState({ selectedTab: 'lists' })}/>}
+                        >
+                        <Lists/>
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'profile'}
+                        renderIcon={() => <Image source={require('image!profile-tab-icon-white')} style={styles.tabImgO}/>}
+                        renderSelectedIcon={() => <Image source={require('image!profile-tab-icon-white')} style={styles.tabImg}/>}
+                        onPress={() => this.setState({ selectedTab: 'profile' })}>
+                        <Profile/>
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'settings'}
+                        renderIcon={() => <Image source={require('image!settings-tab-icon-white')} style={styles.tabImgO}/>}
+                        renderSelectedIcon={() => <Image source={require('image!settings-tab-icon-white')} style={styles.tabImg}/>}
+                        onPress={() => this.setState({ selectedTab: 'settings' })}>
+                        <Settings/>
+                    </TabNavigator.Item>
+                </TabNavigator>
+             </View>
+        )
+    }
+});
+
+module.exports = MainTabBar;
+
+/*
+ <Animated.View style={this.getOverlayStyle()} {...this._panResponder.panHandlers}>
+ <Animated.View style={this.getTabPlayerStyle()}></Animated.View>
+ <Animated.View style={this.getPlayerModalStyle()}>
+ <Entry/>
+ </Animated.View>
+ </Animated.View>
+
+ <Animated.View style={this.getTabBarWrapStyle()}/>
+
+ <Animated.View style={this.getTabBarStyle()}>
+ <HomeTab
+ selected={this.state.selectedTab === 'home'}
+ onPress={()=>{
+ this.setState({
+ selectedTab:'home'
+ });
+ }}/>
+ <SearchTab
+ selected={this.state.selectedTab === 'search'}
+ onPress={()=>{
+ this.setState({
+ selectedTab:'search'
+ });
+ }}/>
+ <SkyhitzTab
+ onPress={()=>{
+ this.setState({
+ selectedTab:'lists'
+ });
+ }}/>
+ <ProfileTab
+ selected={this.state.selectedTab === 'profile'}
+ onPress={()=>{
+ this.setState({
+ selectedTab:'profile'
+ });
+ }}/>
+ <SettingsTab
+ selected={this.state.selectedTab === 'settings'}
+ onPress={()=>{
+ this.setState({
+ selectedTab:'settings'
+ });
+ }}/>
+
+ </Animated.View>
+ */

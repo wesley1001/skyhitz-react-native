@@ -1,0 +1,6 @@
+framework module Pods_Skyhitz {
+  umbrella header "Pods-Skyhitz-umbrella.h"
+
+  export *
+  module * { export * }
+}

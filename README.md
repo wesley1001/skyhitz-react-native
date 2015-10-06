@@ -4,11 +4,12 @@ Skyhitz Music React Native App for iOS
 # Run App
 1. Clone the repo
 2. `cd skyhitz-react-native-ios`
-3. `npm install` or `sudo npm install`
-4. Open skyhitzapp.xcworkspace
-5. Make sure you have installed cocoa pods and latest version of io.js or node
-6. Change your staging Firebase url so you don´t crowd mine. Look for the file ´./app/utils/services/firebase-ref.js´
-7. If you want to run the backend go to https://github.com/skyhitz/skyhitz-firebase-node-backend
+3. Open skyhitzapp.xcworkspace
+4. Make sure you have installed cocoa pods and latest version of io.js or node
+5. Change your staging Firebase url so you don´t crowd mine. Look for the file ´./app/utils/services/firebase-ref.js´
+6. If you want to run the backend go to https://github.com/skyhitz/skyhitz-firebase-node-backend
+
+(node modules are being tracked so no need to npm install, this because there are some modifications on some of the modules)
 
 #Why Are We Doing This?
 

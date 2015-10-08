@@ -14,6 +14,7 @@ var ThreeDots = require('../../helpers/threedots');
 var EntryTitle = require('../../../utils/entrytitle');
 var Number = require('../../../utils/number');
 var Player = require('../../player/player');
+var Subscribable = require('Subscribable');
 
 var {
     StyleSheet,
@@ -118,11 +119,13 @@ var styles = StyleSheet.create({
 });
 
 var Lists = React.createClass({
+    mixins: [Subscribable.Mixin],
     getInitialState() {
         return {
             topListData:[],
             hotListsData:[],
-            selectedTab:0
+            selectedTab:0,
+            currentVideoId:Player.currentVideoId
         }
     },
     getTopListDataSource() {
@@ -137,15 +140,20 @@ var Lists = React.createClass({
         });
         return dataSource.cloneWithRows(this.state.hotListsData);
     },
+    setCurrentVideoId(video){
+        console.log(video)
+        this.setState({currentVideoId:video.currentVideoId});
+    },
     componentDidMount () {
         this.getTopList();
+        this.addListenerOn(Player.eventEmitter, 'currentVideoId', this.setCurrentVideoId);
     },
     getTopList(){
         var that = this;
         ListsApi.getTopList().then(function(list){
             that.setState({
                 isLoading: false,
-                topListData: list
+                topListData: Object.keys(list).map((k) => { return list[k] })
             });
         }).catch(function(error){
 
@@ -170,27 +178,29 @@ var Lists = React.createClass({
         });
     },
     getCurrentVideoStyle(item){
-        if(item.youtubeData.videoId === Player.currentVideoId){
-            return{
-                backgroundColor:'#1dadff'
+        if(item.youtubeData.videoId == this.state.currentVideoId){
+            return {
+                color:'rgba(29, 173, 255, 1)'
             }
         }else{
-            return{
-                backgroundColor:'white'
-            }
+            return null
         }
     },
-    renderEntryRow(item, secId, rowId){
+    setList(index){
+        Player.currentList = this.state.topListData;
+        Player.indexInList = index;
+    },
+    renderEntryRow(item, secId, itemId){
         return(
             <View>
-                <View  style={[styles.rowWrapp, this.getCurrentVideoStyle(item)]}>
+                <View  style={styles.rowWrapp}>
                     <View style={styles.row}>
-                        <TouchableOpacity onPress={()=>Player.playVideo(item.youtubeData.id.videoId, item.youtubeData.snippet.title)}>
+                        <TouchableOpacity onPress={()=>{Player.playVideo(item.youtubeData.id.videoId, item.youtubeData.snippet.title);this.setList(itemId)}}>
                             <View style={styles.leftRowSection}>
                                 <Image source={{uri:item.youtubeData.snippet.thumbnails.default.url}} style={styles.thumb}/>
                                 <View style={styles.info}>
-                                    <Text style={styles.searchArtistTitle}>{EntryTitle.getArtistName(item.youtubeData.snippet.title)}</Text>
-                                    <Text style={styles.title}>{EntryTitle.getSongTitle(item.youtubeData.snippet.title)}</Text>
+                                    <Text style={[styles.searchArtistTitle,{color:(item.youtubeData.videoId == this.state.currentVideoId) ? 'rgba(29, 173, 255, 1)':'rgba(0, 0, 0, 1)'}]}>{EntryTitle.getArtistName(item.youtubeData.snippet.title)}</Text>
+                                    <Text style={[styles.title,this.getCurrentVideoStyle(item)]}>{EntryTitle.getSongTitle(item.youtubeData.snippet.title)}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -229,7 +239,6 @@ var Lists = React.createClass({
         return(<View style={styles.footer}></View>);
     },
     render(){
-        console.log('rendering list');
         return(
             <View style={styles.container}>
                 <NavBar backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>

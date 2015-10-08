@@ -127,7 +127,6 @@ var styles = StyleSheet.create({
         width: 16.8,
         height: 14.4
     },
-    controlVol: {},
     rowShare: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -280,8 +279,8 @@ var Entry = React.createClass({
             playTime: null,
             isPlaying: true,
             liked: false,
-            loop:true,
-            shuffle:true,
+            loop:false,
+            shuffle:false,
             title: '',
             points: 0,
             likeCount: 0,
@@ -400,15 +399,6 @@ var Entry = React.createClass({
             parseFloat(seconds)
         );
     },
-    setVolume(volume){
-        var intVolume = Math.round(volume * 100);
-        console.log(intVolume);
-        this.setState({volumex: volume});
-        NativeModules.YouTubeManager.setVolume(
-            React.findNodeHandle(this.refs.youtubeplayer),
-            intVolume
-        );
-    },
     renderEntryPrize(entry){
         if (entry) {
             return (
@@ -418,16 +408,35 @@ var Entry = React.createClass({
             )
         }
     },
+    toggleLoop(){
+        if(this.state.loop === true){
+            this.setState({loop:false})
+        }else{
+            this.setState({loop:true})
+        }
+    },
+    handleStateChange(state){
+        if(state === 'ended'){
+            if(this.state.loop === true){
+                this.seekToSeconds(0)
+            }else if(this.state.shuffle === true){
+                Player.playRandom()
+            }else{
+                Player.playNext()
+            }
+        }
+        this.setState({status:state});
+    },
     renderLoop(){
         if(this.state.loop === true){
             return(
-                <TouchableOpacity style={styles.controlTouch} onPress={()=>this.setState({loop:false})}>
+                <TouchableOpacity style={styles.controlTouch} onPress={()=>this.toggleLoop()}>
                     <Image style={styles.loopBtn} source={require('image!loop-icon-blue')}/>
                 </TouchableOpacity>
             )
         }else{
             return(
-                <TouchableOpacity style={styles.controlTouch} onPress={()=>this.setState({loop:true})}>
+                <TouchableOpacity style={styles.controlTouch} onPress={()=>this.toggleLoop()}>
                     <Image style={styles.loopBtn} source={require('image!loop-icon-grey')}/>
                 </TouchableOpacity>
             )
@@ -459,7 +468,7 @@ var Entry = React.createClass({
                     hidden={false}        // control visiblity of the entire view
                     playsInline={true}    // control whether the video should play inline
                     onReady={(e)=>{this.setState({isReady: true})}}
-                    onChangeState={(e)=>{this.setState({status: e.state});Player.onChangeState(e.state)}}
+                    onChangeState={(e)=>{this.handleStateChange(e.state);Player.onChangeState(e.state)}}
                     onChangeQuality={(e)=>{this.setState({quality: e.quality})}}
                     onError={(e)=>{this.setState({error: e.error})}}
                     onPlayTime={(e)=>{this.setState({playTime: e.playTime, progress:e.playTime/e.duration, duration:e.duration})}}
@@ -539,21 +548,3 @@ var Entry = React.createClass({
 
 
 module.exports = Entry;
-
-/*
- <View style={styles.rowVol}>
- <TouchableOpacity style={styles.controlVol}>
- <Image style={styles.muteBtn} source={require('image!mutebtn')}/>
- </TouchableOpacity>
- <View style={styles.slideWrap}>
- <Slider
- value={this.state.volumex}
- onValueChange={(volume) => this.setVolume(volume)} trackStyle={styles.volTrack}
- minimumTrackTintColor="#1dadff" thumbStyle={styles.volThumb}/>
- </View>
- <TouchableOpacity style={styles.controlVol}>
- <Image style={styles.loudBtn} source={require('image!loudbtn')}/>
- </TouchableOpacity>
- </View>
-
- */

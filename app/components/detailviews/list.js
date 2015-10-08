@@ -110,49 +110,37 @@ var styles = StyleSheet.create({
 var Playlist = React.createClass({
     getInitialState() {
         return {
-            playlistDataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2
-            }),
+            listData:[],
             listUid:this.props.route.listUid,
             listName:this.props.route.listName,
             currentVideoId:Player.currentVideoId
         }
     },
-    getPlaylistDataSource: function(data: Array<any>): ListView.DataSource {
-        return this.state.playlistDataSource.cloneWithRows(data);
+    getListDataSource() {
+        var dataSource = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2
+        });
+        return dataSource.cloneWithRows(this.state.listData);
     },
     componentDidMount () {
-
         this.getEntries();
-
     },
     goBack(){
-
         this.props.nav.jumpBack();
-
     },
     getEntries(){
-
         var that = this;
-
         ListsApi.getList(this.state.listUid).then(function(listObj){
-
             ListsApi.getEntriesInList(listObj.entries).then(function(list){
-
                 that.setState({
                     isLoading: false,
                     listName:listObj.name,
-                    playlistDataSource: that.getPlaylistDataSource(list)
+                    listData: Object.keys(list).map((k) => { return list[k] })
                 });
-
             }).catch(function(error){
-
             });
-
         }).catch(function(error){
-
         });
-
     },
     getCurrentVideoStyle(item){
         if(item.youtubeData.videoId === this.state.currentVideoId){
@@ -161,13 +149,16 @@ var Playlist = React.createClass({
             }
         }
     },
-    renderEntryRow(item){
-
+    setList(index){
+        Player.currentList = this.state.listData;
+        Player.indexInList = index;
+    },
+    renderEntryRow(item, secId, itemId){
         return(
             <View>
                 <View style={[styles.rowWrapp, this.getCurrentVideoStyle(item) ]}>
                     <View style={styles.row}>
-                        <TouchableOpacity onPress={()=>Player.playVideo(item.youtubeData.id.videoId, item.youtubeData.snippet.title)}>
+                        <TouchableOpacity onPress={()=>{Player.playVideo(item.youtubeData.id.videoId, item.youtubeData.snippet.title);this.setList(itemId)}}>
                             <View style={styles.leftRowSection}>
                                 <Image source={{uri:item.youtubeData.snippet.thumbnails.default.url}} style={styles.thumb}/>
                                 <View style={styles.info}>
@@ -181,7 +172,6 @@ var Playlist = React.createClass({
                 <Divider style={styles.horDivider}/>
             </View>
         )
-
     },
     render(){
         return(
@@ -189,7 +179,7 @@ var Playlist = React.createClass({
                 <NavBar title={this.state.listName} backBtn={true} backPressFunc={this.goBack} />
                 <View style={styles.container}>
                     <ListView
-                        dataSource={this.state.playlistDataSource}
+                        dataSource={this.getListDataSource()}
                         renderRow={this.renderEntryRow}
                         style={styles.listview}
                         automaticallyAdjustContentInsets={false}

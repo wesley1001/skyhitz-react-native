@@ -1,8 +1,9 @@
 'use strict';
 
 var React = require('react-native');
-var Divider = require('../../../helpers/homefeeddivider');
-
+var Divider = require('../../../helpers/followersdivider');
+var Follow = require('../../../follow/follow');
+var User = require('../../../../utils/services/user');
 
 var {
     StyleSheet,
@@ -22,11 +23,8 @@ var styles = StyleSheet.create({
         marginLeft:30,
         marginRight:25
     },
-    playlistIconWrap:{
-
-    },
     header:{
-        marginLeft:50,
+        marginLeft:60,
         paddingTop:10,
         paddingBottom:10,
         flexDirection:'row',
@@ -50,17 +48,42 @@ var styles = StyleSheet.create({
         fontFamily:"Gotham-Bold",
         color:"#626363"
     },
-    row:{
-        flexDirection:"row",
-        justifyContent:"space-between",
-        flexWrap:"nowrap",
-        height:50,
-        alignItems:'center'
+    rowContainer:{
+        backgroundColor:'white'
+    },
+    thumbRound:{
+        width:40,
+        height:40,
+        borderRadius:20,
+        marginRight:10
+    },
+    rowWrapp:{
+        flex:1,
+        backgroundColor:'white',
+        height:50
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 10,
+        paddingRight:10,
+        alignItems:'center',
+        backgroundColor: 'white',
+        height:50
+    },
+    infoWrap:{
+        flex: 1,
+        flexDirection: 'row',
+        paddingLeft:10,
+        paddingTop:10,
+        paddingBottom:10
     },
     leftSection:{
-        flexDirection:"row",
-        justifyContent:"flex-start",
-        flexWrap:"nowrap"
+        flexDirection:'row',
+        justifyContent:'flex-start',
+        flexWrap:'nowrap',
+        alignItems:'center',
+        flex:1
     },
     followerSection:{
         flex:1
@@ -69,85 +92,104 @@ var styles = StyleSheet.create({
         marginRight:10,
         fontSize:10,
         fontFamily:'Gotham-Light'
-    }
+    },
+    listview:{
+        flex:1
+    },
+    username:{
+        fontSize:10,
+        fontFamily:'Gotham-Bold',
+        textAlign:'left',
+        paddingLeft:10
+    },
+    name:{
+        fontSize:10,
+        fontFamily:'Gotham-Light',
+        textAlign:'left',
+        paddingLeft:10,
+        marginTop:2
+    },
 });
 
 var Followers = React.createClass({
-
-    addNewList(){
-
-        this.props.navigator.push({
-            id:'createlist'
+    getInitialState(){
+        return {
+            followersData:[],
+            followingData:[]
+        }
+    },
+    getFollowersDataSource() {
+        var dataSource = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2
         });
-
+        return dataSource.cloneWithRows(this.state.followersData);
+    },
+    componentDidMount () {
+        this.getFollowing();
+    },
+    getFollowing(){
+        User.getFollowing(User.getUid()).then((followings)=>{
+            this.setState({followingData:followings})
+            this.getFollowers()
+        })
+    },
+    getFollowers(){
+        User.getFollowers(User.getUid()).then((followers)=>{
+            this.setState({followersData:followers})
+        })
+    },
+    goToProfile(){
+        
+    },
+    renderFollow(user){
+        var followsUser = false;
+        console.log(this.state.followingData)
+        if(this.state.followingData[user.uid]){
+            followsUser = true;
+        }
+        return <Follow following={followsUser} user={user}/>
+    },
+    renderFollower(user){
+        return(
+            <View>
+                <View style={styles.rowWrapp}>
+                    <View style={styles.row}>
+                        <TouchableOpacity onPress={()=>this.goToProfile(user)}>
+                            <View style={styles.leftSection}>
+                                <Image source={user.smallAvatarUrl == "placeholder" ? require('image!avatar'):{uri:user.smallAvatarUrl}} style={styles.thumbRound}/>
+                                <View style={styles.info}>
+                                    <Text style={styles.username}>{user.username}</Text>
+                                    <Text style={styles.name}>{user.name}</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={styles.rightSection}>
+                            {this.renderFollow(user)}
+                        </View>
+                    </View>
+                </View>
+                <Divider style={styles.horDivider}/>
+            </View>
+        )
+    },
+    onEndReached(){
+        // this.getFollowers()
     },
     render(){
         return(
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerText}>YOUR PLAYLISTS</Text>
+                    <Text style={styles.headerText}>FOLLOWERS</Text>
                 </View>
                 <Divider/>
-                <View style={styles.row}>
-                    <View style={styles.leftSection}>
-                        <TouchableOpacity style={styles.playlistIconWrap}>
-                            <Image source={require('image!playlisticon')} style={styles.playlistIcon}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.playlistTitle}>
-                            <Text style={styles.playlistText}>SLOW JAMS</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity style={styles.followersSection}>
-                        <Text style={styles.followersCount}>13 followers</Text>
-                    </TouchableOpacity>
-                </View>
-                <Divider/>
-                <View style={styles.row}>
-                    <View style={styles.leftSection}>
-                        <TouchableOpacity style={styles.playlistIconWrap}>
-                            <Image source={require('image!playlisticon')} style={styles.playlistIcon}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.playlistTitle}>
-                            <Text style={styles.playlistText}>DISCO NIGHTS</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity style={styles.followersSection}>
-                        <Text style={styles.followersCount}>13 followers</Text>
-                    </TouchableOpacity>
-                </View>
-                <Divider/>
-                <View style={styles.header}>
-                    <Text style={styles.headerText}>PLAYLISTS YOU FOLLOW</Text>
-                </View>
-                <Divider/>
-                <View style={styles.row}>
-                    <View style={styles.leftSection}>
-                        <TouchableOpacity style={styles.playlistIconWrap}>
-                            <Image source={require('image!playlisticon')} style={styles.playlistIcon}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.playlistTitle}>
-                            <Text style={styles.playlistText}>ELECTRO HOUSE</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity style={styles.followersSection}>
-                        <Text style={styles.followersCount}>13 followers</Text>
-                    </TouchableOpacity>
-                </View>
-                <Divider/>
-                <View style={styles.row}>
-                    <View style={styles.leftSection}>
-                        <TouchableOpacity style={styles.playlistIconWrap}>
-                            <Image source={require('image!playlisticon')} style={styles.playlistIcon}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.playlistTitle}>
-                            <Text style={styles.playlistText}>DEEP HOUSE</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity style={styles.followersSection}>
-                        <Text style={styles.followersCount}>13 followers</Text>
-                    </TouchableOpacity>
-                </View>
-                <Divider/>
+                <ListView
+                    dataSource={this.getFollowersDataSource()}
+                    renderRow={this.renderFollower}
+                    automaticallyAdjustContentInsets={false}
+                    onEndReached={this.onEndReached}
+                    style={styles.listview}
+                    renderFooter={this.renderFooter}
+                    />
 
             </View>
         )

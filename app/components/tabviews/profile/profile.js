@@ -37,7 +37,8 @@ var styles = StyleSheet.create({
     },
     container:{
         backgroundColor:'white',
-        flex:1
+        flex:1,
+        marginTop:20
     },
     topContainer:{
         flexDirection:"column",
@@ -154,12 +155,10 @@ var Profile = React.createClass({
             return <List nav={nav} route={route}/>;
         }else{
             return (
-                <View style={styles.container}>
-                <NavBar backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>
                  <View style={styles.container}>
                 <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}  contentInset={{bottom: 113}}>
                     <View style={styles.topContainer}>
-                        <Image style={styles.profilepic} source={{uri: this.state.avatar}} />
+                        <Image style={styles.profilepic} source={User.userData.largeAvatarUrl == "placeholder" ? require('image!avatar'):{uri:User.userData.largeAvatarUrl}} />
                         <Text style={styles.name}>
                             {this.state.username}
                         </Text>
@@ -176,18 +175,12 @@ var Profile = React.createClass({
                         <View style={styles.horDivider}></View>
                         <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(1)}}>
                             {this.state.selectedTab === 1 ?
-                                <Image style={styles.musicIcon} source={require('image!musicbtnblue')}/>
-                                : <Image style={styles.musicIcon} source={require('image!musicbtngrey')}/>}
-                        </TouchableOpacity>
-                        <View style={styles.horDivider}></View>
-                        <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(2)}}>
-                            {this.state.selectedTab === 2 ?
                                 <Image style={styles.followersIcon} source={require('image!followersbtnblue')}/>
                                 : <Image style={styles.followersIcon} source={require('image!followersbtngrey')}/>}
                         </TouchableOpacity>
                         <View style={styles.horDivider}></View>
-                        <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(3)}}>
-                            {this.state.selectedTab === 3 ?
+                        <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(2)}}>
+                            {this.state.selectedTab === 2 ?
                                 <Image style={styles.notificationsIcon} source={require('image!notificationsbtnblue')}/>
                                 : <Image style={styles.notificationsIcon} source={require('image!notificationsbtngrey')}/>}
                         </TouchableOpacity>
@@ -196,16 +189,12 @@ var Profile = React.createClass({
                         <Playlists nav={nav} route={route}/>
                         :null }
                     {this.state.selectedTab === 1 ?
-                        <Badges/>
-                        :null }
-                    {this.state.selectedTab === 2 ?
                         <Followers/>
                         :null }
-                    {this.state.selectedTab === 3 ?
+                    {this.state.selectedTab === 2 ?
                         <Notifications/>
                         :null }
                 </ScrollView>
-                </View>
                 </View>
             )
         }

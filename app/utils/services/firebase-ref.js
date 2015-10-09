@@ -31,6 +31,18 @@ var Firebase = require('firebase'),
             usernameExists(){
                 return userInfoDataRef;
             },
+            userFollowers (uid) {
+                return ref.child('followInfo/index/followsUser/' + uid);
+            },
+            userFollowing(uid){
+                return ref.child('followInfo/index/userFollows/' + uid);
+            },
+
+            // Follow
+
+            followUserQueue(){
+                return ref.child('appQueue/user/follow/tasks');
+            },
 
             // Entry
 

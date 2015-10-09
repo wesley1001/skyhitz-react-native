@@ -3,7 +3,6 @@
 var React = require('react-native');
 var Divider = require('../../../helpers/homefeeddivider');
 
-
 var {
     StyleSheet,
     View,

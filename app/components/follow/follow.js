@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var FollowService = require('../../utils/services/follow');
 
 var {
     TouchableOpacity,
@@ -12,49 +13,49 @@ var {
     } = React;
 
 var Follow = React.createClass({
+    getInitialState(){
+        return{
+            follow:this.props.following,
+            user: this.props.user
+        }
+    },
     renderFollow(){
-
-        if(true){
-
+        if(this.state.follow === false){
             return(
                 <View style={styles.followWrap}>
                     <View style={styles.plusFollow}>
                         <View style={styles.plusHor}></View>
                         <View style={styles.plusVer}></View>
                     </View>
-                    <Text>Follow</Text>
+                    <Text style={styles.followText}>Follow</Text>
                 </View>
             )
-
         }else{
-
             return(
-                <View style={styles.followingWrap}>
-                    <View style={styles.followingCheckWrap}>
-                        <View></View>
+                <View style={styles.followWrap}>
+                    <View style={styles.plusFollow}>
+                        <View style={styles.plusHor}></View>
                     </View>
-                    <Text>Following</Text>
+                    <Text style={styles.followText}>Following</Text>
                 </View>
             )
         }
-
     },
     follow(){
 
-        this.props.navigator.jumpBack();
-
+        if(this.state.follow === false){
+            this.setState({follow:true});
+            FollowService.followUser(this.state.user);
+        }else{
+            this.setState({follow:false});
+            FollowService.unfollowUser(this.state.user);
+        }
     },
     render(){
         return(
             <View style={styles.followBtn}>
                 <TouchableOpacity onPress={this.follow}>
-                    <View style={styles.followWrap}>
-                        <View style={styles.plusFollow}>
-                            <View style={styles.plusHor}></View>
-                            <View style={styles.plusVer}></View>
-                        </View>
-                        <Text style={styles.followText}>Follow</Text>
-                    </View>
+                    {this.renderFollow()}
                 </TouchableOpacity>
             </View>
         );

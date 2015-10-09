@@ -14,33 +14,21 @@ var {AlertIOS} = React;
 var User = {
     userData:{},
     authenticateWithCustomToken(authToken){
-
         FirebaseRef.ref.authWithCustomToken(authToken, function(error, authData) {
-
-            console.log(authData);
-
             if (error) {
-
                 LocalStorage.removeFirebaseToken().then(()=>{
                     Router.goToStartMenu();
                 });
-
             } else {
-
                 User.downloadUserData();
-
             }
-
         });
-
     },
     authenticateWithPassword (user) {
-
             FirebaseRef.ref.authWithPassword({
                 email: user.email,
                 password: user.password
             }, function (error, authData) {
-
                 if (error) {
                     Loading.hide();
                     switch (error.code) {
@@ -69,65 +57,40 @@ var User = {
                             );
                     }
                 } else {
-
                     LocalStorage.storeFirebaseToken(authData.token);
                     User.downloadUserData();
 
                 }
             });
-
     },
     authenticateWithOAuth(authObj){
-
             FirebaseRef.ref.authWithOAuthToken(authObj.provider, authObj.token, function(error, authData) {
-
                 if (error) {
-
                 } else {
-
                     LocalStorage.storeFirebaseToken(authData.token);
-
                     if(authObj.provider === "google"){
-
                         LocalStorage.storeGoogleOauthToken(authObj.token);
-
                     }
-
                     User.downloadUserData();
-
                 }
-
             });
-
     },
     downloadUserData(){
-
         FirebaseRef.userData(User.getUid()).once('value',function(snapshot){
-
             User.userData = snapshot.val();
-
             User.validateAccount();
-
         }, function(err){
-
         });
-
     },
     updateUserData(){
-
         FirebaseRef.userData(User.getUid()).once('value',function(snapshot){
-
             User.userData = snapshot.val();
-
         }, function(err){
-
         });
-
     },
     createAccount(){
         FirebaseRef.userCreate().push(User.getAuthData(),function(error){
             if(error){
-
             }else{
                 User.watchIfAccountWasCreated();
             }
@@ -154,42 +117,34 @@ var User = {
         FirebaseRef.userData(User.getUid()).on('value', callback, errorCallback);
     },
     validateAccount(){
-
         if(User.userData === null){
             User.createAccount();
             return;
         }
-
         if(User.userData.email === ''){
             Router.goToEmail();
             Loading.hide();
             return;
         }
-
         if(User.userData.username === ''){
             Router.goToName();
             Loading.hide();
             return;
         }
-
         if(User.userData.name === null){
             Router.goToName();
             Loading.hide();
             return;
         }
-
         User.markUserAsAuth();
-
     },
     markUserAsAuth (){
-
         /*
          Heap.identify({name: User.userData.name,
          uid: User.userData.uid,
          email: User.userData.email});
 
          */
-
         Router.goToMainTabBar();
         Loading.hide();
     },
@@ -212,9 +167,7 @@ var User = {
                             reject(error.message);
                     }
                 } else {
-
                     User.authenticateWithPassword(user);
-
                 }
             });
         });
@@ -233,7 +186,6 @@ var User = {
         });
     },
     resetPassword(user){
-
         return new Promise(function(resolve, reject) {
             FirebaseRef.ref.resetPassword({
                 email: user.email
@@ -253,7 +205,6 @@ var User = {
         });
     },
     changePassword(user){
-
         return new Promise(function(resolve, reject) {
             FirebaseRef.ref.changePassword({
                 email: user.email,
@@ -272,20 +223,15 @@ var User = {
                             reject("We couldn't change your password, please try again.");
                     }
                 } else {
-
                     user.password = user.newPassword;
-
                     User.authenticateWithPassword(user);
-
                     resolve();
-
                 }
             });
         });
 
     },
     changeEmail(user){
-
         FirebaseRef.ref.changeEmail({
             oldEmail: user.oldEmail,
             newEmail: user.newEmail,
@@ -309,7 +255,6 @@ var User = {
 
     },
     removeUser(user){
-
         FirebaseRef.ref.removeUser({
             email: user.email,
             password: user.password
@@ -354,6 +299,56 @@ var User = {
                 });
         });
     },
+    getFollowing(uid){
+        var followings = [];
+        return new Promise(function(resolve, reject){
+            FirebaseRef.userFollowing(uid).once('value', function (snapshot) {
+                if (snapshot.val() !== null) {
+                    var followingUid = snapshot.val();
+                    var followingLength = Object.keys(followingUid).length;
+                    for (var prop in followingUid) {
+                        if (followingUid.hasOwnProperty(prop)) {
+                             FirebaseRef.userData(prop).once('value', function (following) {
+                             if (following.val() !== null) {
+                             followings[following.val().uid] = following.val();
+                             }
+                             if (followingLength == Object.keys(followings).length) {
+                             resolve(followings);
+                             }
+                             });
+                        }
+                    }
+                }
+            }, function (error) {
+                error ? reject(error) : '';
+            });
+        });
+    },
+    getFollowers(uid){
+        var followers = [];
+        return new Promise(function(resolve, reject){
+            FirebaseRef.userFollowers(uid).once('value', function (snapshot) {
+                if (snapshot.val() !== null) {
+                    var followersUid = snapshot.val();
+                    var followersLength = Object.keys(followersUid).length;
+                    for (var prop in followersUid) {
+                        if (followersUid.hasOwnProperty(prop)) {
+                            FirebaseRef.userData(prop).once('value', function (follower) {
+                                if (follower.val() !== null) {
+                                    followers[follower.val().uid] = follower.val();
+                                }
+                                if (followersLength == Object.keys(followers).length) {
+                                    resolve(followers);
+                                }
+                            });
+                        }
+                    }
+                }
+            }, function (error) {
+                error ? reject(error) : '';
+            });
+        });
+    },
     getUid () {
         if (!FirebaseRef.ref.getAuth()) {
             return null;
@@ -373,25 +368,17 @@ var User = {
         return FirebaseRef.ref.getAuth().token;
     },
     generateAvatar () {
-
         var stringStart = 'DefaultAvatar',
-
             stringEnd = '.png',
-
             stringMid = getRandomInt(1, 7);
-
         return stringStart + stringMid + stringEnd;
-
     },
     logOut () {
-
         User.markUserAsLoggedOut();
         FirebaseRef.ref.unauth();
-
     },
     markUserAsLoggedOut (){
         console.log('markUserAsLoggedOut');
-
     }
 
 };

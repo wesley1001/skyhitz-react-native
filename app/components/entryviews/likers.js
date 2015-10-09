@@ -99,13 +99,13 @@ var styles = StyleSheet.create({
         backgroundColor:'white',
         height:50
     },
-    searchArtistTitle:{
+    username:{
         fontSize:10,
         fontFamily:'Gotham-Bold',
         textAlign:'left',
         paddingLeft:10
     },
-    title:{
+    name:{
         fontSize:10,
         fontFamily:'Gotham-Light',
         textAlign:'left',
@@ -137,7 +137,7 @@ var Likers = React.createClass({
         this.getLikers();
 
     },
-    goToProfile(item){
+    goToProfile(user){
 
         this.props.navigator.push({
             id:'profile'
@@ -161,26 +161,25 @@ var Likers = React.createClass({
             });
 
     },
-    renderFollow(item){
-        if(item.uid !== User.getUid()){return <Follow navigator={this.props.navigator} />}else{return null}
+    renderFollow(user){
+        if(user.uid !== User.getUid()){return <Follow navigator={this.props.navigator} />}else{return null}
     },
-    renderEntryRow(item){
-
+    renderEntryRow(user){
         return(
             <View>
                 <View style={styles.rowWrapp}>
                     <View style={styles.row}>
-                        <TouchableOpacity onPress={()=>this.goToProfile(item)}>
+                        <TouchableOpacity onPress={()=>this.goToProfile(user)}>
                         <View  style={styles.leftSection}>
-                            <Image source={item.smallAvatarUrl == "placeholder" ? require('image!avatar'):{uri:item.smallAvatarUrl}} style={styles.thumbRound}/>
+                            <Image source={user.smallAvatarUrl == "placeholder" ? require('image!avatar'):{uri:user.smallAvatarUrl}} style={styles.thumbRound}/>
                             <View style={styles.info}>
-                                <Text style={styles.searchArtistTitle}>{item.username}</Text>
-                                <Text style={styles.title}>{item.name}</Text>
+                                <Text style={styles.username}>{user.username}</Text>
+                                <Text style={styles.name}>{user.name}</Text>
                             </View>
                         </View>
                         </TouchableOpacity>
                         <View style={styles.rightSection}>
-                            {this.renderFollow(item)}
+                            {this.renderFollow(user)}
                         </View>
                     </View>
                 </View>

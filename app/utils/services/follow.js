@@ -17,7 +17,7 @@ var Follow = {
         FirebaseRef.followUserQueue().push(userPayload,function(error){
             if(error){
             }else{
-                console.log('followed user')
+                console.log('followed userx')
             }
         });
     },

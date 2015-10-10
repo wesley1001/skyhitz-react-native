@@ -202,7 +202,7 @@ var Profile = React.createClass({
     render(){
         return(
             <View style={styles.tabWrap}>
-                    <Navigator
+                <Navigator
                         initialRoute={{ message: "First Scene" }}
                         renderScene={this.renderScene}
                         configureScene={(route) => {

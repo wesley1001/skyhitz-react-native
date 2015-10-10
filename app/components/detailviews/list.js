@@ -11,6 +11,7 @@ var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
 var EntryTitle = require('../../utils/entrytitle');
 var Player = require('../player/player');
+var ThreeDots = require('../helpers/threedots');
 
 var {
     StyleSheet,
@@ -21,7 +22,8 @@ var {
     Image,
     PixelRatio,
     ListView,
-    Component
+    Component,
+    ActionSheetIOS
     } = React;
 
 var styles = StyleSheet.create({
@@ -159,6 +161,58 @@ var Playlist = React.createClass({
             }
         }
     },
+    showActionSheetHotLists(item) {
+        var BUTTONS = [
+            'Follow Playlist',
+            'Share Playlist...',
+            'Cancel'
+        ];
+        var DESTRUCTIVE_INDEX = 2;
+        var CANCEL_INDEX = 4;
+
+        ActionSheetIOS.showActionSheetWithOptions({
+                options: BUTTONS,
+                //  cancelButtonIndex: CANCEL_INDEX,
+                destructiveButtonIndex: DESTRUCTIVE_INDEX
+            },
+            (buttonIndex) => {
+
+                switch (buttonIndex){
+                    case 0:
+                        this.followList(item);
+                        break;
+                    case 1:
+                        this.showShareActionSheet();
+                        break;
+                    default :
+                        return;
+                }
+            });
+    },    
+    followList(item){
+
+        ListsApi.followList(item).then(function(response){
+
+
+        });
+    },
+    showShareActionSheet() {
+        ActionSheetIOS.showShareActionSheetWithOptions({
+                url: 'https://code.facebook.com',
+            },
+            (error) => {
+                console.error(error);
+            },
+            (success, method) => {
+                var text;
+                if (success) {
+                    text = `Shared via ${method}`;
+                } else {
+                    text = 'You didn\'t share';
+                }
+                this.setState({text})
+            });
+    },        
     renderEntryRow(item){
 
         return(
@@ -174,6 +228,8 @@ var Playlist = React.createClass({
                                 </View>
                             </View>
                         </TouchableOpacity>
+                        <ThreeDots onPress={()=>this.showActionSheetHotLists(item)}/>
+
                     </View>
                 </View>
                 <Divider style={styles.horDivider}/>

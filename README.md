@@ -33,4 +33,4 @@ Follow us:
 
 # Are you an Angel Investor?
 
-- Send me an e-mail with the subject 'Angel Investment'.
+- Send us an e-mail with the subject 'Angel Investment'.

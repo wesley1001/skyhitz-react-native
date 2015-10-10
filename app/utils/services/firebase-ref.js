@@ -98,6 +98,15 @@ var Firebase = require('firebase'),
                 return ref.child('listInfo/index/userToList/'+uid);
             },
 
+            // Notifications
+
+            homeNotifications(uid){
+              return ref.child('/notificationInfo/index/userHome/' + uid);
+            },
+            notification(uid){
+              return ref.child('/notificationInfo/index/data/' + uid);
+            },
+
             // Stripe
 
             userStripeCardData (uid) {

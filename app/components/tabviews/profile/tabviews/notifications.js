@@ -72,7 +72,11 @@ var styles = StyleSheet.create({
 });
 
 var Notifications = React.createClass({
-
+    getInitialState(){
+      return{
+          notificationsData:[]
+      }
+    },
     addNewList(){
 
         this.props.navigator.push({

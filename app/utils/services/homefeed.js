@@ -1,8 +1,7 @@
 // Remember to change the url that points to the production firebase
 
 var Firebase = require('firebase');
-var FB_PROD_URL = 'https://skyhitz-prod.firebaseio.com/sandbox/alejo/v1';
-var FB_STAGING_URL = 'https://skyhitz-staging.firebaseio.com/sandbox/alejo/v1';
+var FirebaseRef = require('../../utils/services/firebase-ref');
 var User = require('./user');
 var Promise = require('bluebird');
 
@@ -28,17 +27,15 @@ var homeFeedApi = {
         }
     },
     addNotificationObj(notificationObj, resolve, reject, key){
-
         homeFeedApi.notifications[key] = notificationObj;
         homeFeedApi.notificationsLastLength = Object.keys(homeFeedApi.notifications).length;
-
         if(homeFeedApi.notificationsLength === homeFeedApi.notificationsLastLength){
             homeFeedApi.getHomeNotificationsFinal(resolve);
         }
     },
     addNotificationAvatar(data, resolve, reject, key){
         if(data.hasOwnProperty('uid')) {
-            User.getProfilePicUrl(data.uid).then(function (value) {
+            User.getSmallAvatar(data.uid).then(function (value) {
                 data.avatarUrl = value;
                 homeFeedApi.addNotificationObj(data, resolve, reject, key);
             }).catch(function (error) {
@@ -49,7 +46,7 @@ var homeFeedApi = {
         }
     },
     getNotificationObj(key, resolve, reject){
-        new Firebase(FB_STAGING_URL+'/notificationInfo/index/data/'+key)
+        FirebaseRef.notification(key)
             .once('value',function(snap){
                 homeFeedApi.addNotificationAvatar(snap.val(), resolve, reject, key);
             }, function(error){
@@ -63,10 +60,10 @@ var homeFeedApi = {
             homeFeedApi.getNotificationObj(key, resolve, reject);
         }
     },
-    getHomeNotifications(userId){
+    getHomeNotifications(uid){
         return new Promise(function(resolve, reject) {
             homeFeedApi.count += homeFeedApi.pageSize;
-            new Firebase(FB_STAGING_URL + '/notificationInfo/index/userHome/' + userId).
+            FirebaseRef.homeNotifications(uid).
                 startAt().limitToFirst(homeFeedApi.count).once('value', function (snap) {
                     var notificationsObj = snap.val();
                     console.log(snap.val());

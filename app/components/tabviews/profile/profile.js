@@ -134,23 +134,20 @@ var styles = StyleSheet.create({
 
 var Profile = React.createClass({
     getInitialState(){
-        return{
+        return {
             selectedTab:0,
             username:User.userData.username,
             followersCount:User.userData.followersCount,
-            avatar:User.userData.largeAvatarUrl
+            avatar:User.userData.largeAvatarUrl,
+            uid: User.getUid()
         }
     },
     selectTab(tabIndex){
-
         this.setState({
             selectedTab: tabIndex
         });
-
     },
-
     renderScene (route, nav) {
-
         if(route.id == 'list'){
             return <List nav={nav} route={route}/>;
         }else{
@@ -192,7 +189,7 @@ var Profile = React.createClass({
                         <Followers/>
                         :null }
                     {this.state.selectedTab === 2 ?
-                        <Notifications/>
+                        <Notifications uid={this.state.uid}/>
                         :null }
                 </ScrollView>
                 </View>

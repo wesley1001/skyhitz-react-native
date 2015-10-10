@@ -143,7 +143,6 @@ var Followers = React.createClass({
     },
     renderFollow(user){
         var followsUser = false;
-        console.log(this.state.followingData)
         if(this.state.followingData[user.uid]){
             followsUser = true;
         }

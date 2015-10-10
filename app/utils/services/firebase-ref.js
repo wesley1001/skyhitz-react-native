@@ -103,6 +103,9 @@ var Firebase = require('firebase'),
             homeNotifications(uid){
               return ref.child('/notificationInfo/index/userHome/' + uid);
             },
+            profileNotifications(uid){
+              return ref.child('/notificationInfo/index/userActivity/' + uid)
+            },
             notification(uid){
               return ref.child('/notificationInfo/index/data/' + uid);
             },

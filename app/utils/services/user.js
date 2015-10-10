@@ -349,6 +349,9 @@ var User = {
             });
         });
     },
+    getUsername () {
+        return User.userData.username;
+    },
     getUid () {
         if (!FirebaseRef.ref.getAuth()) {
             return null;

@@ -360,6 +360,10 @@ var User = {
         }
         return FirebaseRef.ref.getAuth().uid;
     },
+    getUsername() {
+        console.log(this.downloadUserData());
+        return this.downloadUserData();
+    },
     getAuthData () {
         if (!FirebaseRef.ref.getAuth()) {
             return null;

@@ -154,6 +154,12 @@ var Playlist = React.createClass({
             //console.log(error);
         });
     },
+    addPoints(item){
+        //TODO: Persist added points to firebase ref
+        item.points += 1;
+        // console.log(item.points);
+        // console.log('points added');
+    },    
     getCurrentVideoStyle(item){
         if(item.youtubeData.videoId === this.state.currentVideoId){
             return{
@@ -163,11 +169,12 @@ var Playlist = React.createClass({
     },
     showActionSheetHotLists(item) {
         var BUTTONS = [
-            'Follow Playlist',
-            'Share Playlist...',
+            'Add Points',
+            'Add to a Playlist',
+            'Share Song...',
             'Cancel'
         ];
-        var DESTRUCTIVE_INDEX = 2;
+        var DESTRUCTIVE_INDEX = 3;
         var CANCEL_INDEX = 4;
 
         ActionSheetIOS.showActionSheetWithOptions({
@@ -179,16 +186,19 @@ var Playlist = React.createClass({
 
                 switch (buttonIndex){
                     case 0:
-                        this.followList(item);
+                        this.addPoints(item);
                         break;
                     case 1:
+                        Router.addToPlaylist(item);
+                        break;
+                    case 2:
                         this.showShareActionSheet();
                         break;
                     default :
                         return;
                 }
             });
-    },    
+    },
     followList(item){
 
         ListsApi.followList(item).then(function(response){

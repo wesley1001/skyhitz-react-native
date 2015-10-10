@@ -8,6 +8,7 @@ var ListsApi = require('../../../utils/services/lists');
 var Divider = require('../../helpers/searchdivider');
 var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
+var NavBar = require('../../navbar/navbar');
 
 var {
     StyleSheet,
@@ -21,6 +22,12 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    info: {
+        flex: 1
+    },
+    container: {
+        flex: 1
+    },
     navBarRightButton: {
         marginLeft: 10,
         width:11.5,
@@ -50,7 +57,6 @@ var styles = StyleSheet.create({
     customNav:{
         height:64,
         backgroundColor:'#111111',
-        paddingTop:20
     },
     listview:{
         backgroundColor:'white',
@@ -84,7 +90,7 @@ var styles = StyleSheet.create({
         alignItems:'center',
         flex:1
     },
-    rowWrapp:{
+    rowWrap:{
         flex:1,
         backgroundColor:'white',
         height:50
@@ -116,7 +122,7 @@ var AddToPlaylist = React.createClass({
     getPlaylistsDataSource: function(data: Array<any>): ListView.DataSource {
         return this.state.playlistsDataSource.cloneWithRows(data);
     },
-    componentDidMount () {
+    componentDidMount() {
 
         this.getPlaylists();
 
@@ -132,11 +138,10 @@ var AddToPlaylist = React.createClass({
     addToPlaylist(item){
 
         var that = this;
-
        ListsApi.addEntryToPlaylist(item, this.state.entryUid)
        .then(function(bool){
 
-                   that.goToList(item.public.listUid);
+                   that.goToList(item.listUid);
            });
 
     },
@@ -145,9 +150,10 @@ var AddToPlaylist = React.createClass({
         var that = this;
 
         ListsApi.getUserPlaylists().then(function(list){
-
+            that.list = list;
             that.setState({
                 isLoading: false,
+                passProps: that.list,
                 playlistsDataSource: that.getPlaylistsDataSource(list)
             });
 
@@ -157,17 +163,27 @@ var AddToPlaylist = React.createClass({
         });
 
     },
+    componentDidUnmount() {
+        // TODO: resolve go back property _currentElement
+        this.goBack();
+
+    },    
+    goBack(){
+
+        Router.navigator.jumpBack();
+
+    },    
     renderPlaylistRow(item){
 
         return(
             <View>
-                <View  style={styles.rowWrapp}>
+                <View style={styles.rowWrap}>
                     <View style={styles.row}>
                         <TouchableOpacity onPress={()=>this.addToPlaylist(item)}>
                             <View style={styles.leftRowSection}>
                                 <Image source={require('image!playlisticon')} style={styles.playlistIcon}/>
                                 <View style={styles.info}>
-                                    <Text style={styles.searchArtistTitle}>{item.public.name}</Text>
+                                    <Text style={styles.searchArtistTitle}>{item.name}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -182,9 +198,7 @@ var AddToPlaylist = React.createClass({
         return(
             <View>
                 <View style={styles.customNav}>
-                        <View style={styles.logoType}>
-                            <Text style={styles.brandName}>ADD TO PLAYLIST</Text>
-                        </View>
+                        <NavBar title='Add To Playlist' backBtn={true} backPressFunc={this.componentDidUnmount} />
                 </View>
                 <View style={styles.container}>
 

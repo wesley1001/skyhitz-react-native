@@ -154,7 +154,7 @@ var Profile = React.createClass({
             return <List nav={nav} route={route}/>;
         }else{
             return (
-                <View style={styles.container}>
+                <View>
                 <NavBar backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>
                  <View style={styles.container}>
                 <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}  contentInset={{bottom: 113}}>

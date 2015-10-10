@@ -11,6 +11,7 @@ var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
 var EntryTitle = require('../../utils/entrytitle');
 var Player = require('../player/player');
+var ThreeDots = require('../helpers/threedots');
 
 var {
     StyleSheet,
@@ -21,7 +22,8 @@ var {
     Image,
     PixelRatio,
     ListView,
-    Component
+    Component,
+    ActionSheetIOS
     } = React;
 
 var styles = StyleSheet.create({
@@ -110,38 +112,54 @@ var styles = StyleSheet.create({
 var Playlist = React.createClass({
     getInitialState() {
         return {
-            listData:[],
-            listUid:this.props.route.listUid,
-            listName:this.props.route.listName,
+            playlistDataSource: new ListView.DataSource({
+                rowHasChanged: (r1, r2) => r1 !== r2
+            }),
+            listUid:Router.listUid,
+            listName:Router.listName,            
             currentVideoId:Player.currentVideoId
         }
     },
-    getListDataSource() {
-        var dataSource = new ListView.DataSource({
-            rowHasChanged: (row1, row2) => row1 !== row2
-        });
-        return dataSource.cloneWithRows(this.state.listData);
-    },
-    componentDidMount () {
-        this.getEntries();
+    getPlaylistDataSource: function(data: Array<any>): ListView.DataSource {
+        return this.state.playlistDataSource.cloneWithRows(data);
     },
     goBack(){
-        this.props.nav.jumpBack();
+
+        Router.navigator.jumpBack();
+
     },
-    getEntries(){
+    componentDidMount() {   
+
+        this.getEntries();
+    
+    },    
+    getEntries() {
         var that = this;
+
         ListsApi.getList(this.state.listUid).then(function(listObj){
+
             ListsApi.getEntriesInList(listObj.entries).then(function(list){
+                console.log(list);
                 that.setState({
                     isLoading: false,
                     listName:listObj.name,
-                    listData: Object.keys(list).map((k) => { return list[k] })
+                    playlistDataSource: that.getPlaylistDataSource(list)
                 });
+
             }).catch(function(error){
+                //console.log(error);
             });
+
         }).catch(function(error){
+            //console.log(error);
         });
     },
+    addPoints(item){
+        //TODO: Persist added points to firebase ref
+        item.points += 1;
+        // console.log(item.points);
+        // console.log('points added');
+    },    
     getCurrentVideoStyle(item){
         if(item.youtubeData.videoId === this.state.currentVideoId){
             return{
@@ -149,16 +167,69 @@ var Playlist = React.createClass({
             }
         }
     },
-    setList(index){
-        Player.currentList = this.state.listData;
-        Player.indexInList = index;
+    showActionSheetHotLists(item) {
+        var BUTTONS = [
+            'Add Points',
+            'Add to a Playlist',
+            'Share Song...',
+            'Cancel'
+        ];
+        var DESTRUCTIVE_INDEX = 3;
+        var CANCEL_INDEX = 4;
+
+        ActionSheetIOS.showActionSheetWithOptions({
+                options: BUTTONS,
+                //  cancelButtonIndex: CANCEL_INDEX,
+                destructiveButtonIndex: DESTRUCTIVE_INDEX
+            },
+            (buttonIndex) => {
+
+                switch (buttonIndex){
+                    case 0:
+                        this.addPoints(item);
+                        break;
+                    case 1:
+                        Router.addToPlaylist(item);
+                        break;
+                    case 2:
+                        this.showShareActionSheet();
+                        break;
+                    default :
+                        return;
+                }
+            });
     },
-    renderEntryRow(item, secId, itemId){
+    followList(item){
+
+        ListsApi.followList(item).then(function(response){
+
+
+        });
+    },
+    showShareActionSheet() {
+        ActionSheetIOS.showShareActionSheetWithOptions({
+                url: 'https://code.facebook.com',
+            },
+            (error) => {
+                console.error(error);
+            },
+            (success, method) => {
+                var text;
+                if (success) {
+                    text = `Shared via ${method}`;
+                } else {
+                    text = 'You didn\'t share';
+                }
+                this.setState({text})
+            });
+    },        
+    renderEntryRow(item){
+
         return(
             <View>
                 <View style={[styles.rowWrapp, this.getCurrentVideoStyle(item) ]}>
                     <View style={styles.row}>
-                        <TouchableOpacity onPress={()=>{Player.playVideo(item.youtubeData.id.videoId, item.youtubeData.snippet.title);this.setList(itemId)}}>
+                        <TouchableOpacity onPress={()=>Player.playVideo(item.youtubeData.id.videoId, item.youtubeData.snippet.title)}>
                             <View style={styles.leftRowSection}>
                                 <Image source={{uri:item.youtubeData.snippet.thumbnails.default.url}} style={styles.thumb}/>
                                 <View style={styles.info}>
@@ -167,11 +238,14 @@ var Playlist = React.createClass({
                                 </View>
                             </View>
                         </TouchableOpacity>
+                        <ThreeDots onPress={()=>this.showActionSheetHotLists(item)}/>
+
                     </View>
                 </View>
                 <Divider style={styles.horDivider}/>
             </View>
         )
+
     },
     render(){
         return(
@@ -179,7 +253,7 @@ var Playlist = React.createClass({
                 <NavBar title={this.state.listName} backBtn={true} backPressFunc={this.goBack} />
                 <View style={styles.container}>
                     <ListView
-                        dataSource={this.getListDataSource()}
+                        dataSource={this.state.playlistDataSource}
                         renderRow={this.renderEntryRow}
                         style={styles.listview}
                         automaticallyAdjustContentInsets={false}

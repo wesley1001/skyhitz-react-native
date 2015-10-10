@@ -115,10 +115,13 @@ var Router = {
         });
     },
     goToList(listUid, listName){
+        var that = this;
+        that.listUid = listUid;
+        that.listName = listName;
         Router.navigator.push({
             id:'list',
-            listUid:listUid,
-            listName:listName
+            listUid:that.listUid,
+            listName:that.listName
         });
     },
     goToProfile(entryUid){

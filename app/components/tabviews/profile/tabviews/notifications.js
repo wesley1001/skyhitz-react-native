@@ -158,8 +158,11 @@ var Notifications = React.createClass({
     getFollowingYouException(item){
        return item.followingUsername === User.getUsername() ? 'you': item.followingUsername;
     },
-    getPointsYouException(item){
+    getUsernameYouException(item){
         return item.username === User.getUsername() ? 'you': item.username;
+    },
+    getOwnerYouException(item){
+        return item.ownerName === User.getUsername() ? 'you': item.ownerName;
     },
     renderNotification(item){
         var now = new Date();
@@ -194,7 +197,7 @@ var Notifications = React.createClass({
                             <View style={styles.infoWrap}>
                                 <Image style={styles.logo} source={require('image!logo')}></Image>
                                 <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{this.getPointsYouException(item)}</Text>
+                                    <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> added points to </Text>
                                 <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
@@ -215,9 +218,9 @@ var Notifications = React.createClass({
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
                                 <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{item.username}</Text>
+                                    <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 </TouchableOpacity>
-                                <Text style={styles.text}> uploaded </Text>
+                                <Text style={styles.text}> released </Text>
                                 <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
                                     <Text style={styles.link}> a new song</Text>
                                 </TouchableOpacity>
@@ -236,7 +239,7 @@ var Notifications = React.createClass({
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
                                 <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{item.username}</Text>
+                                    <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> followed</Text>
                                 <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>
@@ -261,7 +264,7 @@ var Notifications = React.createClass({
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
                                 <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{item.ownerName}</Text>
+                                    <Text style={styles.link}>{getOwnerYouException(item)}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> created a new</Text>
                                 <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>
@@ -282,7 +285,7 @@ var Notifications = React.createClass({
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
                                 <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{item.username}</Text>
+                                    <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> added</Text>
                                 <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>

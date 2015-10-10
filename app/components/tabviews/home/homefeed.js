@@ -237,7 +237,7 @@ var HomeFeed = React.createClass({
                                 <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
                                     <Text style={styles.link}>{item.username}</Text>
                                 </TouchableOpacity>
-                                <Text style={styles.text}> uploaded </Text>
+                                <Text style={styles.text}> released </Text>
                                 <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
                                     <Text style={styles.link}> a new song</Text>
                                 </TouchableOpacity>

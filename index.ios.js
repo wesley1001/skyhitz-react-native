@@ -50,7 +50,6 @@ var {
 
 StatusBarIOS.setStyle('light-content');
 
-
 var styles = StyleSheet.create({
     container:{
         flex:1,
@@ -59,21 +58,16 @@ var styles = StyleSheet.create({
 });
 
 var Skyhitz = React.createClass({
-
     mixins: [tweenState.Mixin, TimerMixin],
-
     getInitialState(){
         return{
             isVisible:false,
             opacity:1
         }
     },
-
     renderScene (route, nav) {
-
         Router.navigator = nav;
         Router.route = route;
-
         switch (route.id) {
             case 'startmenu':
                 return <StartMenu />;
@@ -137,13 +131,9 @@ var Skyhitz = React.createClass({
             );
         };
     },
-
     render () {
-
         return (
-
             <View style={styles.container}>
-
             <Navigator
                 initialRoute={{ message: "First Scene" }}
                 renderScene={this.renderScene}
@@ -155,13 +145,9 @@ var Skyhitz = React.createClass({
                 }}
                 />
             <LoadingOverlay isVisible={this.state.isVisible} opacity={this.state.opacity}/>
-
             </View>
         );
-
     }
-
 });
-
 
 AppRegistry.registerComponent('Skyhitz', () => Skyhitz)

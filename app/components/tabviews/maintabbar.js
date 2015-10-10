@@ -86,8 +86,6 @@ var styles = StyleSheet.create({
     }
 });
 
-
-
 var MainTabBar = React.createClass({
     mixins: [Subscribable.Mixin],
     getInitialState(){
@@ -101,10 +99,8 @@ var MainTabBar = React.createClass({
         }
     },
     render(){
-
         return(
             <View style={styles.appContainer}>
-
                 <TabNavigator>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'home'}
@@ -149,52 +145,3 @@ var MainTabBar = React.createClass({
 });
 
 module.exports = MainTabBar;
-
-/*
- <Animated.View style={this.getOverlayStyle()} {...this._panResponder.panHandlers}>
- <Animated.View style={this.getTabPlayerStyle()}></Animated.View>
- <Animated.View style={this.getPlayerModalStyle()}>
- <Entry/>
- </Animated.View>
- </Animated.View>
-
- <Animated.View style={this.getTabBarWrapStyle()}/>
-
- <Animated.View style={this.getTabBarStyle()}>
- <HomeTab
- selected={this.state.selectedTab === 'home'}
- onPress={()=>{
- this.setState({
- selectedTab:'home'
- });
- }}/>
- <SearchTab
- selected={this.state.selectedTab === 'search'}
- onPress={()=>{
- this.setState({
- selectedTab:'search'
- });
- }}/>
- <SkyhitzTab
- onPress={()=>{
- this.setState({
- selectedTab:'lists'
- });
- }}/>
- <ProfileTab
- selected={this.state.selectedTab === 'profile'}
- onPress={()=>{
- this.setState({
- selectedTab:'profile'
- });
- }}/>
- <SettingsTab
- selected={this.state.selectedTab === 'settings'}
- onPress={()=>{
- this.setState({
- selectedTab:'settings'
- });
- }}/>
-
- </Animated.View>
- */

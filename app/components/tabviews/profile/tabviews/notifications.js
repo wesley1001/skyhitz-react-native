@@ -314,9 +314,7 @@ var Notifications = React.createClass({
         }
     },
     onEndReached () {
-        if(this.state.isLoading){
-            return;
-        }
+
         this.setState({
             isLoading: true
         });

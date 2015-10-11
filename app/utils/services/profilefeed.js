@@ -14,7 +14,7 @@ var profileFeedApi = {
     notificationsLastLength:0,
     notificationsLength:0,
     hasReachedEnd : false,
-    getHomeNotificationsFinal(resolve){
+    getProfileNotificationsFinal(resolve){
         if(profileFeedApi.count === profileFeedApi.notificationsLastLength){
             resolve(profileFeedApi.notifications);
         } else{
@@ -30,7 +30,7 @@ var profileFeedApi = {
         profileFeedApi.notifications[key] = notificationObj;
         profileFeedApi.notificationsLastLength = Object.keys(profileFeedApi.notifications).length;
         if(profileFeedApi.notificationsLength === profileFeedApi.notificationsLastLength){
-            profileFeedApi.getHomeNotificationsFinal(resolve);
+            profileFeedApi.getProfileNotificationsFinal(resolve);
         }
     },
     addNotificationAvatar(data, resolve, reject, key){

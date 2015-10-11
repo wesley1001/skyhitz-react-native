@@ -26,15 +26,6 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
-    description:{
-        fontSize:20,
-        textAlign:'center',
-        color:'#FFFFFF'
-    },
-    tabWrap:{
-        backgroundColor:'#111111',
-        flex:1
-    },
     container:{
         backgroundColor:'white',
         flex:1,
@@ -60,12 +51,6 @@ var styles = StyleSheet.create({
         marginBottom:7
     },
     followers:{
-        fontFamily:"Gotham-Book",
-        color:'#6e6e6e',
-        fontSize:12,
-        textAlign:'center'
-    },
-    playlists:{
         fontFamily:"Gotham-Book",
         color:'#6e6e6e',
         fontSize:12,
@@ -97,11 +82,6 @@ var styles = StyleSheet.create({
         height:20,
         alignSelf:'center'
     },
-    musicIcon:{
-        width:28.5,
-        height:30.5,
-        alignSelf:'center'
-    },
     followersIcon:{
         width:27.5,
         height:27.5,
@@ -110,21 +90,6 @@ var styles = StyleSheet.create({
     notificationsIcon:{
         width:24.5,
         height:27,
-        alignSelf:'center'
-    },
-    backbtn:{
-        width: 15,
-        height: 15,
-        marginRight:15
-    },
-    customNav:{
-        height:64,
-        backgroundColor:'#111111',
-        paddingTop:20
-    },
-    footer:{
-        height:80,
-        flex:1,
         alignSelf:'center'
     },
     contentContainer:{
@@ -139,7 +104,9 @@ var Profile = React.createClass({
             username:User.userData.username,
             followersCount:User.userData.followersCount,
             avatar:User.userData.largeAvatarUrl,
-            uid: User.getUid()
+            uid: User.getUid(),
+            nav: this.props.nav,
+            route: this.props.route
         }
     },
     selectTab(tabIndex){
@@ -147,12 +114,9 @@ var Profile = React.createClass({
             selectedTab: tabIndex
         });
     },
-    renderScene (route, nav) {
-        if(route.id == 'list'){
-            return <List nav={nav} route={route}/>;
-        }else{
-            return (
-                 <View style={styles.container}>
+    render(){
+        return(
+            <View style={styles.container}>
                 <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}  contentInset={{bottom: 113}}>
                     <View style={styles.topContainer}>
                         <Image style={styles.profilepic} source={User.userData.largeAvatarUrl == "placeholder" ? require('image!avatar'):{uri:User.userData.largeAvatarUrl}} />
@@ -183,7 +147,7 @@ var Profile = React.createClass({
                         </TouchableOpacity>
                     </View>
                     {this.state.selectedTab === 0 ?
-                        <Playlists nav={nav} route={route}/>
+                        <Playlists nav={this.state.nav} route={this.state.route}/>
                         :null }
                     {this.state.selectedTab === 1 ?
                         <Followers/>
@@ -192,23 +156,6 @@ var Profile = React.createClass({
                         <Notifications uid={this.state.uid}/>
                         :null }
                 </ScrollView>
-                </View>
-            )
-        }
-    },
-    render(){
-        return(
-            <View style={styles.tabWrap}>
-                <Navigator
-                        initialRoute={{ message: "First Scene" }}
-                        renderScene={this.renderScene}
-                        configureScene={(route) => {
-                         if (route.sceneConfig) {
-                             return route.sceneConfig;
-                         }
-                         return Navigator.SceneConfigs.FloatFromRight;
-                         }}
-                        />
             </View>
         )
     }

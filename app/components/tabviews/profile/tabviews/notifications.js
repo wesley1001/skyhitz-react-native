@@ -264,7 +264,7 @@ var Notifications = React.createClass({
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
                                 <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{getOwnerYouException(item)}</Text>
+                                    <Text style={styles.link}>{this.getOwnerYouException(item)}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> created a new</Text>
                                 <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>

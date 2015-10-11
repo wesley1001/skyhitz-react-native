@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var Router = require('../../../utils/services/router');
+var Router = require('../../../utils/routers/lists');
 var Loading = require('../../animations/loading');
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 var CustomTabBar = require('./customtabs');
@@ -15,6 +15,7 @@ var EntryTitle = require('../../../utils/entrytitle');
 var Number = require('../../../utils/number');
 var Player = require('../../player/player');
 var Subscribable = require('Subscribable');
+var List = require('../../detailviews/list');
 
 var {
     StyleSheet,
@@ -238,32 +239,56 @@ var Lists = React.createClass({
     renderFooter(){
         return(<View style={styles.footer}></View>);
     },
+    renderScene(route, nav){
+        console.log(route)
+        Router.navigator = nav;
+        Router.route = route;
+        if(route.id == 'list'){
+            return <List nav={nav} route={route}/>;
+        }else {
+            return (
+                <View style={styles.container}>
+                    <NavBar backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>
+                    <ScrollableTabView onChangeTab={this.tabChanged} renderTabBar={() => <CustomTabBar/>}
+                                       style={styles.listTabsView}>
+                        <View tabLabel="Top List">
+                            <ListView
+                                dataSource={this.getTopListDataSource()}
+                                renderRow={this.renderEntryRow}
+                                style={styles.listview}
+                                automaticallyAdjustContentInsets={false}
+                                contentInset={{bottom: 0}}
+                                renderFooter={this.renderFooter}
+                                />
+                        </View>
+                        <View tabLabel="Hot Playlists">
+                            <ListView
+                                dataSource={this.getHotListsDataSource()}
+                                renderRow={this.renderListRow}
+                                style={styles.listview}
+                                automaticallyAdjustContentInsets={false}
+                                contentInset={{bottom: 0}}
+                                renderFooter={this.renderFooter}
+                                />
+                        </View>
+                    </ScrollableTabView>
+                </View>
+            )
+        }
+    },
     render(){
         return(
             <View style={styles.container}>
-                <NavBar backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>
-                <ScrollableTabView onChangeTab={this.tabChanged} renderTabBar={() => <CustomTabBar/>} style={styles.listTabsView} >
-                    <View tabLabel="Top List">
-                        <ListView
-                            dataSource={this.getTopListDataSource()}
-                            renderRow={this.renderEntryRow}
-                            style={styles.listview}
-                            automaticallyAdjustContentInsets={false}
-                            contentInset={{bottom: 0}}
-                            renderFooter={this.renderFooter}
-                            />
-                    </View>
-                    <View tabLabel="Hot Playlists">
-                        <ListView
-                            dataSource={this.getHotListsDataSource()}
-                            renderRow={this.renderListRow}
-                            style={styles.listview}
-                            automaticallyAdjustContentInsets={false}
-                            contentInset={{bottom: 0}}
-                            renderFooter={this.renderFooter}
-                            />
-                    </View>
-                </ScrollableTabView>
+                <Navigator
+                    initialRoute={{ message: "First Scene" }}
+                    renderScene={this.renderScene}
+                    configureScene={(route) => {
+                         if (route.sceneConfig) {
+                             return route.sceneConfig;
+                         }
+                         return Navigator.SceneConfigs.FloatFromRight;
+                         }}
+                    />
             </View>
         )
     },

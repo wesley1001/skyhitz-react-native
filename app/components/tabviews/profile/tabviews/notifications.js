@@ -56,6 +56,12 @@ var styles = StyleSheet.create({
         fontFamily:'Gotham-Book',
         fontSize:11
     },
+    logo:{
+        width:21,
+        height:17,
+        marginRight:4,
+        top:-3
+    },
     timeText:{
         color:'#cfcdcd',
         fontFamily:'Gotham-Book',

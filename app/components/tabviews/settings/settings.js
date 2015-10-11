@@ -9,7 +9,6 @@ var Stripe = require('../../../utils/services/stripe');
 var FirebaseRef = require('../../../utils/services/firebase-ref');
 var Loading = require('../../loaders/loadingctrl');
 
-
 var {
     StyleSheet,
     View,
@@ -382,7 +381,6 @@ var Settings = React.createClass({
                 },
                 function(token){
                     if(User.userData.hasOwnProperty('stripeUid')){
-                        // add card to account
                         Stripe.addCard(token);
                     }else{
                         Stripe.createCustomer(token);
@@ -393,19 +391,14 @@ var Settings = React.createClass({
         }
     },
     prompt() {
-
         if(User.userData.hasOwnProperty('stripeUid')){
-
             AlertIOS.prompt(this.state.promptTitle,this.state.promptValue, this.promptResponse);
-
         }else{
-
             AlertIOS.alert(
                 null,
                 "Please enter a valid card."
             )
         }
-
     },
     promptResponse(promptValue) {
         if(promptValue > 500){
@@ -426,17 +419,10 @@ var Settings = React.createClass({
         this.setState({ promptValue });
     },
     confirmPayment(promptValue){
-
         var that = this;
-
         Stripe.chargeCustomer(promptValue).then(function(points){
-
-            console.log(points);
-
             that.setState({userPoints:points});
-
         });
-
     },
     cashOutPromptResponse(promptValue){
         var skyhitzFee = promptValue * 0.10;
@@ -457,23 +443,13 @@ var Settings = React.createClass({
         }
     },
     confirmCashOut(amount){
-
         var that = this;
-
         Stripe.cashOut(amount).then(function(points){
-
-            console.log(points);
-
             that.setState({userPoints:points});
-
         });
-
-
     },
     cashOut(){
-
         AlertIOS.prompt(this.state.cashOutPromptTitle, this.state.cashOutPromptValue, this.cashOutPromptResponse);
-
     },
     renderPersonalEditBtn(){
         if(this.state.personalInfoEdit === true){

@@ -191,6 +191,20 @@ var Entry = {
             });
         });
     },
+    addPoints(entryUid, points){
+        var pointsPayload = {
+            uid:User.getUid(),
+            entryUid:entryUid,
+            pointsAmount:parseInt(points),
+            username:User.getUsername(),
+            added:true
+        };
+        return new Promise(function (resolve, reject) {
+            FirebaseRef.entryPointsQueue().push(pointsPayload, function (error) {
+                error ? reject(error) : resolve();
+            });
+        });
+    }
 };
 
 module.exports = Entry;

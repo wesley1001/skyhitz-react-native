@@ -8,6 +8,7 @@ var CustomTabBar = require('./customtabs');
 var Divider = require('../../helpers/searchdivider');
 var NavBar = require('../../navbar/navbar');
 var ListsApi = require('../../../utils/services/lists');
+var EntryApi = require('../../../utils/services/entry');
 var Dimensions = require('Dimensions');
 var windowSize = Dimensions.get('window');
 var ThreeDots = require('../../helpers/threedots');
@@ -16,6 +17,7 @@ var Number = require('../../../utils/number');
 var Player = require('../../player/player');
 var Subscribable = require('Subscribable');
 var List = require('../../detailviews/list');
+var User = require('../../../utils/services/user');
 
 var {
     StyleSheet,
@@ -23,6 +25,7 @@ var {
     View,
     Text,
     ActionSheetIOS,
+    AlertIOS,
     Image,
     TouchableOpacity,
     ListView,
@@ -74,6 +77,12 @@ var styles = StyleSheet.create({
         alignItems:'center',
         flex:1
     },
+    rightSection:{
+        flexDirection:'row',
+        justifyContent:'flex-end',
+        flexWrap:'nowrap',
+        alignItems:'center'
+    },
     rowWrapp:{
         flex:1,
         height:50
@@ -92,6 +101,11 @@ var styles = StyleSheet.create({
         textAlign:'left',
         paddingLeft:10,
         marginTop:2
+    },
+    points:{
+        fontSize:12,
+        fontFamily:'Gotham-Light',
+        color:'#1dadff'
     },
     textListFollowers:{
         fontSize:8,
@@ -191,6 +205,13 @@ var Lists = React.createClass({
         Player.currentList = this.state.topListData;
         Player.indexInList = index;
     },
+    formatPoints(points){
+        if(points > 0){
+            return points + ' Pts';
+        }else{
+            return '';
+        }
+    },
     renderEntryRow(item, secId, itemId){
         return(
             <View>
@@ -205,7 +226,10 @@ var Lists = React.createClass({
                                 </View>
                             </View>
                         </TouchableOpacity>
-                        <ThreeDots onPress={()=>this.showActionSheetTopList(item)}/>
+                        <View style={styles.rightSection}>
+                            <Text style={styles.points}>{this.formatPoints(item.points)}</Text>
+                            <ThreeDots onPress={()=>this.showActionSheetTopList(item)}/>
+                        </View>
                     </View>
                 </View>
                 <Divider style={styles.horDivider}/>
@@ -292,11 +316,31 @@ var Lists = React.createClass({
             </View>
         )
     },
-    addPoints(item){
-        //TODO: Persist added points to firebase ref
-        item.points += 1;
-        // console.log(item.points);
-        // console.log('points added');
+    confirmTransaction(points){
+        EntryApi.addPoints(this.state.selectedEntryUid, points);
+    },
+    promptResponse(promptValue) {
+        if(User.userData.points < promptValue){
+            AlertIOS.alert(
+                null,
+                "You don't have enough points in your account."
+            )
+        }else{
+            AlertIOS.alert(
+                null,
+                promptValue+ " Points will be added to this song.",
+                [
+                    {text: 'Cancel', onPress: () => console.log('cancelled')},
+                    {text: 'Confirm', onPress: () => this.confirmTransaction(promptValue)}
+                ]
+            )
+        }
+    },
+    addPoints(entryUid) {
+        this.setState({selectedEntryUid: entryUid});
+        var title = 'How many Skyhitz points would you like to add to this song? 1 USD = 1 POINT.';
+        var points = '1';
+        AlertIOS.prompt(title, points, this.promptResponse);
     },
     showShareActionSheet() {
         ActionSheetIOS.showShareActionSheetWithOptions({
@@ -334,7 +378,7 @@ var Lists = React.createClass({
 
                 switch (buttonIndex){
                     case 0:
-                        this.addPoints(item);
+                        this.addPoints(item.youtubeData.id.videoId);
                         break;
                     case 1:
                         Router.addToPlaylist(item);
@@ -376,25 +420,9 @@ var Lists = React.createClass({
             });
     },
     followList(item){
-
         ListsApi.followList(item).then(function(response){
-
-
         });
     }
 });
 
 module.exports = Lists;
-
-// TO DO
-
-/*
-
- add song position to row
- <View style={styles.songPosition}>
-
- <Text style={styles.songPositionText}>1</Text>
-
- </View>
-
- */

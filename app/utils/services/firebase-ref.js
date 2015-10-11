@@ -67,6 +67,9 @@ var Firebase = require('firebase'),
             likeEntryQueue() {
                 return ref.child('appQueue/entry/like/tasks');
             },
+            entryPointsQueue() {
+                return ref.child('appQueue/entry/points/tasks');
+            },
 
             // Lists
 

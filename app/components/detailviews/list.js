@@ -111,12 +111,14 @@ var styles = StyleSheet.create({
 
 var Playlist = React.createClass({
     getInitialState() {
+        var listUid = this.props.route == undefined || this.props.route == null || this.props.route == ''  ? Router.listUid : this.props.route.listUid;
+        var listName = this.props.route == undefined ? Router.listName : this.props.route.listName;      
         return {
             playlistDataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2
             }),
-            listUid:this.props.route.listUid,
-            listName:this.props.route.listName,
+            listUid: listUid,
+            listName: listName,
             currentVideoId:Player.currentVideoId
         }
     },

@@ -293,7 +293,10 @@ var Lists = React.createClass({
         )
     },
     addPoints(item){
-
+        //TODO: Persist added points to firebase ref
+        item.points += 1;
+        // console.log(item.points);
+        // console.log('points added');
     },
     showShareActionSheet() {
         ActionSheetIOS.showShareActionSheetWithOptions({

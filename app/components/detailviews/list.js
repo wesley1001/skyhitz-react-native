@@ -115,8 +115,8 @@ var Playlist = React.createClass({
             playlistDataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2
             }),
-            listUid:Router.listUid,
-            listName:Router.listName,            
+            listUid:this.props.route.listUid,
+            listName:this.props.route.listName,
             currentVideoId:Player.currentVideoId
         }
     },
@@ -124,9 +124,7 @@ var Playlist = React.createClass({
         return this.state.playlistDataSource.cloneWithRows(data);
     },
     goBack(){
-
-        Router.navigator.jumpBack();
-
+        this.props.nav.jumpBack();
     },
     componentDidMount() {   
 

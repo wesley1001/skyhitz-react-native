@@ -89,7 +89,7 @@ var styles = StyleSheet.create({
     },
     searchArtistTitle:{
         fontSize:10,
-        fontFamily:'Gotham-Book',
+        fontFamily:'Gotham-Light',
         textAlign:'left',
         paddingLeft:10,
         marginBottom:2,
@@ -97,7 +97,7 @@ var styles = StyleSheet.create({
     },
     title:{
         fontSize:10,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Gotham-Book',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2
@@ -221,8 +221,8 @@ var Lists = React.createClass({
                             <View style={styles.leftRowSection}>
                                 <Image source={{uri:item.youtubeData.snippet.thumbnails.default.url}} style={styles.thumb}/>
                                 <View style={styles.info}>
-                                    <Text style={[styles.searchArtistTitle,{color:(item.youtubeData.videoId == this.state.currentVideoId) ? 'rgba(29, 173, 255, 1)':'rgba(0, 0, 0, 1)'}]}>{EntryTitle.getArtistName(item.youtubeData.snippet.title)}</Text>
                                     <Text style={[styles.title,this.getCurrentVideoStyle(item)]}>{EntryTitle.getSongTitle(item.youtubeData.snippet.title)}</Text>
+                                    <Text style={[styles.searchArtistTitle,{color:(item.youtubeData.videoId == this.state.currentVideoId) ? 'rgba(29, 173, 255, 1)':'rgba(0, 0, 0, 1)'}]}>{EntryTitle.getArtistName(item.youtubeData.snippet.title)}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>

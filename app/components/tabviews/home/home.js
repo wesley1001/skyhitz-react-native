@@ -5,6 +5,7 @@ var NavBar = require('../../navbar/navbar');
 var HomeFeedDivider = require('../../helpers/homefeeddivider');
 var HomeFeed = require('./homefeed');
 var Router = require('../../../utils/routers/home');
+var Profile = require('../profile/profile');
 
 var {
     StyleSheet,
@@ -34,12 +35,15 @@ var Home = React.createClass({
         console.log(route)
         Router.navigator = nav;
         Router.route = route;
-        if(route.id == 'list'){
-            return <List nav={nav} route={route}/>;
-        }else {
-            return (
-                <HomeFeed style={styles.homeFeed}/>
-            )
+        switch (route.id) {
+            case 'list':
+                return <List nav={nav} route={route}/>;
+            case 'profile':
+                return <Profile nav={nav} route={route}/>;
+            default:
+                return (
+                    <HomeFeed />
+                );
         }
     },
     render(){

@@ -128,10 +128,8 @@ var Playlist = React.createClass({
     goBack(){
         this.props.nav.jumpBack();
     },
-    componentDidMount() {   
-
+    componentDidMount() {
         this.getEntries();
-    
     },    
     getEntries() {
         var that = this;

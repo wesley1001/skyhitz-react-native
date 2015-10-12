@@ -14,7 +14,7 @@ var HomeTab = React.createClass({
         return(
             <TouchableHighlight
                 onPress={this.props.onPress}
-                style={[styles.homeTab, {backgroundColor: this.props.selected ? '#131313':'transparent'}]}>
+                style={[styles.homeTab, {backgroundColor: 'this.props.selected' ? '#131313':'transparent'}]}>
                 <Image style={[styles.homeTabImg,{opacity:this.props.selected ? 1:0.6}]}
                        source={require('image!home-tab-icon-white')}></Image>
             </TouchableHighlight>
@@ -27,7 +27,7 @@ var styles = StyleSheet.create({
         height:50,
         flex:1,
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
     },
     homeTabImg: {
         width:30,

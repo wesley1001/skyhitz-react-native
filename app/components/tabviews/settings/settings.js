@@ -25,6 +25,9 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    name: {
+        color: 'red',        
+    },
     description:{
         fontSize:20,
         textAlign:'center',
@@ -32,7 +35,7 @@ var styles = StyleSheet.create({
     },
     container:{
         flex:1,
-        backgroundColor:'#111111'
+        backgroundColor:'#292b33'
     },
     contentContainer:{
         backgroundColor: '#edf1f2'
@@ -120,6 +123,7 @@ var styles = StyleSheet.create({
     personalInfo:{
         fontFamily:'Avenir',
         fontSize:12,
+        color: '#51585e',
         flex:1
     },
     billingSection:{
@@ -174,7 +178,7 @@ var styles = StyleSheet.create({
     pointsText:{
         fontFamily:'Avenir',
         fontSize:12,
-        color:'#898A8A'
+        color: '#51585e',
     },
     availablePoints:{
         fontFamily:'Avenir',
@@ -515,7 +519,7 @@ var Settings = React.createClass({
                                 keyboardType="default"
                                 editable={this.state.personalInfoEdit}
                                 style={styles.name}
-                                placeholderTextColor="#626363"
+                                placeholderTextColor="#51585e"
                                 value={this.state.name}
                                 onChangeText={(text) => {
                                 this.setState({name:text});
@@ -532,7 +536,7 @@ var Settings = React.createClass({
                                 keyboardType="default"
                                 editable={this.state.personalInfoEdit}
                                 style={styles.name}
-                                placeholderTextColor="#626363"
+                                placeholderTextColor="#51585e"
                                 value={this.state.username}
                                 onChangeText={(text) => {
                                 this.setState({username:text});
@@ -549,7 +553,7 @@ var Settings = React.createClass({
                                 keyboardType="email-address"
                                 editable={this.state.personalInfoEdit}
                                 style={styles.name}
-                                placeholderTextColor="#626363"
+                                placeholderTextColor="#51585e"
                                 value={this.state.email}
                                 onChangeText={(text) => {
                                 this.setState({email:text});
@@ -580,7 +584,7 @@ var Settings = React.createClass({
                         keyboardType="numeric"
                         editable={this.state.billingInfoEdit}
                         style={styles.cardNumber}
-                        placeholderTextColor="#626363"
+                        placeholderTextColor="#51585e"
                         secureTextEntry={!this.state.billingInfoEdit}
                         value={this.state.cardNumber}
                         maxLength={16}
@@ -598,7 +602,7 @@ var Settings = React.createClass({
                                 editable={this.state.billingInfoEdit}
                                 autoCorrect={false}
                                 style={styles.month}
-                                placeholderTextColor="#626363"
+                                placeholderTextColor="#51585e"
                                 secureTextEntry={!this.state.billingInfoEdit}
                                 maxLength={2}
                                 value={this.state.expirationMonth.toString()}
@@ -612,7 +616,7 @@ var Settings = React.createClass({
                                 autoCorrect={false}
                                 editable={this.state.billingInfoEdit}
                                 style={styles.year}
-                                placeholderTextColor="#626363"
+                                placeholderTextColor="#51585e"
                                 secureTextEntry={!this.state.billingInfoEdit}
                                 maxLength={4}
                                 value={this.state.expirationYear.toString()}
@@ -628,7 +632,7 @@ var Settings = React.createClass({
                                 editable={this.state.billingInfoEdit}
                                 autoCorrect={false}
                                 style={styles.cvvcode}
-                                placeholderTextColor="#626363"
+                                placeholderTextColor="#51585e"
                                 secureTextEntry={!this.state.billingInfoEdit}
                                 maxLength={3}
                                 value={this.state.cvc}

@@ -99,7 +99,7 @@ var styles = StyleSheet.create({
         alignItems:'flex-start',
         flex:1
     },
-    rowWrapp:{
+    rowWrap:{
         flex:1,
         backgroundColor: '#edf1f2'
     },
@@ -274,7 +274,7 @@ var Comments = React.createClass({
     renderEntryRow(comment){
         return (
             <View>
-                <View style={styles.rowWrapp}>
+                <View style={styles.rowWrap}>
                     <View style={styles.row}>
                       <View  style={styles.leftSection}>
                           <Image source={comment.user.smallAvatarUrl == "placeholder" ? require('image!avatar'):{uri:comment.user.smallAvatarUrl}} style={styles.thumbRound}/>

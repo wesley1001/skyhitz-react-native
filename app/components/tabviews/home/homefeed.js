@@ -35,7 +35,7 @@ var styles = StyleSheet.create({
         backgroundColor: '#edf1f2'
     },
     streamText:{
-        color:'#626363',
+        color:'#51585e',
         fontFamily:'Avenir',
         fontSize:12,
         paddingTop:8
@@ -73,7 +73,7 @@ var styles = StyleSheet.create({
       fontSize:11
     },
     text: {
-        color:'#626363',
+        color:'#51585e',
         fontFamily:'Avenir',
         fontSize:11
     },

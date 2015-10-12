@@ -32,7 +32,7 @@ var styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         marginTop:16,
-        fontFamily:'Raleway-ExtraLight',
+        fontFamily:'Avenir',
         letterSpacing: 10
     },
     logo:{

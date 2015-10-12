@@ -63,7 +63,7 @@ NSString * const StripePublishableKey = @"pk_test_jiDVP0p6iRtILtE4FzFfMACc";
    * see http://facebook.github.io/react-native/docs/runningondevice.html
    */
 
- // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+//  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   
   
   /**
@@ -82,8 +82,8 @@ NSString * const StripePublishableKey = @"pk_test_jiDVP0p6iRtILtE4FzFfMACc";
  //  jsCodeLocation = [build.bundle URLForResource:@"main"
  //                                  withExtension:@"jsbundle"];
   
+  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
   
-
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Skyhitz"
                                                    launchOptions:launchOptions];

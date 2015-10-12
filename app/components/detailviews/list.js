@@ -103,6 +103,7 @@ var styles = StyleSheet.create({
     title:{
         fontSize:12,
         fontFamily:'Avenir',
+        fontWeight:'bold',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2

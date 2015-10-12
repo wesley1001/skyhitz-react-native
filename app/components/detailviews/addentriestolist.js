@@ -182,7 +182,7 @@ var styles = StyleSheet.create({
         alignItems:'center',
         flex:1
     },
-    rowWrapp:{
+    rowWrap:{
         flex:1,
         backgroundColor: '#edf1f2',
         height:50
@@ -317,7 +317,7 @@ var CreateList = React.createClass({
         if(this.addMode == true){
         return (
             <View>
-                <View style={styles.rowWrapp}>
+                <View style={styles.rowWrap}>
                     <View style={styles.row}>
                         <View style={styles.leftRowSection}>
                         <Image source={{uri:item.snippet.thumbnails.default.url}} style={styles.thumb}/>
@@ -335,7 +335,7 @@ var CreateList = React.createClass({
         } else{
             return (
                 <View>
-                    <View style={styles.rowWrapp}>
+                    <View style={styles.rowWrap}>
                         <View style={styles.row}>
                             <View style={styles.leftRowSection}>
                                 <Image source={{uri:item.snippet.thumbnails.default.url}} style={styles.thumb}/>

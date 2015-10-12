@@ -18,7 +18,7 @@ var {
 var styles = StyleSheet.create({
     topContainer:{
         flex:1,
-        backgroundColor:'#111111'
+        backgroundColor:'#292b33'
     },
     container:{
         backgroundColor: '#edf1f2',

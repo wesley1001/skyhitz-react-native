@@ -39,7 +39,7 @@ var styles = StyleSheet.create({
         color:'grey'
     },
     container:{
-        backgroundColor:'#111111',
+        backgroundColor:'#292b33',
         flex:1
     },
     listTabsView:{
@@ -49,7 +49,6 @@ var styles = StyleSheet.create({
     listview:{
         backgroundColor: '#edf1f2',
         width:windowSize.width
-
     },
     thumb:{
         width:40,
@@ -83,7 +82,7 @@ var styles = StyleSheet.create({
         flexWrap:'nowrap',
         alignItems:'center'
     },
-    rowWrapp:{
+    rowWrap:{
         flex:1,
         height:50
     },
@@ -98,6 +97,7 @@ var styles = StyleSheet.create({
     title:{
         fontSize:12,
         fontFamily:'Avenir',
+        fontWeight: 'bold',        
         textAlign:'left',
         paddingLeft:10,
         marginTop:2
@@ -215,7 +215,7 @@ var Lists = React.createClass({
     renderEntryRow(item, secId, itemId){
         return(
             <View>
-                <View  style={styles.rowWrapp}>
+                <View  style={styles.rowWrap}>
                     <View style={styles.row}>
                         <TouchableOpacity onPress={()=>{Player.playVideo(item.youtubeData.id.videoId, item.youtubeData.snippet.title);this.setList(itemId)}}>
                             <View style={styles.leftRowSection}>
@@ -239,14 +239,14 @@ var Lists = React.createClass({
     renderListRow(item, secId, rowId){
         return(
             <View>
-                <View  style={styles.rowWrapp}>
+                <View  style={styles.rowWrap}>
                     <View style={styles.row}>
                         <TouchableOpacity onPress={()=>Router.goToList(item.listUid, item.name)}>
                             <View style={styles.leftRowSection}>
                                 <Image source={item.avatar == "" ? require('image!avatar'):{uri:item.avatar.small}} style={styles.listCover}/>
                                 <View style={styles.info}>
-                                    <Text style={styles.searchArtistTitle}>{item.name}</Text>
-                                    <Text style={styles.title}>By {item.ownerName}</Text>
+                                    <Text style={styles.title}>{item.name}</Text>
+                                    <Text style={styles.searchArtistTitle}>By {item.ownerName}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>

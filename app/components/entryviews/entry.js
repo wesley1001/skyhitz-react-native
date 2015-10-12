@@ -64,13 +64,13 @@ var styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         fontFamily: 'Avenir',
-        color: '#626363'
+        color: '#51585e'
     },
     entryArtist: {
         textAlign: 'center',
         fontSize: 16,
         fontFamily: 'Avenir',
-        color: '#626363'
+        color: '#51585e'
     },
     points: {
         fontSize: 18,
@@ -136,7 +136,7 @@ var styles = StyleSheet.create({
     },
     likedBy: {
         fontSize: 12,
-        color: '#626363',
+        color: '#51585e',
         flex: 1,
         paddingTop: 9
 
@@ -151,7 +151,7 @@ var styles = StyleSheet.create({
     social: {},
     likesNum: {
         fontSize: 12,
-        color: '#626363',
+        color: '#51585e',
         marginLeft: 10
     },
     likeImage: {
@@ -161,7 +161,7 @@ var styles = StyleSheet.create({
     },
     commentNum: {
         fontSize: 12,
-        color: '#626363',
+        color: '#51585e',
         marginLeft: 10
     },
     commentImage: {
@@ -479,7 +479,7 @@ var Entry = React.createClass({
                     value={this.state.progress}
                     onValueChange={(value) => this.seekToSeconds(value)} trackStyle={styles.track}
                     thumbStyle={styles.thumb}
-                    minimumTrackTintColor='#626363'
+                    minimumTrackTintColor='#51585e'
                     />
                 <View style={styles.wrapper}>
                     <View style={styles.row}>

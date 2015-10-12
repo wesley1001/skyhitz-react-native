@@ -17,7 +17,6 @@ class LogoType extends Component{
             <TouchableOpacity
                 onPress={this.props.onPress}>
                 <View style={styles.logoType}>
-                    <Image style={styles.logo} source={require('image!logo')}></Image>
                     <Text style={styles.brandName}>SKYHITZ</Text>
                 </View>
             </TouchableOpacity>
@@ -40,7 +39,7 @@ var styles = StyleSheet.create({
         fontSize:18,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily:'Raleway-ExtraLight',
+        fontFamily:'Avenir',
         letterSpacing: 10,
         marginTop:2,
         marginLeft:10

@@ -37,12 +37,13 @@ var SkyhitzTab = React.createClass({
                     source={require('image!logo')}
                     style={[
               styles.SkyhitzTabImg,
-              {transform: [
-                {rotate: this.state.angle.interpolate({
-                  inputRange: [0, 360],
-                  outputRange: ['0deg', '360deg']
-                })},
-              ]}]}>
+              // {transform: [
+              //   {rotate: this.state.angle.interpolate({
+              //     inputRange: [0, 360],
+              //     outputRange: ['0deg', '360deg']
+              //   })},
+              // ]}
+              ]}>
                 </Animated.Image>
 
             </TouchableHighlight>
@@ -56,8 +57,8 @@ var styles = StyleSheet.create({
         height:60,
         borderWidth:2,
         borderRadius:31,
-        borderColor:'#212121',
-        backgroundColor:'#131313',
+        borderColor:'#24252b',
+        backgroundColor:'#292b33',
         alignItems: 'center',
         justifyContent: 'center'
     },

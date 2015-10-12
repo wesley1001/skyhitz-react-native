@@ -174,19 +174,19 @@ var Profile = React.createClass({
                     <View style={styles.profileTabs}>
                         <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(0)}}>
                             {this.state.selectedTab === 0 ?
-                                <Icon name="ios-list" size={28} color="#555" style={styles.listIcon}/>
+                                <Icon name="ios-list" size={28} color="#51585e" style={styles.listIcon}/>
                                 : <Icon name="ios-list-outline" size={28} color="#555" style={styles.listIcon}/>}
                         </TouchableOpacity>
                         <View style={styles.horDivider}></View>
                         <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(1)}}>
                             {this.state.selectedTab === 1 ?
-                                <Icon name="ios-people" size={28} color="#555" style={styles.listIcon}/>
+                                <Icon name="ios-people" size={28} color="#51585e" style={styles.listIcon}/>
                                 : <Icon name="ios-people-outline" size={28} color="#555" style={styles.listIcon}/>}
                         </TouchableOpacity>
                         <View style={styles.horDivider}></View>
                         <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(2)}}>
                             {this.state.selectedTab === 2 ?
-                                <Icon name="ios-bell" size={28} color="#555" style={styles.listIcon}/>
+                                <Icon name="ios-bell" size={28} color="#51585e" style={styles.listIcon}/>
                                 : <Icon name="ios-bell-outline" size={28} color="#555" style={styles.listIcon}/>}
                         </TouchableOpacity>
                     </View>

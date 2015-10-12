@@ -94,7 +94,7 @@ var styles = StyleSheet.create({
         alignItems:'center',
         flex:1
     },
-    rowWrapp:{
+    rowWrap:{
         flex:1,
         backgroundColor: '#edf1f2',
         height:50
@@ -167,7 +167,7 @@ var Likers = React.createClass({
     renderEntryRow(user){
         return(
             <View>
-                <View style={styles.rowWrapp}>
+                <View style={styles.rowWrap}>
                     <View style={styles.row}>
                         <TouchableOpacity onPress={()=>this.goToProfile(user)}>
                         <View  style={styles.leftSection}>

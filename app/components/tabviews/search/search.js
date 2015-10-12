@@ -61,7 +61,7 @@ var styles = StyleSheet.create({
         paddingLeft: 10,
         backgroundColor: '#edf1f2'
     },
-    rowWrapp: {
+    rowWrap: {
         flex: 1,
         backgroundColor: '#edf1f2',
         height: 50
@@ -79,6 +79,7 @@ var styles = StyleSheet.create({
         fontSize:12,
         fontFamily: 'Avenir',
         textAlign: 'left',
+        fontWeight: 'bold',        
         paddingLeft: 10,
         marginTop: 2
     },
@@ -182,12 +183,12 @@ var Search = React.createClass({
     renderSongRow (entry){
         return (
             <View>
-                <TouchableOpacity onPress={()=> Player.playVideo(entry.id.videoId, entry.snippet.title, entry)} style={styles.rowWrapp}>
+                <TouchableOpacity onPress={()=> Player.playVideo(entry.id.videoId, entry.snippet.title, entry)} style={styles.rowWrap}>
                     <View style={styles.row}>
                         <Image source={{uri:entry.snippet.thumbnails.default.url}} style={styles.thumb}/>
                         <View style={styles.info}>
+                            <Text style={styles.title}>{EntryTitle.getSongTitle(entry.snippet.title)}</Text>                        
                             <Text style={styles.searchArtistTitle}>{EntryTitle.getArtistName(entry.snippet.title)}</Text>
-                            <Text style={styles.title}>{EntryTitle.getSongTitle(entry.snippet.title)}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -198,12 +199,12 @@ var Search = React.createClass({
     renderCommunityRow (entry){
         return (
             <View>
-                <TouchableOpacity onPress={()=>Router.goToProfile(entry)} style={styles.rowWrapp}>
+                <TouchableOpacity onPress={()=>Router.goToProfile(entry)} style={styles.rowWrap}>
                     <View style={styles.row}>
                         <Image source={{uri:entry.snippet.thumbnails.default.url}} style={styles.thumbRound}/>
                         <View style={styles.info}>
+                            <Text style={styles.title}>{entry.snippet.title}</Text>                        
                             <Text style={styles.searchArtistTitle}>{entry.snippet.channelTitle}</Text>
-                            <Text style={styles.title}>{entry.snippet.title}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>

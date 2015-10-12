@@ -48,7 +48,7 @@ var styles = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         marginTop:20,
-        fontFamily:'Raleway-ExtraLight',
+        fontFamily:'Avenir',
         letterSpacing: 16,
         paddingLeft:12
     },

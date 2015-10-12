@@ -46,7 +46,7 @@ var styles = StyleSheet.create({
     },
     playlistText:{
         fontFamily:"Avenir",
-        color:"#626363"
+        color:"#51585e"
     },
     rowContainer:{
         backgroundColor: '#edf1f2'

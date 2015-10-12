@@ -52,7 +52,7 @@ var styles = StyleSheet.create({
         fontSize:11
     },
     text: {
-        color:'#626363',
+        color:'#51585e',
         fontFamily:'Avenir',
         fontSize:11
     },
@@ -96,7 +96,7 @@ var styles = StyleSheet.create({
     },
     playlistText:{
         fontFamily:"Avenir",
-        color:"#626363"
+        color:"#51585e"
     },
     leftSection:{
         flexDirection:"row",

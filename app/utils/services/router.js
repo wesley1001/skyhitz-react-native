@@ -106,6 +106,7 @@ var Router = {
             id:'createlist',
             avatar: listAvatar ? listAvatar : ''
         });
+        Router.navigator.pop();
     },
     goToAddEntriesToList(listName,avatar){
        Router.navigator.push({

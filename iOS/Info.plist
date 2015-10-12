@@ -44,8 +44,8 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Gotham-Bold.ttf</string>
-		<string>Gotham-Light.ttf</string>
+		<string>Avenir.ttf</string>
+		<string>Avenir.ttf</string>
 		<string>Gotham-Book.ttf</string>
 		<string>Raleway-Light.ttf</string>
 		<string>Raleway-ExtraLight.ttf</string>

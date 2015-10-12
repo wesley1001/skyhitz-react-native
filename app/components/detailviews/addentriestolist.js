@@ -50,13 +50,13 @@ var styles = StyleSheet.create({
         fontSize:20,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         marginLeft:53.5
     },
     create:{
         fontSize:20,
         color: '#FFFFFF',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         marginRight:10
     },
     customNav:{
@@ -85,12 +85,12 @@ var styles = StyleSheet.create({
     },
     addpic:{
         textAlign:'center',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:10
     },
     playlistInfo:{
         textAlign:'left',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:10
     },
     listInfo:{
@@ -104,7 +104,7 @@ var styles = StyleSheet.create({
     playlistName:{
         color:'black',
         height:30,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         width:200
     },
@@ -130,13 +130,13 @@ var styles = StyleSheet.create({
     },
     redInput:{
         color:'red',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         marginRight:10
     },
     blackInput:{
         color:'black',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         marginRight:10
     },
@@ -198,7 +198,7 @@ var styles = StyleSheet.create({
     },
     title:{
         fontSize:10,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2

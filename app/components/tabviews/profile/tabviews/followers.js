@@ -32,12 +32,12 @@ var styles = StyleSheet.create({
         alignItems:'center'
     },
     headerText:{
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12
     },
     addNewText:{
         color:'#1dadff',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         marginRight:10
     },
@@ -45,7 +45,7 @@ var styles = StyleSheet.create({
         marginRight:10
     },
     playlistText:{
-        fontFamily:"Gotham-Bold",
+        fontFamily:"Avenir",
         color:"#626363"
     },
     rowContainer:{
@@ -68,7 +68,7 @@ var styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight:10,
         alignItems:'center',
-        backgroundColor: 'white',
+        backgroundColor: '#edf1f2',
         height:50
     },
     infoWrap:{
@@ -91,20 +91,20 @@ var styles = StyleSheet.create({
     followersCount:{
         marginRight:10,
         fontSize:10,
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     },
     listview:{
         flex:1
     },
     username:{
         fontSize:10,
-        fontFamily:'Gotham-Bold',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10
     },
     name:{
         fontSize:10,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2

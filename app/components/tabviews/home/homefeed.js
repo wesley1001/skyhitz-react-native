@@ -52,7 +52,7 @@ var styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight:10,
         alignItems:'center',
-        backgroundColor: 'white',
+        backgroundColor: '#edf1f2',
         height:50
     },
     listview:{

@@ -41,7 +41,7 @@ var styles = StyleSheet.create({
         flex: 1,
         backgroundColor:'transparent',
         color:'#FFFFFF',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:14,
         paddingBottom:10
     },
@@ -50,7 +50,7 @@ var styles = StyleSheet.create({
         color:'#FFFFFF',
         flex: 1,
         backgroundColor:'transparent',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:14,
         paddingTop:10
     },
@@ -67,7 +67,7 @@ var styles = StyleSheet.create({
         paddingTop:15,
         letterSpacing:2,
         fontSize:17,
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     }
 });
 

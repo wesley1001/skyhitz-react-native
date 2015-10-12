@@ -64,7 +64,7 @@ var styles = StyleSheet.create({
         fontSize:20,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     },
     logoType:{
         flexDirection:'row',
@@ -105,14 +105,14 @@ var styles = StyleSheet.create({
     },
     searchArtistTitle:{
         fontSize:10,
-        fontFamily:'Gotham-Bold',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         flex:1
     },
     title:{
         fontSize:10,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2,
@@ -143,7 +143,7 @@ var styles = StyleSheet.create({
         borderRadius:4,
         marginRight:10,
         paddingLeft:10,
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     },
     commentSend:{
         marginRight:10,
@@ -156,7 +156,7 @@ var styles = StyleSheet.create({
     sendComment:{
         textAlign:'center',
         alignSelf:'center',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         color:'white',
         marginTop:8
     },

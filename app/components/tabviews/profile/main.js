@@ -37,7 +37,7 @@ var styles = StyleSheet.create({
         flex: 1
     },
     container: {
-        backgroundColor: 'white',
+        backgroundColor: '#edf1f2',
         flex: 1,
         marginTop: 20
     },
@@ -54,7 +54,7 @@ var styles = StyleSheet.create({
         marginBottom: 10
     },
     name: {
-        fontFamily: "Gotham-Bold",
+        fontFamily: "Avenir",
         color: '#1dadff',
         fontSize: 16,
         textAlign: 'center',

@@ -54,7 +54,7 @@ var styles = StyleSheet.create({
         fontSize:20,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     },
     logoType:{
         flexDirection:'row',
@@ -101,13 +101,13 @@ var styles = StyleSheet.create({
     },
     username:{
         fontSize:10,
-        fontFamily:'Gotham-Bold',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10
     },
     name:{
         fontSize:10,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2

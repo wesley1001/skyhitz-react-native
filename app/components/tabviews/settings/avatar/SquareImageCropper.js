@@ -380,7 +380,7 @@ var styles = StyleSheet.create({
     fontSize: 16,
     textAlign:'center',
     paddingTop:19,
-    fontFamily:'Gotham-Light'
+    fontFamily:'Avenir'
   },
   resetButtonTouchable: {
     alignSelf: 'center',
@@ -402,7 +402,7 @@ var styles = StyleSheet.create({
     fontSize: 9,
     textAlign:'center',
     paddingTop:11,
-    fontFamily:'Gotham-Light'
+    fontFamily:'Avenir'
   }
 });
 

@@ -74,7 +74,7 @@ var styles = StyleSheet.create({
         fontSize:17,
         letterSpacing:2,
         paddingTop:2,
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     },
     joinContainer:{
         paddingTop:10,
@@ -108,7 +108,7 @@ var styles = StyleSheet.create({
         textAlign:'center',
         letterSpacing:2,
         fontSize:17,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         paddingTop:2
     },
     loginText:{
@@ -116,7 +116,7 @@ var styles = StyleSheet.create({
         textAlign:'center',
         letterSpacing:2,
         fontSize:17,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         paddingTop:2
     },
     footer:{
@@ -132,11 +132,11 @@ var styles = StyleSheet.create({
         fontSize:16,
         alignSelf:'center',
         justifyContent: 'center',
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     },
     link:{
         fontWeight:'bold',
-        fontFamily:'Gotham-Bold'
+        fontFamily:'Avenir'
     }
 });
 

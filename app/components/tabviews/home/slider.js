@@ -29,13 +29,13 @@ var styles = StyleSheet.create({
     },
     copyText: {
         textAlign: 'center',
-        fontFamily: 'Gotham-Light',
+        fontFamily: 'Avenir',
         fontSize: 18,
         color: '#FFFFFF'
     },
     artistTitle: {
         textAlign: 'center',
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'Avenir',
         fontSize: 18,
         color: '#FFFFFF'
     },

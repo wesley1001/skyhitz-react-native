@@ -93,7 +93,7 @@ var styles = StyleSheet.create({
         textAlign:'right'
     },
     name:{
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:10,
         marginTop:5,
         marginBottom:5,
@@ -118,7 +118,7 @@ var styles = StyleSheet.create({
         marginBottom:10
     },
     personalInfo:{
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         flex:1
     },
@@ -136,7 +136,7 @@ var styles = StyleSheet.create({
         height:20,
         flex:1,
         borderRadius:4,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:10,
         paddingLeft:10,
         marginTop:10
@@ -172,12 +172,12 @@ var styles = StyleSheet.create({
         flexWrap:'nowrap'
     },
     pointsText:{
-        fontFamily:'Gotham-Bold',
+        fontFamily:'Avenir',
         fontSize:12,
         color:'#898A8A'
     },
     availablePoints:{
-        fontFamily:'Gotham-Bold',
+        fontFamily:'Avenir',
         fontSize:12,
         color:'#1DADFF',
         textAlign:'center',
@@ -204,7 +204,7 @@ var styles = StyleSheet.create({
         borderColor:'#1DADFF',
         marginRight:10,
         borderRadius:4,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:10,
         paddingLeft:10
     },
@@ -214,7 +214,7 @@ var styles = StyleSheet.create({
         borderColor:'#1DADFF',
         marginRight:10,
         borderRadius:4,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:10,
         paddingLeft:10
     },
@@ -224,7 +224,7 @@ var styles = StyleSheet.create({
         borderColor:'#1DADFF',
         height:20,
         borderRadius:4,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:10,
         paddingLeft:10
     },
@@ -247,7 +247,7 @@ var styles = StyleSheet.create({
         marginBottom:60
     },
     addPointsText:{
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:14,
         color:'white',
         textAlign:'center'

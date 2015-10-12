@@ -63,7 +63,7 @@ var styles = StyleSheet.create({
     entryName: {
         textAlign: 'center',
         fontSize: 20,
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'Avenir',
         color: '#626363'
     },
     entryArtist: {
@@ -218,7 +218,7 @@ var styles = StyleSheet.create({
     wrapper: {
         paddingLeft: 20,
         paddingRight: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#edf1f2',
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems: 'stretch',
@@ -228,7 +228,7 @@ var styles = StyleSheet.create({
         fontSize: 20,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily: 'Gotham-Light',
+        fontFamily: 'Avenir',
         marginLeft: 9
     },
     customNav: {
@@ -257,7 +257,7 @@ var styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderRadius: 20 / 2,
-        backgroundColor: 'white',
+        backgroundColor: '#edf1f2',
         shadowColor: 'black',
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 2,

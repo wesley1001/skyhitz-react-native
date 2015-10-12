@@ -38,12 +38,12 @@ var styles = StyleSheet.create({
         alignItems:'center'
     },
     headerText:{
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12
     },
     addNewText:{
         color:'#1dadff',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         marginRight:10
     },
@@ -51,7 +51,7 @@ var styles = StyleSheet.create({
         marginRight:10
     },
     playlistText:{
-        fontFamily:"Gotham-Bold",
+        fontFamily:"Avenir",
         color:"#626363"
     },
     row:{
@@ -73,12 +73,13 @@ var styles = StyleSheet.create({
     followersCount:{
         marginRight:10,
         fontSize:10,
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     }
 });
 
 var Playlists = React.createClass({
     getInitialState(){
+        console.log(this);
         return{
             lists:[],
             followingLists:[]

@@ -61,7 +61,7 @@ var styles = StyleSheet.create({
         color:'#FFFFFF',
         textAlign:'center',
         fontSize:16,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         paddingTop:10
     },
     signInWrap:{
@@ -80,7 +80,7 @@ var styles = StyleSheet.create({
     loginYt:{
         color:'#FFFFFF',
         textAlign:'center',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:17,
         letterSpacing:2,
         paddingTop:4
@@ -98,11 +98,11 @@ var styles = StyleSheet.create({
         fontSize:16,
         alignSelf:'center',
         justifyContent: 'center',
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     },
     link:{
         fontWeight:'bold',
-        fontFamily:'Gotham-Bold'
+        fontFamily:'Avenir'
     }
 });
 

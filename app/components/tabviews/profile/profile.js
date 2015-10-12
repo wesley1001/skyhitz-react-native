@@ -44,14 +44,14 @@ var styles = StyleSheet.create({
         marginBottom:10
     },
     name:{
-        fontFamily:"Gotham-Bold",
+        fontFamily:"Avenir",
         color:'#1dadff',
         fontSize:16,
         textAlign:'center',
         marginBottom:7
     },
     followers:{
-        fontFamily:"Gotham-Book",
+        fontFamily:"Avenir",
         color:'#6e6e6e',
         fontSize:12,
         textAlign:'center'

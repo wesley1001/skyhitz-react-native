@@ -40,7 +40,7 @@ var styles = StyleSheet.create({
       fontSize:20,
       color: '#FFFFFF',
       textAlign: 'center',
-      fontFamily:'Gotham-Light',
+      fontFamily:'Avenir',
       marginLeft:9,
       marginTop:6
   },

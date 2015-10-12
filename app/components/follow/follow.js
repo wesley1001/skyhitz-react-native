@@ -102,7 +102,7 @@ var styles = StyleSheet.create({
         height:20
     },
     followText:{
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:8,
         color:'#1dadff',
         paddingTop:2,

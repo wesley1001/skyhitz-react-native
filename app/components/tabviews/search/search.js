@@ -33,7 +33,7 @@ var styles = StyleSheet.create({
         backgroundColor: 'rgba(31,31,31,0.9)'
     },
     listview: {
-        backgroundColor: 'white',
+        backgroundColor: '#edf1f2',
         width: windowSize.width
 
     },
@@ -59,11 +59,11 @@ var styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 10,
-        backgroundColor: 'white'
+        backgroundColor: '#edf1f2'
     },
     rowWrapp: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#edf1f2',
         height: 50
     },
     searchArtistTitle: {
@@ -77,13 +77,13 @@ var styles = StyleSheet.create({
     },
     title: {
         fontSize: 10,
-        fontFamily: 'Gotham-Light',
+        fontFamily: 'Avenir',
         textAlign: 'left',
         paddingLeft: 10,
         marginTop: 2
     },
     communityTab: {
-        backgroundColor: 'white',
+        backgroundColor: '#edf1f2',
         flex: 1
     },
     searchTabs: {

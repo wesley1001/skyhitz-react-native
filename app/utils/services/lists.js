@@ -138,13 +138,13 @@ var ListsApi ={
     addEntryToPlaylist(list, entryUid){
 
         console.log(list);
-
+        var listUid =  list.public == undefined ? list.listUid : list.public.listUid;
         return new Promise(function(resolve, reject){
 
         var queue ={
             uid:User.getUid(),
             username:User.getUsername(),
-            listUid:list.public.listUid,
+            listUid:listUid,
             entryUid:entryUid
         };
 

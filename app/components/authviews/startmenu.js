@@ -59,7 +59,7 @@ var styles = StyleSheet.create({
         fontSize:16,
         letterSpacing:2,
         paddingTop:2,
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     },
     buttonArtist:{
         borderColor:'#1DADFE',
@@ -77,7 +77,7 @@ var styles = StyleSheet.create({
         marginBottom:24,
         color:'#FFFFFF',
         textAlign: 'center',
-        fontFamily:'Gotham-Light'
+        fontFamily:'Avenir'
     }
 });
 

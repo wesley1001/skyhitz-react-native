@@ -50,7 +50,7 @@ var styles = StyleSheet.create({
         fontSize:20,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         marginLeft:9
     },
     customNav:{
@@ -96,13 +96,13 @@ var styles = StyleSheet.create({
     },
     searchArtistTitle:{
         fontSize:10,
-        fontFamily:'Gotham-Bold',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10
     },
     title:{
         fontSize:10,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2
@@ -111,7 +111,7 @@ var styles = StyleSheet.create({
 
 var Playlist = React.createClass({
     getInitialState() {
-        var listUid = this.props.route == undefined || this.props.route == null || this.props.route == ''  ? Router.listUid : this.props.route.listUid;
+        var listUid = this.props.route == undefined ? Router.listUid : this.props.route.listUid;
         var listName = this.props.route == undefined ? Router.listName : this.props.route.listName;      
         return {
             playlistDataSource: new ListView.DataSource({
@@ -126,7 +126,14 @@ var Playlist = React.createClass({
         return this.state.playlistDataSource.cloneWithRows(data);
     },
     goBack(){
-        this.props.nav.jumpBack();
+
+        this.props.nav._renderedSceneMap._mapData[0][0].message !== "First Scene" ? Router.navigator.jumpBack() : this.componentWillUnmount();
+
+    },
+    componentWillUnmount() {
+
+        Router.navigator.pop();
+
     },
     componentDidMount() {   
 

@@ -146,6 +146,15 @@ var Profile = React.createClass({
             selectedTab: tabIndex
         });
     },
+    getFollowersCount(){
+        if(this.state.followersCount == 0){
+            return ''
+        }else if(this.state.followersCount == 1){
+            return '1 FOLLOWER'
+        }else{
+            return this.state.followersCount + ' FOLLOWERS'
+        }
+    },
     render(){
         return(
             <View style={styles.container}>
@@ -163,7 +172,7 @@ var Profile = React.createClass({
                                     {this.state.username}
                                 </Text>
                                 <Text style={styles.followers}>
-                                    {this.state.followersCount} FOLLOWERS
+                                    {this.getFollowersCount()}
                                 </Text>
                             </BlurView>
 

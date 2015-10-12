@@ -104,14 +104,14 @@ var styles = StyleSheet.create({
         backgroundColor: '#edf1f2'
     },
     searchArtistTitle:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         flex:1
     },
     title:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
@@ -162,7 +162,7 @@ var styles = StyleSheet.create({
     },
     timeStamp:{
         color:'#cfcdcd',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11
     }
 

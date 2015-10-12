@@ -96,13 +96,13 @@ var styles = StyleSheet.create({
         height:50
     },
     searchArtistTitle:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10
     },
     title:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,

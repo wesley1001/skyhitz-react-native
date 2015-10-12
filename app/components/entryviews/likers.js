@@ -100,13 +100,13 @@ var styles = StyleSheet.create({
         height:50
     },
     username:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10
     },
     name:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,

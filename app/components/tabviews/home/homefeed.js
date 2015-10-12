@@ -36,7 +36,7 @@ var styles = StyleSheet.create({
     },
     streamText:{
         color:'#626363',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:12,
         paddingTop:8
     },
@@ -69,17 +69,17 @@ var styles = StyleSheet.create({
     },
     link:{
       color:'#1eaeff',
-      fontFamily:'Gotham-Book',
+      fontFamily:'Avenir',
       fontSize:11
     },
     text: {
         color:'#626363',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11
     },
     timeText:{
         color:'#cfcdcd',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11
     },
     profilePic:{

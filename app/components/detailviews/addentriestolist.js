@@ -189,7 +189,7 @@ var styles = StyleSheet.create({
     },
     searchArtistTitle:{
         fontSize:12,
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginBottom:2,

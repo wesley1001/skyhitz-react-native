@@ -48,7 +48,7 @@ var styles = StyleSheet.create({
         fontSize:20,
         color: '#FFFFFF',
         textAlign: 'center',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         marginLeft:9
     },
     customNav:{
@@ -64,7 +64,7 @@ var styles = StyleSheet.create({
         justifyContent:'flex-start',
         padding:20,
         flexWrap:'nowrap',
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         alignItems:'center'
     },
     listPic:{
@@ -81,13 +81,13 @@ var styles = StyleSheet.create({
     },
     addpic:{
         textAlign:'center',
-        fontFamily:'Gotham-Light',
-        fontSize:10
+        fontFamily:'Avenir',
+        fontSize:12
     },
     playlistInfo:{
         textAlign:'left',
-        fontFamily:'Gotham-Light',
-        fontSize:10
+        fontFamily:'Avenir',
+        fontSize:12
     },
     listInfo:{
         paddingLeft:20
@@ -100,7 +100,7 @@ var styles = StyleSheet.create({
     playlistName:{
         color:'black',
         height:30,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         width:200
     },
@@ -114,21 +114,21 @@ var styles = StyleSheet.create({
     },
     bottomContainer:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     container:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1
     },
     redInput:{
         color:'red',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         marginRight:10
     },
     blackInput:{
         color:'black',
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         fontSize:12,
         marginRight:10
     },

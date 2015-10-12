@@ -48,12 +48,12 @@ var styles = StyleSheet.create({
     },
     link:{
         color:'#1eaeff',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11
     },
     text: {
         color:'#626363',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11
     },
     logo:{
@@ -64,7 +64,7 @@ var styles = StyleSheet.create({
     },
     timeText:{
         color:'#cfcdcd',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11
     },
     playlistIcon:{

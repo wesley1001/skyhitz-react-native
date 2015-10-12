@@ -69,12 +69,12 @@ var styles = StyleSheet.create({
     entryArtist: {
         textAlign: 'center',
         fontSize: 16,
-        fontFamily: 'Gotham-Book',
+        fontFamily: 'Avenir',
         color: '#626363'
     },
     points: {
         fontSize: 18,
-        fontFamily: 'Gotham-Book',
+        fontFamily: 'Avenir',
         color: '#1eaeff'
     },
     controls: {
@@ -189,7 +189,7 @@ var styles = StyleSheet.create({
     },
     plusFriends: {
         color: 'white',
-        fontFamily: 'Gotham-Book',
+        fontFamily: 'Avenir',
         fontSize:12,
         textAlign: 'center',
         backgroundColor: 'transparent',

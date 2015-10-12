@@ -27,7 +27,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		D40154551BB1AB290065939C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40154541BB1AB290065939C /* AVFoundation.framework */; };
 		D416A7FC1B8E9EA600376C9C /* stripe.m in Sources */ = {isa = PBXBuildFile; fileRef = D416A7FB1B8E9EA600376C9C /* stripe.m */; };
-		D434FE241B86C3F200AE33E8 /* Gotham-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D434FE1A1B86C3F200AE33E8 /* Gotham-Book.ttf */; };
+		D434FE241B86C3F200AE33E8 /* Avenir.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D434FE1A1B86C3F200AE33E8 /* Avenir.ttf */; };
 		D434FE261B86C3F200AE33E8 /* Gotham-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D434FE1C1B86C3F200AE33E8 /* Gotham-Medium.ttf */; };
 		D434FE271B86C3F200AE33E8 /* Gotham-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D434FE1D1B86C3F200AE33E8 /* Gotham-MediumItalic.ttf */; };
 		D434FE281B86C3F200AE33E8 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D434FE1E1B86C3F200AE33E8 /* Raleway-ExtraLight.ttf */; };
@@ -194,7 +194,7 @@
 		D40154541BB1AB290065939C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D416A7EF1B8E9E0100376C9C /* stripe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stripe.h; sourceTree = "<group>"; };
 		D416A7FB1B8E9EA600376C9C /* stripe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = stripe.m; sourceTree = "<group>"; };
-		D434FE1A1B86C3F200AE33E8 /* Gotham-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Book.ttf"; sourceTree = "<group>"; };
+		D434FE1A1B86C3F200AE33E8 /* Avenir.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir.ttf"; sourceTree = "<group>"; };
 		D434FE1C1B86C3F200AE33E8 /* Gotham-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Medium.ttf"; sourceTree = "<group>"; };
 		D434FE1D1B86C3F200AE33E8 /* Gotham-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-MediumItalic.ttf"; sourceTree = "<group>"; };
 		D434FE1E1B86C3F200AE33E8 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -486,7 +486,7 @@
 			children = (
 				3052ADD81BCB5B9000266892 /* Ionicons.ttf */,
 				3052ADD61BCB5AAD00266892 /* Avenir.ttf */,
-				D434FE1A1B86C3F200AE33E8 /* Gotham-Book.ttf */,
+				D434FE1A1B86C3F200AE33E8 /* Avenir.ttf */,
 				D434FE1C1B86C3F200AE33E8 /* Gotham-Medium.ttf */,
 				D434FE1D1B86C3F200AE33E8 /* Gotham-MediumItalic.ttf */,
 				D434FE1E1B86C3F200AE33E8 /* Raleway-ExtraLight.ttf */,
@@ -817,7 +817,7 @@
 				D434FE371B86C43500AE33E8 /* Images.xcassets in Resources */,
 				D434FE281B86C3F200AE33E8 /* Raleway-ExtraLight.ttf in Resources */,
 				D4E0514F1BB472D0005A326F /* LaunchScreen.storyboard in Resources */,
-				D434FE241B86C3F200AE33E8 /* Gotham-Book.ttf in Resources */,
+				D434FE241B86C3F200AE33E8 /* Avenir.ttf in Resources */,
 				D434FE261B86C3F200AE33E8 /* Gotham-Medium.ttf in Resources */,
 				D434FE271B86C3F200AE33E8 /* Gotham-MediumItalic.ttf in Resources */,
 				D434FE2A1B86C3F200AE33E8 /* Raleway-Thin.ttf in Resources */,

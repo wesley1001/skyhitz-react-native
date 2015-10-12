@@ -61,13 +61,13 @@ var styles = StyleSheet.create({
         marginBottom: 7
     },
     followers: {
-        fontFamily: "Gotham-Book",
+        fontFamily: "Avenir",
         color: '#6e6e6e',
         fontSize: 12,
         textAlign: 'center'
     },
     playlists: {
-        fontFamily: "Gotham-Book",
+        fontFamily: "Avenir",
         color: '#6e6e6e',
         fontSize: 12,
         textAlign: 'center'

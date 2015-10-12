@@ -88,7 +88,7 @@ var styles = StyleSheet.create({
     },
     personalInfoEdit:{
         color:'#1eaeff',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11,
         textAlign:'right'
     },
@@ -103,14 +103,14 @@ var styles = StyleSheet.create({
     },
     textEdit:{
         color:'#1eaeff',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11,
         textAlign:'right',
         flex:1
     },
     sendStripeInfo:{
         color:'#1eaeff',
-        fontFamily:'Gotham-Book',
+        fontFamily:'Avenir',
         fontSize:11,
         textAlign:'center',
         flex:1,

@@ -135,10 +135,8 @@ var Playlist = React.createClass({
         Router.navigator.pop();
 
     },
-    componentDidMount() {   
-
+    componentDidMount() {
         this.getEntries();
-    
     },    
     getEntries() {
         var that = this;

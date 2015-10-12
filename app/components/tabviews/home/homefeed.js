@@ -7,6 +7,8 @@ var HomeFeedApi = require('../../../utils/services/homefeed');
 var User = require('../../../utils/services/user');
 var Time = require('../../../utils/time');
 var Slider = require('./slider');
+var Router = require('../../../utils/routers/home');
+var Player = require('../../player/player');
 
 var {
     View,
@@ -136,10 +138,9 @@ var HomeFeed = React.createClass({
                 isLoading: true
             });
             HomeFeedApi.getHomeNotifications(User.getUid()).then(function(data){
-                console.log(data)
                 if(data === false){
                     that.endOfData();
-                }else{
+                } else {
                     data[0] = {slider:true};
                     data[1] = {header:true};
                     that.setState({
@@ -191,11 +192,11 @@ var HomeFeed = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.uid)}>
                                     <Text style={styles.link}>{item.followerUsername}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> started following </Text>
-                                <TouchableOpacity  onPress={()=>this.goToProfile(item.followingUid)}>
+                                <TouchableOpacity  onPress={()=>Router.goToProfile(item.followingUid)}>
                                     <Text style={styles.link}>{item.followingUsername}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>.</Text>
@@ -213,11 +214,11 @@ var HomeFeed = React.createClass({
                             <Image source={{uri:item.avatarUrl}} style={styles.profilePic}/>
                             <View style={styles.infoWrap}>
                                 <Image style={styles.logo} source={require('image!logo')}></Image>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.uid)}>
                                     <Text style={styles.link}>{item.username}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> added points to </Text>
-                                <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
+                                <TouchableOpacity onPress={()=>Player.playVideo(item.entryUid)}>
                                     <Text style={styles.link}>a song</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>.</Text>
@@ -255,7 +256,7 @@ var HomeFeed = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.uid)}>
                                     <Text style={styles.link}>{item.username}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> followed</Text>
@@ -280,11 +281,11 @@ var HomeFeed = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.uid)}>
                                     <Text style={styles.link}>{item.ownerName}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> created a new</Text>
-                                <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>
+                                <TouchableOpacity onPress={()=>Router.goToList(item.listUid)}>
                                     <Text style={styles.link}> playlist</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>.</Text>
@@ -301,7 +302,7 @@ var HomeFeed = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.uid)}>
                                     <Text style={styles.link}>{item.username}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> added</Text>
@@ -309,7 +310,7 @@ var HomeFeed = React.createClass({
                                     <Text style={styles.link}> a song</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> to</Text>
-                                <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>
+                                <TouchableOpacity onPress={()=>Router.goToList(item.listUid)}>
                                     <Text style={styles.link}> a playlist</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>.</Text>

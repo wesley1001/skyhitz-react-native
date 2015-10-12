@@ -23,7 +23,7 @@ var Router = {
             listName: listName
         });
     },
-    goToProfile(entryUid){
+    goToProfile(profileUid){
         Router.navigator.push({
             id: 'profile',
             profileUid: profileUid

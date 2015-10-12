@@ -100,6 +100,8 @@ var styles = StyleSheet.create({
 var Profile = React.createClass({
     getInitialState(){
         return {
+            profileUid: this.props.profileUid ? this.props.profileUid : User.userData.uid,
+            avatarUrl: User.userData.largeAvatarUrl,
             selectedTab:0,
             username:User.userData.username,
             followersCount:User.userData.followersCount,
@@ -108,6 +110,12 @@ var Profile = React.createClass({
             nav: this.props.nav,
             route: this.props.route
         }
+    },
+    getUserProfile(){
+
+    },
+    componentDidMount () {
+        this.getUserProfile()
     },
     selectTab(tabIndex){
         this.setState({
@@ -119,7 +127,7 @@ var Profile = React.createClass({
             <View style={styles.container}>
                 <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}  contentInset={{bottom: 113}}>
                     <View style={styles.topContainer}>
-                        <Image style={styles.profilepic} source={User.userData.largeAvatarUrl == "placeholder" ? require('image!avatar'):{uri:User.userData.largeAvatarUrl}} />
+                        <Image style={styles.profilepic} source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}} />
                         <Text style={styles.name}>
                             {this.state.username}
                         </Text>

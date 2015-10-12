@@ -293,7 +293,7 @@ var CreateList = React.createClass({
             }
         }
         ListsApi.createList(list).then(function(listUid){
-                Router.goToList(listUid);
+            Router.goToMainTabBar('profile')
         });
     },
     nameChanged(text){

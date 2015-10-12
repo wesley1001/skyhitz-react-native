@@ -73,7 +73,7 @@ var styles = StyleSheet.create({
         justifyContent:'flex-start',
         padding:20,
         flexWrap:'nowrap',
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         alignItems:'center'
     },
     listPic:{
@@ -86,12 +86,12 @@ var styles = StyleSheet.create({
     addpic:{
         textAlign:'center',
         fontFamily:'Avenir',
-        fontSize:10
+        fontSize:12
     },
     playlistInfo:{
         textAlign:'left',
         fontFamily:'Avenir',
-        fontSize:10
+        fontSize:12
     },
     listInfo:{
         paddingLeft:20
@@ -122,10 +122,10 @@ var styles = StyleSheet.create({
     },
     bottomContainer:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     container:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1
     },
     redInput:{
@@ -152,7 +152,7 @@ var styles = StyleSheet.create({
         backgroundColor:'rgba(31,31,31,0.9)'
     },
     listview:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         width:windowSize.width
 
     },
@@ -173,7 +173,7 @@ var styles = StyleSheet.create({
         paddingTop:10,
         paddingBottom:10,
         paddingLeft:10,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     leftRowSection:{
         flexDirection:'row',
@@ -184,11 +184,11 @@ var styles = StyleSheet.create({
     },
     rowWrapp:{
         flex:1,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         height:50
     },
     searchArtistTitle:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Gotham-Book',
         textAlign:'left',
         paddingLeft:10,
@@ -197,14 +197,14 @@ var styles = StyleSheet.create({
 
     },
     title:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2
     },
     communityTab:{
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     }
 });
 

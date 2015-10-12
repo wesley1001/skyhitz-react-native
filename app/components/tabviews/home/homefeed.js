@@ -23,16 +23,16 @@ var {
 
 var styles = StyleSheet.create({
     container:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1
     },
     rowContainer:{
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     streamline:{
         height:24,
         paddingLeft:50,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     streamText:{
         color:'#626363',

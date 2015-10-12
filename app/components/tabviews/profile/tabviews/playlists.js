@@ -67,12 +67,12 @@ var styles = StyleSheet.create({
        flexWrap:"nowrap",
        alignItems:'center'
     },
-    followerSection:{
+    followersSection:{
         flex:1
     },
     followersCount:{
         marginRight:10,
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir'
     }
 });

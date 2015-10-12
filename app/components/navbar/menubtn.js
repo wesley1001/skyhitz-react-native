@@ -32,7 +32,7 @@ var styles = StyleSheet.create({
     dot:{
         width:4,
         height:4,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         borderRadius:2,
         marginTop:2,
         marginBottom:2,

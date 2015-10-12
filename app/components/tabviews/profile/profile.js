@@ -12,6 +12,10 @@ var Notifications = require('./tabviews/notifications');
 var User = require('../../../utils/services/user');
 var Router = require('../../../utils/services/router');
 var List = require('../../detailviews/list');
+var Dimensions = require('Dimensions');
+var ParallaxView = require('react-native-parallax-view');
+var BlurView = require('react-native-blur').BlurView;
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
     StyleSheet,
@@ -27,34 +31,51 @@ var {
 
 var styles = StyleSheet.create({
     container:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1,
-        marginTop:20
+    },
+    parallax: {
+        backgroundColor: '#edf1f2',
     },
     topContainer:{
         flexDirection:"column",
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        backgroundColor: "transparent",
+        paddingTop: 30
+    },
+    blur: {
+        width:Dimensions.get('window').width,
+        bottom:0,
+        top:10,
+        paddingLeft:15,
+        paddingRight:15,
+        paddingTop:20,
+        paddingBottom:20,
+        flexDirection:"row",
+        justifyContent:"space-between",
+        flexWrap:"nowrap",        
     },
     profilepic:{
         borderRadius:80 / PixelRatio.get(),
         width:80,
         height:80,
         marginTop:10,
-        marginBottom:10
+        marginBottom:10,
+        borderColor: 'white',
     },
     name:{
         fontFamily:"Avenir",
-        color:'#1dadff',
+        color:'#fff',
         fontSize:16,
-        textAlign:'center',
-        marginBottom:7
+        textAlign:'left',
     },
     followers:{
         fontFamily:"Avenir",
-        color:'#6e6e6e',
+        color:'#fff',
         fontSize:12,
-        textAlign:'center'
+        textAlign:'right', 
+        top:2       
     },
     profileTabs:{
         borderStyle:'solid',
@@ -66,11 +87,12 @@ var styles = StyleSheet.create({
         flexWrap:"nowrap",
         alignItems:"center",
         justifyContent:"space-around",
-        marginTop:15
+        marginTop:0
     },
     tab:{
         flex:1,
-        justifyContent:'center'
+        justifyContent:'center',
+        backgroundColor: '#edf1f2',
     },
     horDivider:{
         width:0.5,
@@ -93,6 +115,8 @@ var styles = StyleSheet.create({
         alignSelf:'center'
     },
     contentContainer:{
+        marginTop:0,
+        backgroundColor: '#edf1f2',
         marginBottom:80
     }
 });
@@ -125,33 +149,45 @@ var Profile = React.createClass({
     render(){
         return(
             <View style={styles.container}>
-                <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}  contentInset={{bottom: 113}}>
-                    <View style={styles.topContainer}>
-                        <Image style={styles.profilepic} source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}} />
-                        <Text style={styles.name}>
-                            {this.state.username}
-                        </Text>
-                        <Text style={styles.followers}>
-                            {this.state.followersCount} FOLLOWERS
-                        </Text>
-                    </View>
+                <ParallaxView
+                    backgroundSource={{uri:User.userData.largeAvatarUrl}}
+                    windowHeight={200}
+                    blur="dark"
+                    styles={styles.parallax}
+                    header={(
+                        <View style={styles.topContainer}>
+                            <Image style={styles.profilepic} source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}} />
+
+                            <BlurView blurType="dark" style={styles.blur}>
+                                <Text style={styles.name}>
+                                    {this.state.username}
+                                </Text>
+                                <Text style={styles.followers}>
+                                    {this.state.followersCount} FOLLOWERS
+                                </Text>
+                            </BlurView>
+
+                        </View>
+                    )}
+                >            
+                <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer} style={styles.parallax} contentInset={{bottom: 113}}>
                     <View style={styles.profileTabs}>
                         <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(0)}}>
                             {this.state.selectedTab === 0 ?
-                                <Image style={styles.listIcon} source={require('image!listbtnblue')}/>
-                                : <Image style={styles.listIcon} source={require('image!listbtngrey')}/>}
+                                <Icon name="ios-list" size={28} color="#555" style={styles.listIcon}/>
+                                : <Icon name="ios-list-outline" size={28} color="#555" style={styles.listIcon}/>}
                         </TouchableOpacity>
                         <View style={styles.horDivider}></View>
                         <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(1)}}>
                             {this.state.selectedTab === 1 ?
-                                <Image style={styles.followersIcon} source={require('image!followersbtnblue')}/>
-                                : <Image style={styles.followersIcon} source={require('image!followersbtngrey')}/>}
+                                <Icon name="ios-people" size={28} color="#555" style={styles.listIcon}/>
+                                : <Icon name="ios-people-outline" size={28} color="#555" style={styles.listIcon}/>}
                         </TouchableOpacity>
                         <View style={styles.horDivider}></View>
                         <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(2)}}>
                             {this.state.selectedTab === 2 ?
-                                <Image style={styles.notificationsIcon} source={require('image!notificationsbtnblue')}/>
-                                : <Image style={styles.notificationsIcon} source={require('image!notificationsbtngrey')}/>}
+                                <Icon name="ios-bell" size={28} color="#555" style={styles.listIcon}/>
+                                : <Icon name="ios-bell-outline" size={28} color="#555" style={styles.listIcon}/>}
                         </TouchableOpacity>
                     </View>
                     {this.state.selectedTab === 0 ?
@@ -164,6 +200,7 @@ var Profile = React.createClass({
                         <Notifications uid={this.state.uid}/>
                         :null }
                 </ScrollView>
+                </ParallaxView>
             </View>
         )
     }

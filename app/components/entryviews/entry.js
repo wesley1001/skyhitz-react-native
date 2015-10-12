@@ -190,7 +190,7 @@ var styles = StyleSheet.create({
     plusFriends: {
         color: 'white',
         fontFamily: 'Gotham-Book',
-        fontSize: 10,
+        fontSize:12,
         textAlign: 'center',
         backgroundColor: 'transparent',
         flex: 1,

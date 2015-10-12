@@ -59,7 +59,7 @@ var styles = StyleSheet.create({
         backgroundColor:'#111111',
     },
     listview:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         width:windowSize.width
 
     },
@@ -80,7 +80,7 @@ var styles = StyleSheet.create({
         paddingTop:10,
         paddingBottom:10,
         paddingLeft:10,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1
     },
     leftRowSection:{
@@ -92,7 +92,7 @@ var styles = StyleSheet.create({
     },
     rowWrap:{
         flex:1,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         height:50
     },
     searchArtistTitle:{

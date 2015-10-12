@@ -43,11 +43,11 @@ var styles = StyleSheet.create({
         flex:1
     },
     listTabsView:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1
     },
     listview:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         width:windowSize.width
 
     },
@@ -88,34 +88,34 @@ var styles = StyleSheet.create({
         height:50
     },
     searchArtistTitle:{
-        fontSize:10,
-        fontFamily:'Gotham-Light',
+        fontSize:12,
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginBottom:2,
         marginTop:1
     },
     title:{
-        fontSize:10,
-        fontFamily:'Gotham-Book',
+        fontSize:12,
+        fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2
     },
     points:{
         fontSize:12,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         color:'#1dadff'
     },
     textListFollowers:{
         fontSize:8,
-        fontFamily:'Gotham-Light',
+        fontFamily:'Avenir',
         textAlign:'left',
         color:'#1eaeff'
     },
     songPositionText:{
-        fontSize:10,
-        fontFamily:'Gotham-Light',
+        fontSize:12,
+        fontFamily:'Avenir',
         textAlign:'center'
     },
     songPosition:{

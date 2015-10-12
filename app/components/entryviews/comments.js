@@ -73,7 +73,7 @@ var styles = StyleSheet.create({
         marginTop:7
     },
     listview:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1
     },
     thumb:{
@@ -91,7 +91,7 @@ var styles = StyleSheet.create({
         paddingBottom:10,
         paddingLeft:10,
         paddingRight:10,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     leftSection:{
         flexDirection:'row',
@@ -101,7 +101,7 @@ var styles = StyleSheet.create({
     },
     rowWrapp:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     searchArtistTitle:{
         fontSize:10,
@@ -138,7 +138,7 @@ var styles = StyleSheet.create({
         flex:1,
         marginLeft:10,
         marginTop:10,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         height:30,
         borderRadius:4,
         marginRight:10,

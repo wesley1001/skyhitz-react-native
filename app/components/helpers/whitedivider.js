@@ -9,7 +9,7 @@ var styles = StyleSheet.create({
 
     separator:{
         height:0.5,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex: 1
     }
 

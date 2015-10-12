@@ -30,7 +30,7 @@ var styles = StyleSheet.create({
         borderLeftWidth: 0,
         borderRightWidth: 0,
         borderBottomColor: '#ccc',
-        backgroundColor:'white'
+        backgroundColor: '#ffffff'
     },
 });
 
@@ -65,8 +65,10 @@ var CustomTabBar = React.createClass({
             position: 'absolute',
             width: deviceWidth / numberOfTabs,
             height: 1,
+            borderBottomWidth:2,
+            borderBottomColor: '#1eaeff',           
             backgroundColor: '#1eaeff',
-            bottom: 0
+            bottom: 0,
         };
 
         return (

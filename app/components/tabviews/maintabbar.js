@@ -17,6 +17,7 @@ var Player = require('../player/player');
 var Entry = require('../entryviews/entry');
 var Subscribable = require('Subscribable');
 var TabNavigator = require('react-native-tab-navigator');
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
     Navigator,
@@ -41,12 +42,14 @@ var styles = StyleSheet.create({
         left: 0,
         right:0
     },
+    tabIcon: {
+        top: 3
+    },
     tabBars:{
         height:50,
         position: 'absolute',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor:'rgba(74,74,74,0.8)',
         alignItems:'flex-end',
         left: 0,
         right:0
@@ -59,10 +62,10 @@ var styles = StyleSheet.create({
     },
     appContainer: {
         flex: 1,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     searchTab:{
-        backgroundColor:'white'
+        backgroundColor: '#ffffff'
     },
     modalPlayer:{
         width:Dimensions.get('window').width,
@@ -104,16 +107,16 @@ var MainTabBar = React.createClass({
                 <TabNavigator>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'home'}
-                        renderIcon={() => <Image source={require('image!home-tab-icon-white')} style={styles.tabImgO}/>}
-                        renderSelectedIcon={() => <Image source={require('image!home-tab-icon-white')} style={styles.tabImg}/>}
+                        renderIcon={() => <Icon name="ios-home-outline" size={28} color="#fff" style={styles.tabIcon}/>}
+                        renderSelectedIcon={() => <Icon name="ios-home" size={28} color="#fff" style={styles.tabIcon}/>}
                         badgeText="1"
                         onPress={() => this.setState({ selectedTab: 'home' })}>
                         <Home/>
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'search'}
-                        renderIcon={() => <Image source={require('image!search-tab-icon-white')} style={styles.tabImgO}/>}
-                        renderSelectedIcon={() => <Image source={require('image!search-tab-icon-white')} style={styles.tabImg}/>}
+                        renderIcon={() => <Icon name="ios-search" size={28} color="#fff" style={styles.tabIcon}/>}
+                        renderSelectedIcon={() => <Icon name="ios-search-strong" size={28} color="#fff" style={styles.tabIcon}/>}
                         onPress={() => this.setState({ selectedTab: 'search' })}>
                         <Search/>
                     </TabNavigator.Item>
@@ -126,15 +129,15 @@ var MainTabBar = React.createClass({
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'profile'}
-                        renderIcon={() => <Image source={require('image!profile-tab-icon-white')} style={styles.tabImgO}/>}
-                        renderSelectedIcon={() => <Image source={require('image!profile-tab-icon-white')} style={styles.tabImg}/>}
+                        renderIcon={() => <Icon name="ios-person-outline" size={28} color="#fff" style={styles.tabIcon}/>}
+                        renderSelectedIcon={() => <Icon name="ios-person" size={28} color="#fff" style={styles.tabIcon}/>}
                         onPress={() => this.setState({ selectedTab: 'profile' })}>
                         <Profile/>
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'settings'}
-                        renderIcon={() => <Image source={require('image!settings-tab-icon-white')} style={styles.tabImgO}/>}
-                        renderSelectedIcon={() => <Image source={require('image!settings-tab-icon-white')} style={styles.tabImg}/>}
+                        renderIcon={() => <Icon name="ios-gear-outline" size={28} color="#fff" style={styles.tabIcon}/>}
+                        renderSelectedIcon={() => <Icon name="ios-gear" size={28} color="#fff" style={styles.tabIcon}/>}
                         onPress={() => this.setState({ selectedTab: 'settings' })}>
                         <Settings/>
                     </TabNavigator.Item>

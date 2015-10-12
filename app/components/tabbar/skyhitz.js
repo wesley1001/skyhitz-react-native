@@ -52,11 +52,11 @@ var SkyhitzTab = React.createClass({
 
 var styles = StyleSheet.create({
     SkyhitzTab: {
-        width:62,
-        height:62,
+        width:60,
+        height:60,
         borderWidth:2,
         borderRadius:31,
-        borderColor:'#393939',
+        borderColor:'#212121',
         backgroundColor:'#131313',
         alignItems: 'center',
         justifyContent: 'center'

@@ -67,7 +67,7 @@ var styles = StyleSheet.create({
     },
     followersCount:{
         marginRight:10,
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir'
     }
 });

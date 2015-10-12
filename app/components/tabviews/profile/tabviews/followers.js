@@ -49,7 +49,7 @@ var styles = StyleSheet.create({
         color:"#626363"
     },
     rowContainer:{
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     thumbRound:{
         width:40,
@@ -57,9 +57,9 @@ var styles = StyleSheet.create({
         borderRadius:20,
         marginRight:10
     },
-    rowWrapp:{
+    rowWrap:{
         flex:1,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         height:50
     },
     row: {
@@ -90,20 +90,20 @@ var styles = StyleSheet.create({
     },
     followersCount:{
         marginRight:10,
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir'
     },
     listview:{
         flex:1
     },
     username:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10
     },
     name:{
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
@@ -151,7 +151,7 @@ var Followers = React.createClass({
     renderFollower(user){
         return(
             <View>
-                <View style={styles.rowWrapp}>
+                <View style={styles.rowWrap}>
                     <View style={styles.row}>
                         <TouchableOpacity onPress={()=>this.goToProfile(user)}>
                             <View style={styles.leftSection}>

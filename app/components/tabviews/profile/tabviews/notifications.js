@@ -23,7 +23,7 @@ var styles = StyleSheet.create({
         flex:1
     },
     rowContainer:{
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     row: {
         flexDirection: 'row',
@@ -108,7 +108,7 @@ var styles = StyleSheet.create({
     },
     followersCount:{
         marginRight:10,
-        fontSize:10,
+        fontSize:12,
         fontFamily:'Avenir'
     },
     footer:{

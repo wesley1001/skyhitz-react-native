@@ -35,11 +35,11 @@ var styles = StyleSheet.create({
         backgroundColor:'#111111'
     },
     contentContainer:{
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     outerWrap:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     },
     pageWrap:{
         paddingLeft:10,
@@ -94,7 +94,7 @@ var styles = StyleSheet.create({
     },
     name:{
         fontFamily:'Avenir',
-        fontSize:10,
+        fontSize:12,
         marginTop:5,
         marginBottom:5,
         color:'black',
@@ -137,7 +137,7 @@ var styles = StyleSheet.create({
         flex:1,
         borderRadius:4,
         fontFamily:'Avenir',
-        fontSize:10,
+        fontSize:12,
         paddingLeft:10,
         marginTop:10
     },
@@ -205,7 +205,7 @@ var styles = StyleSheet.create({
         marginRight:10,
         borderRadius:4,
         fontFamily:'Avenir',
-        fontSize:10,
+        fontSize:12,
         paddingLeft:10
     },
     year:{
@@ -215,7 +215,7 @@ var styles = StyleSheet.create({
         marginRight:10,
         borderRadius:4,
         fontFamily:'Avenir',
-        fontSize:10,
+        fontSize:12,
         paddingLeft:10
     },
     cvvcode:{
@@ -225,7 +225,7 @@ var styles = StyleSheet.create({
         height:20,
         borderRadius:4,
         fontFamily:'Avenir',
-        fontSize:10,
+        fontSize:12,
         paddingLeft:10
     },
     addPointsBtn:{

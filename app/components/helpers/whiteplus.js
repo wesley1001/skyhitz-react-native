@@ -19,14 +19,14 @@ var styles = StyleSheet.create({
         height: 0.5,
         width:15,
         position:'absolute',
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         top:7.25
     },
     ver:{
         height:15,
         width:0.5,
         position:'absolute',
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         left:7.25
     }
 });

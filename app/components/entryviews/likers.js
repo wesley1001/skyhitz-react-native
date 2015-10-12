@@ -63,7 +63,7 @@ var styles = StyleSheet.create({
         marginTop:7
     },
     listview:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         width:windowSize.width
 
     },
@@ -84,7 +84,7 @@ var styles = StyleSheet.create({
         paddingTop:10,
         paddingBottom:10,
         paddingLeft:10,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1
     },
     leftSection:{
@@ -96,7 +96,7 @@ var styles = StyleSheet.create({
     },
     rowWrapp:{
         flex:1,
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         height:50
     },
     username:{

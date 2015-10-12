@@ -21,12 +21,12 @@ var styles = StyleSheet.create({
         backgroundColor:'#111111'
     },
     container:{
-        backgroundColor:'white',
+        backgroundColor: '#edf1f2',
         flex:1
     },
     homeFeed:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor: '#edf1f2'
     }
 });
 

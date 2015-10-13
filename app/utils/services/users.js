@@ -8,8 +8,15 @@ var Promise = require('bluebird');
 var Users = {
     users: [],
     getUserData(uid){
-        FirebaseRef.userData(uid).once('value',function(){
-
+        return new Promise(function(resolve, reject){
+            FirebaseRef.userData(uid).once('value',function(userSnap){
+                var user = userSnap.val();
+                if(user !== null){
+                    resolve(user)
+                }else{
+                    reject()
+                }
+            })
         })
     }
 };

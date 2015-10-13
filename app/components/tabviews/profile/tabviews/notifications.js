@@ -83,7 +83,8 @@ var styles = StyleSheet.create({
     },
     headerText:{
         fontFamily:'Avenir',
-        fontSize:12
+        fontSize:12,
+        color: '#51585e'
     },
     addNewText:{
         color:'#1dadff',

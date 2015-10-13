@@ -33,7 +33,8 @@ var styles = StyleSheet.create({
     },
     headerText:{
         fontFamily:'Avenir',
-        fontSize:12
+        fontSize:12,
+        color: '#51585e'
     },
     addNewText:{
         color:'#1dadff',
@@ -100,22 +101,25 @@ var styles = StyleSheet.create({
         fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
-        paddingLeft:10
+        paddingLeft:10,
+        color:'#51585e'
     },
     name:{
         fontSize:12,
         fontFamily:'Avenir',
         textAlign:'left',
         paddingLeft:10,
-        marginTop:2
-    },
+        marginTop:2,
+        color:'#51585e'
+    }
 });
 
 var Followers = React.createClass({
     getInitialState(){
         return {
             followersData:[],
-            followingData:[]
+            followingData:[],
+            profileUid: this.props.profileUid ? this.props.profileUid : User.getUid()
         }
     },
     getFollowersDataSource() {
@@ -128,13 +132,13 @@ var Followers = React.createClass({
         this.getFollowing();
     },
     getFollowing(){
-        User.getFollowing(User.getUid()).then((followings)=>{
+        User.getFollowing(this.state.profileUid).then((followings)=>{
             this.setState({followingData:followings})
             this.getFollowers()
         })
     },
     getFollowers(){
-        User.getFollowers(User.getUid()).then((followers)=>{
+        User.getFollowers(this.state.profileUid).then((followers)=>{
             this.setState({followersData:followers})
         })
     },

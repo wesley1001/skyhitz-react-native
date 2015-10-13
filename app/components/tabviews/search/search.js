@@ -38,7 +38,7 @@ var styles = StyleSheet.create({
 
     },
     container: {
-        backgroundColor: '#111111',
+        backgroundColor: 'rgba(41, 43, 51, .99)',
         paddingTop: 20,
         flex: 1
     },

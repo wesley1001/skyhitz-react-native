@@ -88,14 +88,14 @@ var ListsApi ={
             });
 
     },
-    getUserPlaylists(){
+    getUserPlaylists(uid){
 
         return new Promise(function(resolve, reject){
 
             // getting user playlists index
             var playlists = [];
 
-            FirebaseRef.userPlaylists(User.getUid()).once('value', function (snap) {
+            FirebaseRef.userPlaylists(uid).once('value', function (snap) {
 
                     var entriesObj = snap.val();
 

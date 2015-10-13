@@ -5,7 +5,7 @@ var Router = require('../../../../utils/services/router');
 var Divider = require('../../../helpers/homefeeddivider');
 var ListsApi = require('../../../../utils/services/lists');
 var Number = require('../../../../utils/number');
-
+var User = require('../../../../utils/services/user');
 
 var {
     StyleSheet,
@@ -83,7 +83,8 @@ var Playlists = React.createClass({
         console.log(this);
         return{
             lists:[],
-            followingLists:[]
+            followingLists:[],
+            profileUid: this.props.profileUid ? this.props.profileUid : User.getUid()
         }
     },
     componentWillMount () {
@@ -91,7 +92,7 @@ var Playlists = React.createClass({
     },
     getUserLists(){
         var that = this;
-        ListsApi.getUserPlaylists().then(function(lists){
+        ListsApi.getUserPlaylists(this.state.profileUid).then(function(lists){
             that.setState({lists:lists});
         });
     },
@@ -147,7 +148,7 @@ var Playlists = React.createClass({
           return(
               <View>
               <View style={styles.header}>
-                  <Text style={styles.headerText}>PLAYLISTS YOU FOLLOW</Text>
+                  <Text style={styles.headerText}>FOLLOWED PLAYLISTS</Text>
               </View>
               <Divider/>
               </View>
@@ -158,7 +159,7 @@ var Playlists = React.createClass({
         return(
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerText}>YOUR PLAYLISTS</Text>
+                    <Text style={styles.headerText}>PLAYLISTS</Text>
                     <TouchableOpacity style={styles.addNew} onPress={Router.addNewList}>
                         <Text style={styles.addNewText}>ADD NEW</Text>
                     </TouchableOpacity>

@@ -10,6 +10,7 @@ var Badges = require('./tabviews/badges');
 var Followers = require('./tabviews/followers');
 var Notifications = require('./tabviews/notifications');
 var User = require('../../../utils/services/user');
+var Users = require('../../../utils/services/users');
 var Router = require('../../../utils/services/router');
 var List = require('../../detailviews/list');
 var Dimensions = require('Dimensions');
@@ -124,19 +125,27 @@ var styles = StyleSheet.create({
 var Profile = React.createClass({
     getInitialState(){
         return {
-            profileUid: this.props.profileUid ? this.props.profileUid : User.userData.uid,
+            profileUid: this.props.route.profileUid ? this.props.route.profileUid : '',
             avatarUrl: User.userData.largeAvatarUrl,
             selectedTab:0,
             username:User.userData.username,
             followersCount:User.userData.followersCount,
-            avatar:User.userData.largeAvatarUrl,
             uid: User.getUid(),
             nav: this.props.nav,
             route: this.props.route
         }
     },
     getUserProfile(){
-
+        if(this.state.profileUid){
+            Users.getUserData(this.state.profileUid).then((user)=>{
+                this.setState({
+                    avatarUrl:user.largeAvatarUrl,
+                    username:user.username,
+                    followersCount:user.followersCount,
+                    uid:user.uid
+                })
+            })
+        }
     },
     componentDidMount () {
         this.getUserProfile()
@@ -200,13 +209,13 @@ var Profile = React.createClass({
                         </TouchableOpacity>
                     </View>
                     {this.state.selectedTab === 0 ?
-                        <Playlists nav={this.state.nav} route={this.state.route}/>
+                        <Playlists nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid}/>
                         :null }
                     {this.state.selectedTab === 1 ?
-                        <Followers/>
+                        <Followers profileUid={this.state.profileUid}/>
                         :null }
                     {this.state.selectedTab === 2 ?
-                        <Notifications uid={this.state.uid}/>
+                        <Notifications uid={this.state.uid} profileUid={this.state.profileUid}/>
                         :null }
                 </ScrollView>
                 </ParallaxView>

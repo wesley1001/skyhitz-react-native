@@ -9,6 +9,8 @@ var Time = require('../../../utils/time');
 var Slider = require('./slider');
 var Router = require('../../../utils/routers/home');
 var Player = require('../../player/player');
+var NavBar = require('../../navbar/navbar');
+
 
 var {
     View,
@@ -24,6 +26,10 @@ var {
 var styles = StyleSheet.create({
     container:{
         backgroundColor: '#edf1f2',
+        flex:1
+    },
+    bgContainer:{
+        backgroundColor: 'rgba(41, 43, 51, 1)',
         flex:1
     },
     rowContainer:{
@@ -235,7 +241,7 @@ var HomeFeed = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.uid)}>
                                     <Text style={styles.link}>{item.username}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> released </Text>
@@ -264,7 +270,7 @@ var HomeFeed = React.createClass({
                                     <Text style={styles.link}> a playlist </Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>by </Text>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.listAdminUid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.listAdminUid)}>
                                     <Text style={styles.link}>{item.listAdminUsername}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>.</Text>
@@ -343,16 +349,19 @@ var HomeFeed = React.createClass({
     },
     render () {
         return (
-            <View style={styles.container}>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow}
-                    automaticallyAdjustContentInsets={false}
-                    onEndReached={this.onEndReached}
-                    style={styles.listview}
-                    renderFooter={this.renderFooter}
-                    />
+            <View style={styles.bgContainer}>
+                <NavBar backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>
+                <View style={styles.container}>
+                     <ListView
+                        dataSource={this.state.dataSource}
+                        renderRow={this.renderRow}
+                        automaticallyAdjustContentInsets={false}
+                        onEndReached={this.onEndReached}
+                        style={styles.listview}
+                        renderFooter={this.renderFooter}
+                        />
 
+                </View>
             </View>
         );
     }

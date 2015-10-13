@@ -2,7 +2,6 @@
 
 var React = require('react-native');
 var NavBar = require('../navbar/navbar');
-var Router = require('../../utils/services/router');
 var CustomNav = require('../navbar/customnav');
 var HomeFeedDivider = require('../helpers/homefeeddivider');
 var ListsApi = require('../../utils/services/lists');
@@ -127,14 +126,7 @@ var Playlist = React.createClass({
         return this.state.playlistDataSource.cloneWithRows(data);
     },
     goBack(){
-
-        this.props.nav._renderedSceneMap._mapData[0][0].message !== "First Scene" ? Router.navigator.jumpBack() : this.componentWillUnmount();
-
-    },
-    componentWillUnmount() {
-
-        Router.navigator.pop();
-
+        this.props.nav.jumpBack();
     },
     componentDidMount() {
         this.getEntries();

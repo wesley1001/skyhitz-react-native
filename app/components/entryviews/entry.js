@@ -64,18 +64,20 @@ var styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         fontFamily: 'Avenir',
-        color: '#51585e'
+        color: '#51585e',
+        fontWeight: 'bold'
     },
     entryArtist: {
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: 'Avenir',
         color: '#51585e'
     },
     points: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: 'Avenir',
-        color: '#1eaeff'
+        color: '#1eaeff',
+        fontWeight: 'bold'
     },
     controls: {
         flexDirection: 'column',
@@ -485,11 +487,11 @@ var Entry = React.createClass({
                     <View style={styles.row}>
                         <View style={styles.titleWrap}>
                             {this.renderEntryPrize()}
-                            <Text style={styles.entryName}>{EntryTitle.getArtistName(this.state.title)}</Text>
+                            <Text style={styles.entryName}>{EntryTitle.getSongTitle(this.state.title)}</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
-                        <Text style={styles.entryArtist}>{EntryTitle.getSongTitle(this.state.title)}</Text>
+                        <Text style={styles.entryArtist}>{EntryTitle.getArtistName(this.state.title)}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.points}>{this.state.points == 0 ? "" : (this.state.points + " pts")}</Text>

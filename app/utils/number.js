@@ -15,6 +15,12 @@ var Number = {
 
         }
 
+        if(number === 1){
+
+            return '1 Follower';
+
+        }
+
         if(number > 0){
 
             if(number >= 1000000){

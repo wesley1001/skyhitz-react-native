@@ -68,13 +68,11 @@ var styles = StyleSheet.create({
        flexWrap:"nowrap",
        alignItems:'center'
     },
-    followersSection:{
-        flex:1
-    },
     followersCount:{
         marginRight:10,
         fontSize:12,
-        fontFamily:'Avenir'
+        fontFamily:'Avenir',
+        color:"#51585e"
     }
 });
 
@@ -83,17 +81,22 @@ var Playlists = React.createClass({
         console.log(this);
         return{
             lists:[],
-            followingLists:[],
+            followedLists:[],
             profileUid: this.props.profileUid ? this.props.profileUid : User.getUid()
         }
     },
     componentWillMount () {
         this.getUserLists();
+        this.getFollowedLists();
     },
     getUserLists(){
-        var that = this;
-        ListsApi.getUserPlaylists(this.state.profileUid).then(function(lists){
-            that.setState({lists:lists});
+        ListsApi.getUserLists(this.state.profileUid).then((lists) => {
+            this.setState({lists:lists});
+        });
+    },
+    getFollowedLists(){
+        ListsApi.getFollowedLists(this.state.profileUid).then((lists) => {
+            this.setState({followedLists:lists});
         });
     },
     goToList(listUid,listName){
@@ -123,28 +126,28 @@ var Playlists = React.createClass({
             </View>
         )
     },
-    renderFollowingLists(){
+    renderFollowedLists(list){
         return(
             <View>
             <View style={styles.row}>
-                <View style={styles.leftSection}>
-                    <TouchableOpacity style={styles.playlistIconWrap}>
-                        <Image source={require('image!playlisticon')} style={styles.playlistIcon}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.playlistTitle}>
-                        <Text style={styles.playlistText}>ELECTRO HOUSE</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.leftSection} onPress={()=>this.goToList(list.listUid, list.name)}>
+                    <View style={styles.playlistIconWrap}>
+                        <Image source={list.avatar == "" ? require('image!avatar'):{uri:list.avatar.small}} style={styles.playlistIcon}/>
+                    </View>
+                    <View style={styles.playlistTitle}>
+                        <Text style={styles.playlistText}>{list.name}</Text>
+                    </View>
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.followersSection}>
-                    <Text style={styles.followersCount}>13 followers</Text>
+                    <Text style={styles.followersCount}>{Number.getFollowers(list.followersCount)}</Text>
                 </TouchableOpacity>
             </View>
             <Divider/>
             </View>
         )
     },
-    renderFollowingListsHeader(){
-        if(this.state.followingLists.length > 0){
+    renderFollowedListsHeader(){
+        if(this.state.followedLists.length > 0){
           return(
               <View>
               <View style={styles.header}>
@@ -166,8 +169,8 @@ var Playlists = React.createClass({
                 </View>
                 <Divider/>
                 {this.state.lists.map((list) => this.renderUserLists(list))}
-                {this.renderFollowingListsHeader()}
-                {this.state.followingLists.map((list)=>this.renderFollowingLists(list))}
+                {this.renderFollowedListsHeader()}
+                {this.state.followedLists.map((list)=>this.renderFollowedLists(list))}
             </View>
         )
     }

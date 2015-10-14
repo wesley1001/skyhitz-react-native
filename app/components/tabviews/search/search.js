@@ -72,8 +72,8 @@ var styles = StyleSheet.create({
         textAlign: 'left',
         paddingLeft: 10,
         marginBottom: 2,
-        marginTop: 1
-
+        marginTop: 1,
+        color:'#51585e'
     },
     title: {
         fontSize:12,
@@ -81,7 +81,8 @@ var styles = StyleSheet.create({
         textAlign: 'left',
         fontWeight: 'bold',        
         paddingLeft: 10,
-        marginTop: 2
+        marginTop: 2,
+        color:'#51585e'
     },
     communityTab: {
         backgroundColor: '#edf1f2',

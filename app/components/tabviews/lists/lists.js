@@ -76,6 +76,13 @@ var styles = StyleSheet.create({
         alignItems:'center',
         flex:1
     },
+    rightRowSection:{
+        flexDirection:'row',
+        justifyContent:'flex-end',
+        flexWrap:'nowrap',
+        alignItems:'center',
+        flex:1
+    },
     rightSection:{
         flexDirection:'row',
         justifyContent:'flex-end',
@@ -92,7 +99,8 @@ var styles = StyleSheet.create({
         textAlign:'left',
         paddingLeft:10,
         marginBottom:2,
-        marginTop:1
+        marginTop:1,
+        color:'#51585e'
     },
     title:{
         fontSize:12,
@@ -100,7 +108,8 @@ var styles = StyleSheet.create({
         fontWeight: 'bold',        
         textAlign:'left',
         paddingLeft:10,
-        marginTop:2
+        marginTop:2,
+        color:'#51585e'
     },
     points:{
         fontSize:12,
@@ -222,7 +231,7 @@ var Lists = React.createClass({
                                 <Image source={{uri:item.youtubeData.snippet.thumbnails.default.url}} style={styles.thumb}/>
                                 <View style={styles.info}>
                                     <Text style={[styles.title,this.getCurrentVideoStyle(item)]}>{EntryTitle.getSongTitle(item.youtubeData.snippet.title)}</Text>
-                                    <Text style={[styles.searchArtistTitle,{color:(item.youtubeData.videoId == this.state.currentVideoId) ? 'rgba(29, 173, 255, 1)':'rgba(0, 0, 0, 1)'}]}>{EntryTitle.getArtistName(item.youtubeData.snippet.title)}</Text>
+                                    <Text style={[styles.searchArtistTitle,{color:(item.youtubeData.videoId == this.state.currentVideoId) ? 'rgba(29, 173, 255, 1)':'#51585e'}]}>{EntryTitle.getArtistName(item.youtubeData.snippet.title)}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -250,10 +259,12 @@ var Lists = React.createClass({
                                 </View>
                             </View>
                         </TouchableOpacity>
+                        <View style={styles.rightRowSection}>
                         <View style={styles.listFollowers}>
                             <Text style={styles.textListFollowers}>{Number.getFollowers(item.followersCount)}</Text>
                         </View>
                         <ThreeDots onPress={()=>this.showActionSheetHotLists(item)}/>
+                        </View>
                     </View>
                 </View>
                 <Divider style={styles.horDivider}/>

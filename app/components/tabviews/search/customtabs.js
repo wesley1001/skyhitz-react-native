@@ -40,14 +40,13 @@ var CustomTabBar = React.createClass({
         activeTab: React.PropTypes.number,
         tabs: React.PropTypes.array
     },
-
     renderTabOption(name, page) {
         var isTabActive = this.props.activeTab === page;
 
         return (
             <TouchableOpacity key={name} onPress={() => this.props.goToPage(page)}>
                 <View style={[styles.tab]}>
-                    <Text style={{color: isTabActive ? '#1eaeff' : 'black',fontFamily:'Avenir',fontSize:12}}>{name}</Text>
+                    <Text style={{color: isTabActive ? '#1eaeff' : '#51585e',fontFamily:'Avenir',fontSize:12}}>{name}</Text>
                 </View>
             </TouchableOpacity>
         );

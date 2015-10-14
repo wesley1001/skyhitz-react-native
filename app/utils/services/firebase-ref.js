@@ -100,6 +100,9 @@ var Firebase = require('firebase'),
             userPlaylists(uid){
                 return ref.child('listInfo/index/userToList/'+uid);
             },
+            followedLists(uid){
+                return ref.child('followInfo/index/userToLists/'+uid);
+            },
 
             // Notifications
 

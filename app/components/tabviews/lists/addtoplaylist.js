@@ -149,7 +149,7 @@ var AddToPlaylist = React.createClass({
 
         var that = this;
 
-        ListsApi.getUserPlaylists().then(function(list){
+        ListsApi.getUserLists().then(function(list){
             that.list = list;
             that.setState({
                 isLoading: false,

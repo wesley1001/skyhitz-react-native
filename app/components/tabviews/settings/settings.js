@@ -25,9 +25,6 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
-    name: {
-        color: 'red',        
-    },
     description:{
         fontSize:20,
         textAlign:'center',

@@ -8,7 +8,7 @@ var secrets = require('../../utils/secrets/secrets');
 var User = require('../../utils/services/user');
 var Dimensions = require('Dimensions');
 var Loading = require('../loaders/loadingctrl');
-
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     StyleSheet,
@@ -20,6 +20,9 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    blur: {
+        height:Dimensions.get('window').height
+    },
     bg: {
         position: 'absolute',
         left: 0,
@@ -128,31 +131,32 @@ var ArtistLogin = React.createClass({
     },
     render(){
         return(
-            <Image style={styles.bg} source={require('image!bglogin')}>
+                <Image style={styles.bg} source={require('image!bglogin')}>
+                    <BlurView blurType="dark" style={styles.blur}>
+                        <NavBar backBtn={true} fwdBtn={false} logoType={false} transparentBackground={true}/>
 
-                <NavBar backBtn={true} fwdBtn={false} logoType={false} transparentBackground={true}/>
+                        <View style={styles.contentWrap}>
 
-                <View style={styles.contentWrap}>
+                            <View style={styles.brand}>
+                                <Image style={styles.logo} source={require('image!logo')}></Image>
+                                <Text style={styles.title}>SKYHITZ</Text>
+                            </View>
+                            <View style={styles.loginInfo}>
+                                <Text style={styles.info}>In order to authenticate Artists, Skyhitz requires a login with the Youtube account connected to your music.</Text>
+                            </View>
+                            <View style={styles.signInWrap}>
+                                <TouchableHighlight style={styles.loginYoutube} onPress={this.logInWithGoogle}>
+                                    <Text style={styles.loginYt}>LOGIN WITH YOUTUBE</Text>
+                                </TouchableHighlight>
+                            </View>
+                            <View style={styles.footer}>
+                                <Text style={styles.footerText}>By using Skyhitz, you agree to the </Text>
+                                <Text style={styles.footerText}><Text style={styles.link}>Terms of Use</Text> and <Text style={styles.link}>Privacy Policy.</Text></Text>
+                            </View>
 
-                    <View style={styles.brand}>
-                        <Image style={styles.logo} source={require('image!logo')}></Image>
-                        <Text style={styles.title}>SKYHITZ</Text>
-                    </View>
-                    <View style={styles.loginInfo}>
-                        <Text style={styles.info}>In order to authenticate Artists, Skyhitz requires a login with the Youtube account connected to your music.</Text>
-                    </View>
-                    <View style={styles.signInWrap}>
-                        <TouchableHighlight style={styles.loginYoutube} onPress={this.logInWithGoogle}>
-                            <Text style={styles.loginYt}>LOGIN WITH YOUTUBE</Text>
-                        </TouchableHighlight>
-                    </View>
-                    <View style={styles.footer}>
-                        <Text style={styles.footerText}>By using Skyhitz, you agree to the </Text>
-                        <Text style={styles.footerText}><Text style={styles.link}>Terms of Use</Text> and <Text style={styles.link}>Privacy Policy.</Text></Text>
-                    </View>
-
-                </View>
-            </Image>
+                        </View>
+                    </BlurView>
+                </Image>
         )
     }
 });

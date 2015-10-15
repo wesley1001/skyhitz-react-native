@@ -8,6 +8,7 @@ var Divider = require('../helpers/whitedivider');
 var Name = require('./name');
 var Loading = require('../loaders/loadingctrl');
 var User = require('../../utils/services/user');
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     StyleSheet,
@@ -21,6 +22,9 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    blur: {
+        height:Dimensions.get('window').height
+    },        
     bg: {
         position: 'absolute',
         left: 0,
@@ -139,41 +143,42 @@ var Join = React.createClass({
         return(
 
             <Image style={styles.bg} source={require('image!bgpasswordjoin')}>
+                <BlurView blurType="dark" style={styles.blur}>
+                    <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
 
-                <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
+                    <View style={styles.inputContainer}>
 
-                <View style={styles.inputContainer}>
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="EMAIL"
+                        autoCorrect={false}
+                        autoFocus={true}
+                        style={styles.emailInput}
+                        placeholderTextColor="white"
+                        value={this.state.email}
+                        onChangeText={(text) => {
+                        this.setState({email:text});
+                        }}
+                        />
+                    <Divider />
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="PASSWORD"
+                        autoCorrect={false}
+                        style={styles.passwordInput}
+                        secureTextEntry={true}
+                        placeholderTextColor="white"
+                        value={this.state.password}
+                        onChangeText={(text) => {
+                        this.setState({password:text});
+                        }}
+                        />
+                    <TouchableHighlight style={styles.joinBtn} onPress={this.createUser}>
+                        <Text style={styles.joinTextBtn}>JOIN</Text>
+                    </TouchableHighlight>
 
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="EMAIL"
-                    autoCorrect={false}
-                    autoFocus={true}
-                    style={styles.emailInput}
-                    placeholderTextColor="white"
-                    value={this.state.email}
-                    onChangeText={(text) => {
-                    this.setState({email:text});
-                    }}
-                    />
-                <Divider />
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="PASSWORD"
-                    autoCorrect={false}
-                    style={styles.passwordInput}
-                    secureTextEntry={true}
-                    placeholderTextColor="white"
-                    value={this.state.password}
-                    onChangeText={(text) => {
-                    this.setState({password:text});
-                    }}
-                    />
-                <TouchableHighlight style={styles.joinBtn} onPress={this.createUser}>
-                    <Text style={styles.joinTextBtn}>JOIN</Text>
-                </TouchableHighlight>
-
-                </View>
+                    </View>
+                </BlurView>
             </Image>
         )
     }

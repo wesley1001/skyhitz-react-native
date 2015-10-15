@@ -8,6 +8,7 @@ var Divider = require('../helpers/whitedivider');
 var Loading = require('../loaders/loadingctrl');
 var User = require('../../utils/services/user');
 var Router = require('../../utils/services/router');
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     StyleSheet,
@@ -21,6 +22,9 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    blur: {
+        height:Dimensions.get('window').height
+    },        
     bg: {
         position: 'absolute',
         left: 0,
@@ -139,26 +143,28 @@ var ForgotPass = React.createClass({
     render: function(){
         return(
             <Image style={styles.bg} source={require('image!bgpasswordlogin')}>
-                <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
-                <View style={styles.inputContainer}>
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="EMAIL"
-                    autoFocus={true}
-                    autoCorrect={false}
-                    style={styles.emailInput}
-                    placeholderTextColor="white"
-                    value={this.state.email}
-                    onChangeText={(text) => {
-                    this.setState({email:text});
-                    }}
-                    />
-                <Divider />
-                <TouchableHighlight style={styles.joinBtn} onPress={this.sendResetEmail}>
-                    <Text style={styles.joinTextBtn}>Send Reset Email</Text>
-                </TouchableHighlight>
-                    <Text style={styles.forgotPassText}>We'll send you an email to reset your password.</Text>
-                </View>
+                <BlurView blurType="dark" style={styles.blur}>            
+                    <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
+                    <View style={styles.inputContainer}>
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="EMAIL"
+                        autoFocus={true}
+                        autoCorrect={false}
+                        style={styles.emailInput}
+                        placeholderTextColor="white"
+                        value={this.state.email}
+                        onChangeText={(text) => {
+                        this.setState({email:text});
+                        }}
+                        />
+                    <Divider />
+                    <TouchableHighlight style={styles.joinBtn} onPress={this.sendResetEmail}>
+                        <Text style={styles.joinTextBtn}>Send Reset Email</Text>
+                    </TouchableHighlight>
+                        <Text style={styles.forgotPassText}>We'll send you an email to reset your password.</Text>
+                    </View>
+                </BlurView>
             </Image>
         )
     }

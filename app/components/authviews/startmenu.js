@@ -5,6 +5,9 @@ var Router = require('../../utils/services/router');
 var LocalStorage = require('../../utils/services/asyncstorage');
 var User = require('../../utils/services/user');
 var Loading = require('../loaders/loadingctrl');
+var Dimensions = require('Dimensions');
+var BlurView = require('react-native-blur').BlurView;
+var VibrancyView = require('react-native-blur').VibrancyView;
 
 var {
     StyleSheet,
@@ -16,10 +19,22 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    blur: {
+        height:Dimensions.get('window').height
+    },
+    vibrant: {
+    },    
+    bg: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width:Dimensions.get('window').width,
+        height:Dimensions.get('window').height
+    },    
     container: {
         flexDirection: 'column',
         flex: 1,
-        backgroundColor: '#111111',
+        backgroundColor: 'transparent',
         justifyContent:'space-around',
         alignItems:'center',
         paddingVertical:28
@@ -126,22 +141,30 @@ var StartMenu = React.createClass({
     },
     render(){
         return(
-            <View style={styles.container}>
-                <View style={styles.welcome}>
-                    <Image style={styles.logo} source={require('image!logo')}></Image>
-                    <Text style={styles.title}>WELCOME</Text>
-                </View>
-                <View style={styles.wrap}>
-                    <Text style={styles.regularText}>Are you a Skyhitz</Text>
-                    <TouchableHighlight style={styles.buttonArtist} onPress={Router.goToArtistLogin}>
-                        <Text style={styles.buttonText}>ARTIST</Text>
-                    </TouchableHighlight>
-                    <Text style={styles.regularText}>or new to the</Text>
-                    <TouchableHighlight style={styles.button} onPress={Router.goToCommunityLogin}>
-                        <Text style={styles.buttonText}>COMMUNITY</Text>
-                    </TouchableHighlight>
-                </View>
-            </View>
+            <Image style={styles.bg} source={require('image!bgloginstart')}>
+                <BlurView blurType="dark" style={styles.blur}>            
+                    <View style={styles.container}>
+                        <View style={styles.welcome}>
+                            <Image style={styles.logo} source={require('image!logo')}></Image>
+                            <Text style={styles.title}>WELCOME</Text>
+                        </View>
+                        <View style={styles.wrap}>
+                            <Text style={styles.regularText}>Are you a Skyhitz</Text>
+                            <BlurView blurType="dark" style={styles.vibrant}>            
+                                <TouchableHighlight style={styles.buttonArtist} onPress={Router.goToArtistLogin}>
+                                        <Text style={styles.buttonText}>ARTIST</Text>
+                                </TouchableHighlight>
+                            </BlurView>
+                                <Text style={styles.regularText}>or new to the</Text>
+                            <BlurView blurType="dark" style={styles.vibrant}>            
+                                <TouchableHighlight style={styles.button} onPress={Router.goToCommunityLogin}>
+                                    <Text style={styles.buttonText}>COMMUNITY</Text>
+                                </TouchableHighlight>
+                            </BlurView>            
+                        </View>
+                    </View>
+                </BlurView>
+            </Image>
         )
     }
 });

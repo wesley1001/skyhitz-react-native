@@ -9,6 +9,7 @@ var Divider = require('../helpers/whitedivider');
 var ForgotPass = require('./forgotpass');
 var Loading = require('../loaders/loadingctrl');
 var User = require('../../utils/services/user');
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     StyleSheet,
@@ -23,6 +24,9 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    blur: {
+        height:Dimensions.get('window').height
+    },        
     bg: {
         position: 'absolute',
         left: 0,
@@ -131,45 +135,46 @@ var Login = React.createClass({
     render (){
         return(
             <Image style={styles.bg} source={require('image!bgpasswordlogin')}>
+                <BlurView blurType="dark" style={styles.blur}>
 
-                <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
+                    <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
 
-                <View style={styles.inputContainer}>
+                    <View style={styles.inputContainer}>
 
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="EMAIL"
-                    autoCorrect={false}
-                    style={styles.emailInput}
-                    autoFocus={true}
-                    placeholderTextColor="white"
-                    value={this.state.email}
-                    onChangeText={(text) => {
-                    this.setState({email:text});
-                    }}
-                    />
-                <Divider />
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="PASSWORD"
-                    autoCorrect={false}
-                    style={styles.passwordInput}
-                    secureTextEntry={true}
-                    placeholderTextColor="white"
-                    value={this.state.password}
-                    onChangeText={(text) => {
-                    this.setState({password:text});
-                    }}
-                    />
-                <TouchableHighlight style={styles.joinBtn} onPress={this.logIn}>
-                    <Text style={styles.joinTextBtn}>LOGIN</Text>
-                </TouchableHighlight>
-                <TouchableOpacity  style={styles.forgotPass} onPress={Router.goToForgotPass} activeOpacity={0.8}>
-                    <Text style={styles.forgotPassText}>Forgotten your password?</Text>
-                </TouchableOpacity>
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="EMAIL"
+                        autoCorrect={false}
+                        style={styles.emailInput}
+                        autoFocus={true}
+                        placeholderTextColor="white"
+                        value={this.state.email}
+                        onChangeText={(text) => {
+                        this.setState({email:text});
+                        }}
+                        />
+                    <Divider />
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="PASSWORD"
+                        autoCorrect={false}
+                        style={styles.passwordInput}
+                        secureTextEntry={true}
+                        placeholderTextColor="white"
+                        value={this.state.password}
+                        onChangeText={(text) => {
+                        this.setState({password:text});
+                        }}
+                        />
+                    <TouchableHighlight style={styles.joinBtn} onPress={this.logIn}>
+                        <Text style={styles.joinTextBtn}>LOGIN</Text>
+                    </TouchableHighlight>
+                    <TouchableOpacity  style={styles.forgotPass} onPress={Router.goToForgotPass} activeOpacity={0.8}>
+                        <Text style={styles.forgotPassText}>Forgotten your password?</Text>
+                    </TouchableOpacity>
 
-                </View>
-
+                    </View>
+                </BlurView>
             </Image>
         )
     }

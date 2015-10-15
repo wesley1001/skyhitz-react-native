@@ -7,7 +7,7 @@ var FacebookLoginManager = require('NativeModules').FacebookLoginManager;
 var User = require('../../utils/services/user');
 var Dimensions = require('Dimensions');
 var Loading = require('../loaders/loadingctrl');
-
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     StyleSheet,
@@ -19,6 +19,9 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    blur: {
+        height:Dimensions.get('window').height
+    },    
     bg: {
         position: 'absolute',
         left: 0,
@@ -162,29 +165,28 @@ var CommunityLogin = React.createClass({
     render(){
         return(
             <Image style={styles.bg} source={require('image!bglogin')}>
-
-                <NavBar backBtn={true} fwdBtn={false} logoType={false} transparentBackground={true}/>
-
-                <View style={styles.contentWrap}>
-
-                <View style={styles.brand}>
-                    <Image style={styles.logo} source={require('image!logo')}></Image>
-                    <Text style={styles.title}>SKYHITZ</Text>
-                </View>
-                <View style={styles.signInWrap}>
-                   <TouchableHighlight style={styles.loginFacebook} onPress={this.loginWithFacebook}>
-                       <Text style={styles.loginFb}>LOGIN WITH FACEBOOK</Text>
-                   </TouchableHighlight>
-                    <View style={styles.joinContainer}>
-                        <TouchableHighlight style={styles.joinBtn} onPress={Router.goToJoin}><Text style={styles.joinText}>JOIN</Text></TouchableHighlight>
-                        <TouchableHighlight style={styles.loginBtn} onPress={Router.goToLogin}><Text style={styles.loginText}>LOGIN</Text></TouchableHighlight>
+                <BlurView blurType="dark" style={styles.blur}>
+                    <NavBar backBtn={true} fwdBtn={false} logoType={false} transparentBackground={true}/>
+                    <View style={styles.contentWrap}>
+                        <View style={styles.brand}>
+                            <Image style={styles.logo} source={require('image!logo')}></Image>
+                            <Text style={styles.title}>SKYHITZ</Text>
+                        </View>
+                        <View style={styles.signInWrap}>
+                           <TouchableHighlight style={styles.loginFacebook} onPress={this.loginWithFacebook}>
+                               <Text style={styles.loginFb}>LOGIN WITH FACEBOOK</Text>
+                           </TouchableHighlight>
+                            <View style={styles.joinContainer}>
+                                <TouchableHighlight style={styles.joinBtn} onPress={Router.goToJoin}><Text style={styles.joinText}>JOIN</Text></TouchableHighlight>
+                                <TouchableHighlight style={styles.loginBtn} onPress={Router.goToLogin}><Text style={styles.loginText}>LOGIN</Text></TouchableHighlight>
+                            </View>
+                        </View>
+                        <View style={styles.footer}>
+                            <Text style={styles.footerText}>By using Skyhitz, you agree to the </Text>
+                            <Text style={styles.footerText}><Text style={styles.link}>Terms of Use</Text> and <Text style={styles.link}>Privacy Policy.</Text></Text>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.footer}>
-                    <Text style={styles.footerText}>By using Skyhitz, you agree to the </Text>
-                    <Text style={styles.footerText}><Text style={styles.link}>Terms of Use</Text> and <Text style={styles.link}>Privacy Policy.</Text></Text>
-                </View>
-                </View>
+                </BlurView>                
             </Image>
         )
     }

@@ -7,6 +7,7 @@ var windowSize = Dimensions.get('window');
 var Divider = require('../helpers/divider');
 var Loading = require('../loaders/loadingctrl');
 var User = require('../../utils/services/user');
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     StyleSheet,
@@ -20,6 +21,9 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    blur: {
+        height:Dimensions.get('window').height
+    },        
     bg: {
         position: 'absolute',
         left: 0,
@@ -93,25 +97,27 @@ var Name = React.createClass({
     render: function (){
         return(
             <Image style={styles.bg} source={require('image!bgpasswordjoin')}>
-                <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        autoCapitalize="none"
-                        placeholder="E-MAIL"
-                        autoFocus={true}
-                        autoCorrect={false}
-                        style={styles.emailInput}
-                        placeholderTextColor="white"
-                        value={this.state.email}
-                        onChangeText={(text) => {
-                    this.setState({email:text});
-                    }}
-                        />
-                    <Divider />
-                    <TouchableHighlight style={styles.joinBtn} onPress={this.updateName}>
-                        <Text style={styles.joinTextBtn}>DONE</Text>
-                    </TouchableHighlight>
-                </View>
+                <BlurView blurType="dark" style={styles.blur}>
+                    <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            autoCapitalize="none"
+                            placeholder="E-MAIL"
+                            autoFocus={true}
+                            autoCorrect={false}
+                            style={styles.emailInput}
+                            placeholderTextColor="white"
+                            value={this.state.email}
+                            onChangeText={(text) => {
+                        this.setState({email:text});
+                        }}
+                            />
+                        <Divider />
+                        <TouchableHighlight style={styles.joinBtn} onPress={this.updateName}>
+                            <Text style={styles.joinTextBtn}>DONE</Text>
+                        </TouchableHighlight>
+                    </View>
+                </BlurView>
             </Image>
         )
     }

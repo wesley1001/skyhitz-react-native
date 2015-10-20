@@ -18,6 +18,8 @@ var {
     Text,
     Navigator,
     WebView,
+    AlertIOS,
+    ActionSheetIOS,
     TouchableOpacity,
     TouchableHighlight,
     NativeModules,
@@ -372,8 +374,7 @@ var Entry = React.createClass({
             return (
                 <TouchableHighlight style={styles.plusFriendsCircle}
                                     onPress={()=>Router.goToLikers(this.state.entryUid)}>
-                    <Text
-                        style={styles.plusFriends}>+{this.state.likers.moreLikers ? this.state.likers.moreLikers : ''}</Text>
+                    <Text style={styles.plusFriends}>+{this.state.likers.moreLikers ? this.state.likers.moreLikers : ''}</Text>
                 </TouchableHighlight>);
         }
     },
@@ -393,6 +394,81 @@ var Entry = React.createClass({
                 </TouchableOpacity>
             )
         }
+    },
+    confirmTransaction(points){
+      EntryApi.addPoints(this.state.selectedEntryUid, points);
+    },
+    promptResponse(promptValue) {
+      if(User.userData.points < promptValue){
+        AlertIOS.alert(
+          null,
+          "You don't have enough points in your account."
+        )
+      }else{
+        AlertIOS.alert(
+          null,
+          promptValue+ " Points will be added to this song.",
+          [
+            {text: 'Cancel', onPress: () => console.log('cancelled')},
+            {text: 'Confirm', onPress: () => this.confirmTransaction(promptValue)}
+          ]
+        )
+      }
+    },
+    addPoints(entryUid) {
+      this.setState({selectedEntryUid: entryUid});
+      var title = 'How many Skyhitz points would you like to add to this song? 1 USD = 1 POINT.';
+      var points = '1';
+      AlertIOS.prompt(title, points, this.promptResponse);
+    },
+    showShareActionSheet() {
+      ActionSheetIOS.showShareActionSheetWithOptions({
+          url: 'https://code.facebook.com',
+        },
+        (error) => {
+          console.error(error);
+        },
+        (success, method) => {
+          var text;
+          if (success) {
+            text = `Shared via ${method}`;
+          } else {
+            text = 'You didn\'t share';
+          }
+          this.setState({text})
+        });
+    },
+    showActionSheet() {
+      var BUTTONS = [
+        'Add Points',
+        'Add to a Playlist',
+        'Share Song...',
+        'Cancel'
+      ];
+      var DESTRUCTIVE_INDEX = 3;
+      var CANCEL_INDEX = 4;
+
+      ActionSheetIOS.showActionSheetWithOptions({
+          options: BUTTONS,
+          //  cancelButtonIndex: CANCEL_INDEX,
+          destructiveButtonIndex: DESTRUCTIVE_INDEX
+        },
+        (buttonIndex) => {
+
+          switch (buttonIndex){
+            case 0:
+              this.addPoints(this.state.entryUid);
+              break;
+            case 1:
+              Router.addToPlaylist(this.state.entryUid);
+              break;
+            case 2:
+              this.showShareActionSheet();
+              break;
+            default :
+              return;
+          }
+        });
     },
     seekToSeconds(fractionValue){
         var seconds = fractionValue * this.state.duration;
@@ -463,7 +539,7 @@ var Entry = React.createClass({
         return (
             <View style={styles.container}>
                 <NavBar downBtn={true} backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}
-                        menuBtn={true}/>
+                        menuBtn={true} menuPressFunc={this.showActionSheet}/>
                 <YouTube
                     videoId={this.state.entryUid} // The YouTube video ID
                     play={this.state.isPlaying}           // control playback of video with true/false

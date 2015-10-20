@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Router = require('../../../utils/services/router');
+var User = require('../../../utils/services/user');
 var CustomNav = require('../../navbar/customnav');
 var HomeFeedDivider = require('../../helpers/homefeeddivider');
 var ListsApi = require('../../../utils/services/lists');
@@ -116,7 +117,7 @@ var AddToPlaylist = React.createClass({
             playlistsDataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2
             }),
-            entryUid:Router.route.passProps.youtubeData.id.videoId
+            entryUid:Router.route.entryUid
         }
     },
     getPlaylistsDataSource: function(data: Array<any>): ListView.DataSource {
@@ -149,7 +150,7 @@ var AddToPlaylist = React.createClass({
 
         var that = this;
 
-        ListsApi.getUserLists().then(function(list){
+        ListsApi.getUserLists(User.getUid()).then(function(list){
             that.list = list;
             that.setState({
                 isLoading: false,

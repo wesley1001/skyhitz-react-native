@@ -5,6 +5,7 @@ var Divider = require('../../../helpers/homefeeddivider');
 var ProfileFeed = require('../../../../utils/services/profilefeed');
 var User = require('../../../../utils/services/user');
 var Time = require('../../../../utils/time');
+var Router = require('../../../../utils/routers/profile');
 
 var {
     StyleSheet,
@@ -249,7 +250,7 @@ var Notifications = React.createClass({
                                     <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> followed</Text>
-                                <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>
+                                <TouchableOpacity onPress={()=>Router.goToList(item.listUid)}>
                                     <Text style={styles.link}> a playlist </Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>by </Text>
@@ -274,7 +275,7 @@ var Notifications = React.createClass({
                                     <Text style={styles.link}>{this.getOwnerYouException(item)}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> created a new</Text>
-                                <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>
+                                <TouchableOpacity onPress={()=>Router.goToList(item.listUid)}>
                                     <Text style={styles.link}> playlist</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>.</Text>
@@ -299,7 +300,7 @@ var Notifications = React.createClass({
                                     <Text style={styles.link}> a song</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> to</Text>
-                                <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>
+                                <TouchableOpacity onPress={()=>Router.goToList(item.listUid)}>
                                     <Text style={styles.link}> a playlist</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>.</Text>

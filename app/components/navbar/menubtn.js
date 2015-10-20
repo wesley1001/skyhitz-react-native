@@ -9,20 +9,25 @@ var {
     Component
     } = React;
 
-class MenuBtn extends Component{
+var MenuBtn = React.createClass({
+    getInitialState(){
+        return{
+            pressFunc: this.props.pressFunc ? this.props.pressFunc : ''
+        }
+    },
     render(){
         return(
             <TouchableOpacity
-                onPress={this.props.onPress} style={styles.btnWrap}>
+                onPress={this.state.pressFunc} style={styles.btnWrap}>
                 <View style={styles.navBarRightButton}>
                     <View style={styles.dot}></View>
                     <View style={styles.dot}></View>
                     <View style={styles.dot}></View>
                 </View>
             </TouchableOpacity>
-        );
+        )
     }
-}
+});
 
 var styles = StyleSheet.create({
     navBarRightButton: {

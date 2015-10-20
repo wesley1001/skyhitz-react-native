@@ -95,10 +95,10 @@ var Router = {
             entryUid: entryUid
         })
     },
-    addToPlaylist(item){
+    addToPlaylist(entryUid){
         Router.navigator.push({
             id:'addtoplaylist',
-            passProps:item
+            entryUid:entryUid
         })
     },
     addNewList(listAvatar){

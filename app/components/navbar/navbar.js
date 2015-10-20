@@ -59,6 +59,7 @@ var NavBar = React.createClass({
           logoType: this.props.logoType ? this.props.logoType : null,
           fwdBtn: this.props.fwdBtn ? this.props.fwdBtn : null,
           menuBtn: this.props.menuBtn ? this.props.menuBtn : null,
+          menuPressFunc: this.props.menuPressFunc ? this.props.menuPressFunc : null,
           title: this.props.title ? this.props.title : null,
           transparentBackground:this.props.transparentBackground ? this.props.transparentBackground : null
       }
@@ -112,7 +113,7 @@ var NavBar = React.createClass({
         )
       }else if(this.state.menuBtn === true){
         return(
-          <MenuBtn/>
+          <MenuBtn pressFunc={this.state.menuPressFunc}/>
         )
       }else{
         return(

@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var MainRouter = require('../../../utils/services/router');
 var Router = require('../../../utils/routers/lists');
 var Loading = require('../../animations/loading');
 var ScrollableTabView = require('react-native-scrollable-tab-view');
@@ -105,7 +106,7 @@ var styles = StyleSheet.create({
     title:{
         fontSize:12,
         fontFamily:'Avenir',
-        fontWeight: 'bold',        
+        fontWeight: 'bold',
         textAlign:'left',
         paddingLeft:10,
         marginTop:2,
@@ -392,7 +393,7 @@ var Lists = React.createClass({
                         this.addPoints(item.youtubeData.id.videoId);
                         break;
                     case 1:
-                        Router.addToPlaylist(item);
+                        MainRouter.addToPlaylist(item.youtubeData.id.videoId);
                         break;
                     case 2:
                         this.showShareActionSheet();

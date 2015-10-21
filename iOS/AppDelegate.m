@@ -51,7 +51,7 @@ NSString * const StripePublishableKey = @"pk_test_jiDVP0p6iRtILtE4FzFfMACc";
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://172.25.181.14:8081/index.ios.bundle"];
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle"];
 
   /*y 
    * OPTION 2

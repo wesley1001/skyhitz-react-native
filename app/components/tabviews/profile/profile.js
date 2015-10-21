@@ -39,9 +39,6 @@ var styles = StyleSheet.create({
     parallax: {
         backgroundColor: '#edf1f2',
     },
-    blur: {
-        padding:20
-    },
     topContainer:{
         flexDirection:"column",
         alignItems:"center",

@@ -20,7 +20,7 @@ var LoadingOverlay = React.createClass({
             <Overlay isVisible={this.props.isVisible}>
                 <View style={[styles.wrap, {opacity: this.props.opacity}]}>
                 <BlurView style={styles.background} blurType="dark">
-                    <SkyhitzLoader/>
+                    <ActivityIndicatorIOS style={styles.background} />
                  </BlurView>
                 </View>
             </Overlay>

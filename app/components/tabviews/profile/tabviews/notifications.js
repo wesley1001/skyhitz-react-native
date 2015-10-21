@@ -318,7 +318,7 @@ var Notifications = React.createClass({
                 <View style={styles.footer}></View>
             );
         }else{
-            return( <ActivityIndicatorIOS hidden='true' size='large' color="#1eaeff" style={styles.footer} /> );
+            return( <ActivityIndicatorIOS size='small' color="#1eaeff" style={styles.footer} /> );
         }
     },
     onEndReached () {

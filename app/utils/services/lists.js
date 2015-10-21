@@ -4,6 +4,7 @@ var FirebaseRef = require('./firebase-ref');
 var Promise = require('bluebird');
 var User = require('./user');
 var Uid = require('../../utils/services/generate-pushid');
+var Router = require('../../utils/services/router');
 
 var ListsApi ={
     topListCount : 0,
@@ -121,7 +122,6 @@ var ListsApi ={
         });
     },
     addEntryToPlaylist(list, entryUid){
-        console.log(list);
         var listUid =  list.public == undefined ? list.listUid : list.public.listUid;
         return new Promise(function(resolve, reject){
         var queue ={

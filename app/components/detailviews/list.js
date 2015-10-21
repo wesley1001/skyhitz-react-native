@@ -11,6 +11,7 @@ var windowSize = Dimensions.get('window');
 var EntryTitle = require('../../utils/entrytitle');
 var Player = require('../player/player');
 var ThreeDots = require('../helpers/threedots');
+var Router = require('../../utils/services/router');
 
 var {
     StyleSheet,
@@ -128,7 +129,7 @@ var Playlist = React.createClass({
     goBack(){
         this.props.nav.jumpBack();
     },
-    componentDidMount() {
+    componentWillMount() {
         this.getEntries();
     },    
     getEntries() {
@@ -248,7 +249,7 @@ var Playlist = React.createClass({
     render(){
         return(
             <View>
-                <NavBar title={this.state.listName} backBtn={true} backPressFunc={this.goBack} />
+                <NavBar title={this.state.listName.substring(0,2)} backBtn={true} backPressFunc={this.goBack} />
                 <View style={styles.container}>
                     <ListView
                         dataSource={this.state.playlistDataSource}

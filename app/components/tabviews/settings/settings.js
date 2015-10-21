@@ -8,6 +8,7 @@ var Username = require('../../../utils/services/username');
 var Stripe = require('../../../utils/services/stripe');
 var FirebaseRef = require('../../../utils/services/firebase-ref');
 var Loading = require('../../loaders/loadingctrl');
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
     StyleSheet,
@@ -115,7 +116,7 @@ var styles = StyleSheet.create({
         textAlign:'center',
         flex:1,
         marginTop:20,
-        marginBottom:10
+        marginBottom:30
     },
     personalInfo:{
         fontFamily:'Avenir',
@@ -134,9 +135,9 @@ var styles = StyleSheet.create({
     cardNumber:{
         borderWidth:0.5,
         borderColor:'#1DADFF',
-        height:20,
+        height:35,
         flex:1,
-        borderRadius:4,
+        borderRadius:2,
         fontFamily:'Avenir',
         fontSize:12,
         paddingLeft:10,
@@ -149,7 +150,11 @@ var styles = StyleSheet.create({
         width:100,
         position:'absolute',
         backgroundColor:'#e1e1e1',
-        borderRadius:4
+        borderRadius:2
+    },
+    listIcon: {
+        flexDirection:'row',
+        justifyContent:'flex-start',
     },
     pointsSection:{
         flex:1,
@@ -200,48 +205,49 @@ var styles = StyleSheet.create({
     },
     month:{
         width:60,
-        height:20,
+        height:35,
         borderWidth:0.5,
         borderColor:'#1DADFF',
         marginRight:10,
-        borderRadius:4,
+        borderRadius:2,
         fontFamily:'Avenir',
         fontSize:12,
         paddingLeft:10
     },
     year:{
+        height:35,        
         width:60,
         borderWidth:0.5,
         borderColor:'#1DADFF',
         marginRight:10,
-        borderRadius:4,
+        borderRadius:2,
         fontFamily:'Avenir',
         fontSize:12,
         paddingLeft:10
     },
     cvvcode:{
         width:80,
+        height:35,        
         borderWidth:0.5,
         borderColor:'#1DADFF',
-        height:20,
-        borderRadius:4,
+        borderRadius:2,
         fontFamily:'Avenir',
         fontSize:12,
         paddingLeft:10
     },
     addPointsBtn:{
-        height:30,
+        height:35,
         flex:1,
-        borderRadius:4,
+        borderRadius:2,
         backgroundColor:'#1DADFF',
         marginTop:20,
-        paddingTop:8,
+        paddingTop:10,
         marginBottom:10
     },
     cashOutBtn:{
         height:30,
         flex:1,
-        borderRadius:4,
+        borderRadius:2,
         backgroundColor:'#1DADFF',
         marginTop:20,
         paddingTop:8,
@@ -257,7 +263,7 @@ var styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems:'center',
-        height:40,
+        height:35,
         flex:1,
         marginTop:20
     }
@@ -502,7 +508,8 @@ var Settings = React.createClass({
                     </View>
                     <View style={styles.rightSection}>
                         <View style={styles.infoHeader}>
-                            <Text style={styles.personalInfo}>PERSONAL INFO</Text>
+                            <Icon name="person" size={18} color="#51585e" style={styles.listIcon}/>                                                                
+                            <Text style={styles.personalInfo}>  PERSONAL INFO</Text>
                             {this.renderPersonalEditBtn()}
                         </View>
                         <View style={styles.settingsDivider}></View>
@@ -561,7 +568,7 @@ var Settings = React.createClass({
                 </View>
                 <View style={styles.pointsSection}>
                     <View style={styles.available}>
-                    <Text style={styles.pointsText}>AVAILABLE SKYHITZ POINTS</Text>
+                        <Text style={styles.pointsText}>  AVAILABLE SKYHITZ POINTS</Text>
                     </View>
                     <View style={styles.availablePointsSection}>
                         <Text style={styles.availablePoints}>{this.state.userPoints} PTS</Text>
@@ -569,7 +576,8 @@ var Settings = React.createClass({
                 </View>
                 <View style={styles.billingSection}>
                     <View style={styles.infoHeader}>
-                        <Text style={styles.personalInfo}>BILLING INFO</Text>
+                        <Icon name="card" size={18} color="#51585e" style={styles.listIcon}/>
+                        <Text style={styles.personalInfo}>  BILLING INFO</Text>
                         {this.renderBillingEditBtn()}
                     </View>
                     <View style={styles.settingsDivider}></View>

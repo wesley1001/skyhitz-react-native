@@ -27,7 +27,8 @@ var {
     Navigator,
     Image,
     PixelRatio,
-    Component
+    Component,
+    ActivityIndicatorIOS
     } = React;
 
 var styles = StyleSheet.create({
@@ -38,20 +39,21 @@ var styles = StyleSheet.create({
     parallax: {
         backgroundColor: '#edf1f2',
     },
+    blur: {
+        padding:20
+    },
     topContainer:{
         flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
         backgroundColor: "transparent",
-        paddingTop: 30
     },
     blur: {
         width:Dimensions.get('window').width,
         bottom:0,
-        top:10,
+        paddingTop:15,
         paddingLeft:15,
         paddingRight:15,
-        paddingTop:15,
         paddingBottom:15,
         flexDirection:"row",
         justifyContent:"space-between",
@@ -61,8 +63,9 @@ var styles = StyleSheet.create({
         borderRadius:80 / PixelRatio.get(),
         width:80,
         height:80,
-        marginTop:20,
-        marginBottom:10,
+        marginBottom:20,
+        marginTop:-40,
+        borderWidth:1,
         borderColor: 'white',
     },
     name:{
@@ -74,16 +77,17 @@ var styles = StyleSheet.create({
     followers:{
         fontFamily:"Avenir",
         color:'#fff',
-        fontSize:12,
+        fontSize:16,
         textAlign:'right', 
-        top:2       
     },
     profileTabs:{
         borderStyle:'solid',
         borderTopWidth:0.5,
         borderColor:'#dbdbdb',
-        borderBottomWidth:0.5,
-        height:45,
+        backgroundColor:'white',
+        borderBottomWidth:1,
+        height:55,
+        padding:5,
         flexDirection:"row",
         flexWrap:"nowrap",
         alignItems:"center",
@@ -93,7 +97,7 @@ var styles = StyleSheet.create({
     tab:{
         flex:1,
         justifyContent:'center',
-        backgroundColor: '#edf1f2',
+        backgroundColor:'white',
     },
     horDivider:{
         width:0.5,
@@ -101,8 +105,8 @@ var styles = StyleSheet.create({
         height:30
     },
     listIcon:{
-        width:31,
-        height:20,
+        width:30,
+        height:30,
         alignSelf:'center'
     },
     followersIcon:{
@@ -156,68 +160,63 @@ var Profile = React.createClass({
         });
     },
     getFollowersCount(){
-        if(this.state.followersCount == 0){
-            return ''
-        }else if(this.state.followersCount == 1){
-            return '1 FOLLOWER'
-        }else{
-            return this.state.followersCount + ' FOLLOWERS'
-        }
+        return this.state.followersCount;
     },
     render(){
         return(
             <View style={styles.container}>
+
                 <ParallaxView
                     backgroundSource={{uri:User.userData.largeAvatarUrl}}
-                    windowHeight={200}
+                    windowHeight={175}
                     blur="dark"
                     styles={styles.parallax}
-                    header={(
-                        <View style={styles.topContainer}>
-                            <Image style={styles.profilepic} source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}} />
-
-                            <BlurView blurType="dark" style={styles.blur}>
-                                <Text style={styles.name}>
-                                    {this.state.username}
-                                </Text>
-                                <Text style={styles.followers}>
-                                    {this.getFollowersCount()}
-                                </Text>
-                            </BlurView>
-
+                    header={(                      
+                        <View>
+                            <NavBar settingsBtn={true} backBtn={false} fwdBtn={false} logoType={false} transparentBackground={true}/>
+                            <View style={styles.topContainer}>
+                                <Image style={styles.profilepic} source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}} />
+                                <BlurView blurType="dark" style={styles.blur}>
+                                    <Text style={styles.name}>
+                                        {this.state.username}
+                                    </Text>
+                                    <Text style={styles.followers}>
+                                        {this.getFollowersCount() == 0 ? this.userFollowersCount = 0 : this.userFollowersCount = this.getFollowersCount()} followers                                    </Text>
+                                </BlurView>
+                            </View>
+                                <View style={styles.profileTabs}>
+                                    <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(0)}}>
+                                        {this.state.selectedTab === 0 ?
+                                            <Icon name="android-list" size={30} color="#51585e" style={styles.listIcon}/>
+                                            : <Icon name="android-list" size={30} color="#555" style={styles.listIcon}/>}
+                                    </TouchableOpacity>
+                                    <View style={styles.horDivider}></View>
+                                    <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(1)}}>
+                                        {this.state.selectedTab === 1 ?
+                                            <Icon name="person-stalker" size={30} color="#51585e" style={styles.listIcon}/>
+                                            : <Icon name="person-stalker" size={30} color="#555" style={styles.listIcon}/>}
+                                    </TouchableOpacity>
+                                    <View style={styles.horDivider}></View>
+                                    <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(2)}}>
+                                        {this.state.selectedTab === 2 ?
+                                            <Icon name="android-notifications" size={30} color="#51585e" style={styles.listIcon}/>
+                                            : <Icon name="android-notifications" size={30} color="#555" style={styles.listIcon}/>}
+                                    </TouchableOpacity>
+                                </View>
+                                <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer} style={styles.parallax}>                                
+                                    {this.state.selectedTab === 0 ?
+                                        <Playlists nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid}/>
+                                        :null }
+                                    {this.state.selectedTab === 1 ?
+                                        <Followers profileUid={this.state.profileUid}/>
+                                        :null }
+                                    {this.state.selectedTab === 2 ?
+                                        <Notifications uid={this.state.uid} profileUid={this.state.profileUid}/>
+                                        :null }
+                                </ScrollView>                        
                         </View>
                     )}
                 >            
-                <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer} style={styles.parallax} contentInset={{bottom: 113}}>
-                    <View style={styles.profileTabs}>
-                        <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(0)}}>
-                            {this.state.selectedTab === 0 ?
-                                <Icon name="ios-list" size={28} color="#51585e" style={styles.listIcon}/>
-                                : <Icon name="ios-list-outline" size={28} color="#555" style={styles.listIcon}/>}
-                        </TouchableOpacity>
-                        <View style={styles.horDivider}></View>
-                        <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(1)}}>
-                            {this.state.selectedTab === 1 ?
-                                <Icon name="ios-people" size={28} color="#51585e" style={styles.listIcon}/>
-                                : <Icon name="ios-people-outline" size={28} color="#555" style={styles.listIcon}/>}
-                        </TouchableOpacity>
-                        <View style={styles.horDivider}></View>
-                        <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(2)}}>
-                            {this.state.selectedTab === 2 ?
-                                <Icon name="ios-bell" size={28} color="#51585e" style={styles.listIcon}/>
-                                : <Icon name="ios-bell-outline" size={28} color="#555" style={styles.listIcon}/>}
-                        </TouchableOpacity>
-                    </View>
-                    {this.state.selectedTab === 0 ?
-                        <Playlists nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid}/>
-                        :null }
-                    {this.state.selectedTab === 1 ?
-                        <Followers profileUid={this.state.profileUid}/>
-                        :null }
-                    {this.state.selectedTab === 2 ?
-                        <Notifications uid={this.state.uid} profileUid={this.state.profileUid}/>
-                        :null }
-                </ScrollView>
                 </ParallaxView>
             </View>
         )

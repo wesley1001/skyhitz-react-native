@@ -89,7 +89,8 @@ var Firebase = require('firebase'),
                 return ref.child('appQueue/list/addEntry/tasks');
             },
             addedEntryToPlaylistQueue(listUid, entryUid){
-                return ref.child('listInfo/data/'+listUid+'/entries/'+entryUid);
+                //return ref.child('listInfo/data/'+listUid+'/entries/' + entryUid);
+                return ref.child('listInfo/data/'+listUid+'/entries/');
             },
             addedPlaylistQueue(uid, listUid){
                 return ref.child('listInfo/index/userToList/'+uid+'/'+listUid);

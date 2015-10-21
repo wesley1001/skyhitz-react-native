@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var BackBtn = require('./backbtn');
+var SettingsBtn = require('./settingsbtn');
 var DownBtn = require('./downbtn');
 var FwdBtn = require('./fwdbtn');
 var LogoType = require('./logotype');
@@ -55,6 +56,7 @@ var NavBar = React.createClass({
       return {
           downBtn: this.props.downBtn ? this.props.downBtn : null,
           backBtn: this.props.backBtn ? this.props.backBtn : null,
+          settingsBtn: this.props.settingsBtn ? this.props.settingsBtn : null,
           backPressFunc: this.props.backPressFunc ? this.props.backPressFunc : null,
           logoType: this.props.logoType ? this.props.logoType : null,
           fwdBtn: this.props.fwdBtn ? this.props.fwdBtn : null,
@@ -114,6 +116,10 @@ var NavBar = React.createClass({
       }else if(this.state.menuBtn === true){
         return(
           <MenuBtn pressFunc={this.state.menuPressFunc}/>
+        )
+      }else if(this.state.settingsBtn === true){
+        return(
+          <SettingsBtn/>
         )
       }else{
         return(

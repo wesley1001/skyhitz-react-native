@@ -239,7 +239,6 @@ var CreateList = React.createClass({
                             />
 
                             <Text style={this.getNumberStyle()}>{this.nameChanged(this.state.playlistName)}</Text>
-
                           </View>
                     </View>
 

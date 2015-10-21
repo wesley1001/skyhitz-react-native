@@ -16,6 +16,7 @@ var Plus = require('../helpers/plus');
 var Minus = require('../helpers/minus');
 var entryApi = require('../../utils/services/entry');
 var EntryTitle = require('../../utils/entrytitle');
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
     StyleSheet,
@@ -51,7 +52,7 @@ var styles = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         fontFamily:'Avenir',
-        marginLeft:53.5
+        marginLeft:0
     },
     create:{
         fontSize:20,
@@ -164,6 +165,10 @@ var styles = StyleSheet.create({
         width:40,
         height:40,
         borderRadius:20
+    },
+    searchIcon: {
+        left:10,
+        top:5
     },
     row:{
         flexDirection:'row',
@@ -358,7 +363,7 @@ var CreateList = React.createClass({
                 <View style={styles.customNav}>
                     <BackBtn navigator={this.props.navigator}/>
                     <View style={styles.logoType}>
-                        <Text style={styles.brandName}>{Router.route.listName}</Text>
+                        <Text style={styles.brandName}>{Router.route.listName.substring(0,10)}...</Text>
                     </View>
                     <TouchableOpacity
                         onPress={this.createList} style={styles.create}>
@@ -368,8 +373,7 @@ var CreateList = React.createClass({
                 <View style={styles.container}>
                     <View style={styles.bottomContainer}>
                         <View style={styles.textFieldWrap}>
-                            <Image style={styles.SearchTabImg}
-                                   source={require('image!search-tab-icon-white')}></Image>
+                            <Icon name="search" size={34} color="#51585e" style={styles.searchIcon}/>
                             <View style={styles.searchFieldWrap}>
                             <TextInput
                                 ref={component => this.textInput = component}

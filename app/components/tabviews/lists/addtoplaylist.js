@@ -123,14 +123,14 @@ var AddToPlaylist = React.createClass({
     getPlaylistsDataSource: function(data: Array<any>): ListView.DataSource {
         return this.state.playlistsDataSource.cloneWithRows(data);
     },
-    componentDidMount() {
+    componentWillMount() {
 
         this.getPlaylists();
 
     },
     goToList(listUid){
 
-        this.props.navigator.push({
+        Router.navigator.push({
             id:'list',
             listUid:listUid
         });
@@ -164,7 +164,7 @@ var AddToPlaylist = React.createClass({
         });
 
     },
-    componentDidUnmount() {
+    componentWillUnmount() {
         // TODO: resolve go back property _currentElement
         this.goBack();
 

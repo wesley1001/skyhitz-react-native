@@ -36,15 +36,16 @@ var styles = StyleSheet.create({
         backgroundColor: '#edf1f2'
     },
     streamline:{
-        height:24,
+        height:36,
         paddingLeft:50,
         backgroundColor: '#edf1f2'
     },
     streamText:{
         color:'#51585e',
         fontFamily:'Avenir',
-        fontSize:12,
-        paddingTop:8
+        fontSize:18,
+        justifyContent:'center',
+        paddingTop:14
     },
     separator:{
         backgroundColor:'#dbdbdb',
@@ -335,7 +336,7 @@ var HomeFeed = React.createClass({
             <View style={styles.footer}></View>
         );
         }else{
-            return( <ActivityIndicatorIOS hidden='true' size='large' color="#1eaeff" style={styles.footer} /> );
+            return( <ActivityIndicatorIOS hidden='true' size='small' color="#1eaeff" style={styles.footer} /> );
         }
     },
     onEndReached () {

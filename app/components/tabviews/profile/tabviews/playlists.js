@@ -6,6 +6,7 @@ var Divider = require('../../../helpers/homefeeddivider');
 var ListsApi = require('../../../../utils/services/lists');
 var Number = require('../../../../utils/number');
 var User = require('../../../../utils/services/user');
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
     StyleSheet,
@@ -15,7 +16,8 @@ var {
     Image,
     PixelRatio,
     ListView,
-    Component
+    Component,
+    ActivityIndicatorIOS
     } = React;
 
 var styles = StyleSheet.create({
@@ -49,7 +51,9 @@ var styles = StyleSheet.create({
         marginRight:10
     },
     addNew:{
-        marginRight:10
+        marginRight:10,
+        paddingTop:10,
+        paddingBottom:10
     },
     playlistText:{
         fontFamily:"Avenir",
@@ -73,7 +77,13 @@ var styles = StyleSheet.create({
         fontSize:12,
         fontFamily:'Avenir',
         color:"#51585e"
-    }
+    },
+    loading:{
+        paddingTop:10,
+        height:49,
+        flex:1,
+        alignSelf:'center'
+    }    
 });
 
 var Playlists = React.createClass({
@@ -90,8 +100,9 @@ var Playlists = React.createClass({
         this.getFollowedLists();
     },
     getUserLists(){
+        this.state.isLoading = true;
         ListsApi.getUserLists(this.state.profileUid).then((lists) => {
-            this.setState({lists:lists});
+            this.setState({lists:lists,isLoading:false});
         });
     },
     getFollowedLists(){
@@ -158,19 +169,35 @@ var Playlists = React.createClass({
           )
         }
     },
+    renderFooter(){
+        if(!this.state.isLoading){
+            return(
+                <View style={styles.footer}></View>
+            );
+        }else{
+            return( <ActivityIndicatorIOS hidden='true' size='small' color="#1eaeff" style={styles.footer} /> );
+        }
+    },    
     render(){
         return(
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.headerText}>PLAYLISTS</Text>
                     <TouchableOpacity style={styles.addNew} onPress={Router.addNewList}>
-                        <Text style={styles.addNewText}>ADD NEW</Text>
+                        <Text style={styles.addNewText}>
+                            ADD NEW
+                        </Text>
                     </TouchableOpacity>
                 </View>
                 <Divider/>
-                {this.state.lists.map((list) => this.renderUserLists(list))}
-                {this.renderFollowedListsHeader()}
-                {this.state.followedLists.map((list)=>this.renderFollowedLists(list))}
+                    {this.state.isLoading ? <ActivityIndicatorIOS style={styles.loading} size='small' color="#1eaeff" /> : 
+                    <View>
+                        {this.renderFooter}
+                        {this.state.lists.map((list) => this.renderUserLists(list))}
+                        {this.renderFollowedListsHeader()}
+                        {this.state.followedLists.map((list)=>this.renderFollowedLists(list))}
+                    </View>
+                }
             </View>
         )
     }

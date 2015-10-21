@@ -48,7 +48,7 @@ var Slider = React.createClass({
     render(){
 
         return(
-            <Swiper style={styles.swipperWrap} showsButtons={false} loop={true} showsPagination={false} autoplay={false} autoplayTimeout={4} height={150}>
+            <Swiper style={styles.swipperWrap} showsButtons={true} loop={true} showsPagination={false} autoplay={false} autoplayTimeout={4} height={200}>
                 <View style={styles.slide}>
                     <Image source={{uri: 'https://yt3.ggpht.com/-HZc8Bqr_g3c/VCRkbmSvlPI/AAAAAAAAAC8/KoYAcAC7uNw/w2120-fcrop64=1,00005a57ffffa5a8-nd/PLAN-B-VEVO-MAIN-BANNER-2.jpg'}} style={styles.image}>
                         <View style={styles.overlay}>

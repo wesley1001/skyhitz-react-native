@@ -68,9 +68,9 @@ var styles = StyleSheet.create({
         alignItems:'center'
     },
     listPic:{
-        width:50,
-        height:50,
-        borderRadius:25,
+        width:60,
+        height:60,
+        borderRadius:30,
         borderWidth:1,
         borderColor:'#1dadff'
     },
@@ -82,7 +82,7 @@ var styles = StyleSheet.create({
     addpic:{
         textAlign:'center',
         fontFamily:'Avenir',
-        fontSize:12
+        fontSize:11
     },
     playlistInfo:{
         textAlign:'left',

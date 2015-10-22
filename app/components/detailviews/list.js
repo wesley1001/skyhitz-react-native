@@ -246,10 +246,13 @@ var Playlist = React.createClass({
         )
 
     },
+    getListName(){
+      return this.state.listName ? this.state.listName.substring(0,10) : ''
+    },
     render(){
         return(
             <View>
-                <NavBar title={this.state.listName.substring(0,10)} backBtn={true} backPressFunc={this.goBack} />
+                <NavBar title={this.getListName()} backBtn={true} backPressFunc={this.goBack} />
                 <View style={styles.container}>
                     <ListView
                         dataSource={this.state.playlistDataSource}

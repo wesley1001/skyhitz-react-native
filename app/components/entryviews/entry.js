@@ -11,6 +11,8 @@ var EntryTitle = require('../../utils/entrytitle');
 var User = require('../../utils/services/user');
 var Subscribable = require('Subscribable');
 var Player = require('../player/player');
+var BlurView = require('react-native-blur').BlurView;
+var Dimensions = require('Dimensions');
 
 var {
     StyleSheet,
@@ -30,13 +32,23 @@ var {
 
 var styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgba(41, 43, 51, 1)',
+        backgroundColor: 'transparent',
         flex: 1
     },
+    blur: {
+        height:Dimensions.get('window').height
+    },    
+    bg: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width:Dimensions.get('window').width,
+        height:Dimensions.get('window').height
+    },    
     youtubePlayer: {
         alignSelf: 'stretch',
         height: 180,
-        backgroundColor: 'black'
+        backgroundColor: 'white'
     },
     slideWrap: {
         flex: 1,
@@ -66,14 +78,14 @@ var styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         fontFamily: 'Avenir',
-        color: '#51585e',
+        color: 'white',
         fontWeight: 'bold'
     },
     entryArtist: {
         textAlign: 'center',
         fontSize: 18,
         fontFamily: 'Avenir',
-        color: '#51585e'
+        color: 'white'
     },
     points: {
         fontSize: 16,
@@ -108,17 +120,27 @@ var styles = StyleSheet.create({
         height: 16.5
     },
     rewindBtn: {
-        width: 28,
+        width: 24,
         height: 18
     },
     forwardBtn: {
-        width: 28,
+        width: 24,
         height: 18
     },
     playBtn: {
-        width: 20,
-        height: 23
+        width: 25,
+        height: 25,
     },
+    playBtnContainer: {
+        padding:30,
+        borderWidth:1.5,
+        borderColor:'white',
+        borderRadius:60
+    },    
+    ctrlBtnContainer: {
+        padding:25,
+        borderRadius:40
+    },        
     shuffleBtn: {
         width: 21,
         height: 18
@@ -140,7 +162,7 @@ var styles = StyleSheet.create({
     },
     likedBy: {
         fontSize: 12,
-        color: '#51585e',
+        color: 'white',
         flex: 1,
         paddingTop: 9
 
@@ -155,17 +177,17 @@ var styles = StyleSheet.create({
     social: {},
     likesNum: {
         fontSize: 12,
-        color: '#51585e',
-        marginLeft: 10
+        color: 'white',
+        marginLeft: 10,
     },
     likeImage: {
         width: 23,
         height: 23,
-        marginLeft: 7
+        marginLeft: 7,
     },
     commentNum: {
         fontSize: 12,
-        color: '#51585e',
+        color: 'white',
         marginLeft: 10
     },
     commentImage: {
@@ -189,7 +211,7 @@ var styles = StyleSheet.create({
         width: 30,
         height: 30,
         backgroundColor: '#9a9999',
-        marginTop: 15
+        marginTop: 15,
     },
     plusFriends: {
         color: 'white',
@@ -222,7 +244,7 @@ var styles = StyleSheet.create({
     wrapper: {
         paddingLeft: 20,
         paddingRight: 20,
-        backgroundColor: '#edf1f2',
+        backgroundColor: 'transparent',
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems: 'stretch',
@@ -262,10 +284,11 @@ var styles = StyleSheet.create({
         height: 20,
         borderRadius: 20 / 2,
         backgroundColor: '#edf1f2',
-        shadowColor: 'black',
+        shadowColor: 'white',
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 2,
         shadowOpacity: 0.35,
+        
     }
 
 });
@@ -383,14 +406,18 @@ var Entry = React.createClass({
             return (
                 <TouchableOpacity style={styles.controlTouch}
                                   onPress={()=>{this.setState({isPlaying: false})}}>
-                    <Image style={styles.playBtn} source={require('image!pausebtn')}/>
+                          <View style={styles.playBtnContainer}>
+                                <Image style={styles.playBtn} source={require('image!pausebtnwhite')}/>                                  
+                          </View>
                 </TouchableOpacity>
             )
         } else {
             return (
                 <TouchableOpacity style={styles.controlTouch}
                                   onPress={()=>{this.setState({isPlaying: true})}}>
-                    <Image style={styles.playBtn} source={require('image!playbtn')}/>
+                          <View style={styles.playBtnContainer}>
+                                <Image style={styles.playBtn} source={require('image!playbtnwhite')}/>                                  
+                          </View>
                 </TouchableOpacity>
             )
         }
@@ -537,8 +564,12 @@ var Entry = React.createClass({
     },
     render(){
         return (
+                <Image style={styles.bg} source={require('image!iosblur')}>
+
             <View style={styles.container}>
-                <NavBar downBtn={true} backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}
+                <BlurView blurType="dark" style={styles.blur}>
+
+                <NavBar downBtn={true} backBtn={false} fwdBtn={false} logoType={true} transparentBackground={true}
                         menuBtn={true} menuPressFunc={this.showActionSheet}/>
                 <YouTube
                     videoId={this.state.entryUid} // The YouTube video ID
@@ -557,7 +588,7 @@ var Entry = React.createClass({
                     value={this.state.progress}
                     onValueChange={(value) => this.seekToSeconds(value)} trackStyle={styles.track}
                     thumbStyle={styles.thumb}
-                    minimumTrackTintColor='#51585e'
+                    minimumTrackTintColor='white'
                     />
                 <View style={styles.wrapper}>
                     <View style={styles.row}>
@@ -575,11 +606,15 @@ var Entry = React.createClass({
                     <View style={styles.rowControls}>
                         {this.renderLoop()}
                         <TouchableOpacity style={styles.controlTouch}>
-                            <Image style={styles.rewindBtn} source={require('image!rewindbtn')}/>
+                            <View style={styles.ctrlBtnContainer}>                        
+                                <Image style={styles.rewindBtn} source={require('image!rewindbtnwhite')}/>
+                            </View>
                         </TouchableOpacity>
                         {this.renderPlayBtn()}
                         <TouchableOpacity style={styles.controlTouch}>
-                            <Image style={styles.forwardBtn} source={require('image!forwardbtn')}/>
+                            <View style={styles.ctrlBtnContainer}>                                                
+                                <Image style={styles.forwardBtn} source={require('image!forwardbtnwhite')}/>
+                            </View>    
                         </TouchableOpacity>
                         {this.renderShuffle()}
                     </View>
@@ -616,9 +651,9 @@ var Entry = React.createClass({
                         </View>
                     </View>
                 </View>
-
+                </BlurView>
             </View>
-
+</Image>
 
         )
     }

@@ -33,6 +33,9 @@ NSString * const StripePublishableKey = @"pk_test_jiDVP0p6iRtILtE4FzFfMACc";
 {
   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
   
+  NSError *setCategoryError = nil;
+  [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: &setCategoryError];
+  
   [AppHub setApplicationID:@"C7BSNXGb3tSHrUiBheaX"];
   
   NSURL *jsCodeLocation;
@@ -97,6 +100,18 @@ NSString * const StripePublishableKey = @"pk_test_jiDVP0p6iRtILtE4FzFfMACc";
   return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
 }
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
+  NSString *playerState;
+  
+  switch (event.subtype) {
+    case UIEventSubtypeRemoteControlPlay: playerState = @"playing"; break;
+    case UIEventSubtypeRemoteControlPause: playerState = @"paused"; break;
+//    case UIEventSubtypeRemoteControlNextTrack: playerState = @"playing"; break;
+//    case UIEventSubtypeRemoteControlPreviousTrack: playerState = @"playing"; break;
+  }
+}
+
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url

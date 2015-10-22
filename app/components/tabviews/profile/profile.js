@@ -170,7 +170,7 @@ var Profile = React.createClass({
                     styles={styles.parallax}
                     header={(                      
                         <View>
-                            <NavBar settingsBtn={true} backBtn={false} fwdBtn={false} logoType={false} transparentBackground={true}/>
+                            <NavBar settingsBtn={false} backBtn={false} fwdBtn={false} logoType={false} transparentBackground={true}/>
                             <View style={styles.topContainer}>
                                 <Image style={styles.profilepic} source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}} />
                                 <BlurView blurType="dark" style={styles.blur}>

@@ -11,6 +11,7 @@ var Username = require('../../utils/services/username');
 var FirebaseRef = require('../../utils/services/firebase-ref');
 var LocalStorage = require('../../utils/services/asyncstorage');
 var youtubeApi = require('../../utils/services/youtubeapi');
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     StyleSheet,
@@ -31,6 +32,9 @@ var styles = StyleSheet.create({
         width: windowSize.width,
         height: windowSize.height
     },
+    blur: {
+        height:Dimensions.get('window').height
+    },            
     inputContainer:{
         paddingLeft:40,
         paddingRight:40,
@@ -121,37 +125,39 @@ var Name = React.createClass({
     render: function (){
         return(
             <Image style={styles.bg} source={require('image!bgpasswordjoin')}>
-                <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
-                <View style={styles.inputContainer}>
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="@USERNAME"
-                    autoFocus={true}
-                    autoCorrect={false}
-                    style={styles.emailInput}
-                    placeholderTextColor="white"
-                    value={this.state.username}
-                    onChangeText={(text) => {
-                    this.setState({username:text});
-                    }}
-                    />
-                <Divider />
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="NAME"
-                    autoFocus={false}
-                    autoCorrect={false}
-                    style={styles.passwordInput}
-                    placeholderTextColor="white"
-                    value={this.state.name}
-                    onChangeText={(text) => {
-                    this.setState({name:text});
-                    }}
-                    />
-                <TouchableHighlight style={styles.joinBtn} onPress={this.updateName}>
-                    <Text style={styles.joinTextBtn}>GET STARTED</Text>
-                </TouchableHighlight>
-                </View>
+                    <BlurView blurType="dark" style={styles.blur}>            
+                    <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
+                    <View style={styles.inputContainer}>
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="@USERNAME"
+                        autoFocus={true}
+                        autoCorrect={false}
+                        style={styles.emailInput}
+                        placeholderTextColor="white"
+                        value={this.state.username}
+                        onChangeText={(text) => {
+                        this.setState({username:text});
+                        }}
+                        />
+                    <Divider />
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="NAME"
+                        autoFocus={false}
+                        autoCorrect={false}
+                        style={styles.passwordInput}
+                        placeholderTextColor="white"
+                        value={this.state.name}
+                        onChangeText={(text) => {
+                        this.setState({name:text});
+                        }}
+                        />
+                    <TouchableHighlight style={styles.joinBtn} onPress={this.updateName}>
+                        <Text style={styles.joinTextBtn}>GET STARTED</Text>
+                    </TouchableHighlight>
+                    </View>
+                </BlurView>
             </Image>
         )
     }

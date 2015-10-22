@@ -63,10 +63,10 @@ var Player = {
         }
     },
     playCurrentVideo(){
-        Player.eventEmitter.emit('playVideo');
+        Player.eventEmitter.emit('hardPlayVideo');
     },
     pauseCurrentVideo(){
-        Player.eventEmitter.emit('pauseVideo');
+        Player.eventEmitter.emit('hardPauseVideo');
     },
     showPlayer(){
         Player.eventEmitter.emit('showPlayer', { showPlayer: true });

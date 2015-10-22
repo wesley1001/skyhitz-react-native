@@ -7,7 +7,6 @@ var User = require('../../utils/services/user');
 var Loading = require('../loaders/loadingctrl');
 var Dimensions = require('Dimensions');
 var BlurView = require('react-native-blur').BlurView;
-var VibrancyView = require('react-native-blur').VibrancyView;
 
 var {
     StyleSheet,

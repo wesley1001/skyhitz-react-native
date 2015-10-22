@@ -8,6 +8,7 @@ var Divider = require('../helpers/whitedivider');
 var Loading = require('../loaders/loadingctrl');
 var User = require('../../utils/services/user');
 var Router = require('../../utils/services/router');
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     StyleSheet,
@@ -28,6 +29,9 @@ var styles = StyleSheet.create({
         width: windowSize.width,
         height: windowSize.height
     },
+    blur: {
+        height:Dimensions.get('window').height
+    },            
     inputContainer:{
         paddingLeft:40,
         paddingRight:40,
@@ -161,53 +165,55 @@ var ResetPass = React.createClass({
     render: function () {
         return (
             <Image style={styles.bg} source={require('image!bgpasswordlogin')}>
-                <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
-                <View style={styles.inputContainer}>
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="TEMPORARY PASSWORD"
-                    autoCorrect={false}
-                    autoFocus={true}
-                    style={styles.emailInput}
-                    placeholderTextColor="white"
-                    value={this.state.oldPassword}
-                    onChangeText={(text) => {
-                    this.setState({oldPassword:text});
-                    }}
-                    />
-                <Divider/>
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="NEW PASSWORD"
-                    autoCorrect={false}
-                    style={styles.newPasswordInput}
-                    placeholderTextColor="white"
-                    secureTextEntry={true}
-                    value={this.state.newPassword}
-                    onChangeText={(text) => {
-                    this.setState({newPassword:text});
-                    }}
-                    />
-                <Divider />
-                <TextInput
-                    autoCapitalize="none"
-                    placeholder="NEW PASSWORD AGAIN"
-                    autoCorrect={false}
-                    style={styles.passwordInput}
-                    secureTextEntry={true}
-                    placeholderTextColor="white"
-                    value={this.state.newPasswordAgain}
-                    onChangeText={(text) => {
-                    this.setState({newPasswordAgain:text});
-                    }}
-                    />
-                 <Divider />
-                <TouchableHighlight style={styles.joinBtn} onPress={this.changePassAndLogIn}>
-                    <Text style={styles.joinTextBtn}>LOGIN</Text>
-                </TouchableHighlight>
-                <Text style={styles.forgotPassText}>We've sent you an email that includes a temporary password. Use it
-                    to change your password.</Text>
-                </View>
+                <BlurView blurType="dark" style={styles.blur}>            
+                    <NavBar backBtn={true} fwdBtn={false} logoType={true} transparentBackground={true}/>
+                    <View style={styles.inputContainer}>
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="TEMPORARY PASSWORD"
+                        autoCorrect={false}
+                        autoFocus={true}
+                        style={styles.emailInput}
+                        placeholderTextColor="white"
+                        value={this.state.oldPassword}
+                        onChangeText={(text) => {
+                        this.setState({oldPassword:text});
+                        }}
+                        />
+                    <Divider/>
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="NEW PASSWORD"
+                        autoCorrect={false}
+                        style={styles.newPasswordInput}
+                        placeholderTextColor="white"
+                        secureTextEntry={true}
+                        value={this.state.newPassword}
+                        onChangeText={(text) => {
+                        this.setState({newPassword:text});
+                        }}
+                        />
+                    <Divider />
+                    <TextInput
+                        autoCapitalize="none"
+                        placeholder="NEW PASSWORD AGAIN"
+                        autoCorrect={false}
+                        style={styles.passwordInput}
+                        secureTextEntry={true}
+                        placeholderTextColor="white"
+                        value={this.state.newPasswordAgain}
+                        onChangeText={(text) => {
+                        this.setState({newPasswordAgain:text});
+                        }}
+                        />
+                     <Divider />
+                    <TouchableHighlight style={styles.joinBtn} onPress={this.changePassAndLogIn}>
+                        <Text style={styles.joinTextBtn}>LOGIN</Text>
+                    </TouchableHighlight>
+                    <Text style={styles.forgotPassText}>We've sent you an email that includes a temporary password. Use it
+                        to change your password.</Text>
+                    </View>
+                </BlurView>
             </Image>
         )
     }

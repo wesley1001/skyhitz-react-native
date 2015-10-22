@@ -47,17 +47,17 @@ var styles = StyleSheet.create({
         height: 30
     },
     thumbRound: {
-        width: 40,
-        height: 40,
-        borderRadius: 20
+        width: 30,
+        height: 30,
+        borderRadius: 15
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         flexWrap: 'nowrap',
         alignItems: 'center',
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 6,
+        paddingBottom: 6,
         paddingLeft: 10,
         backgroundColor: '#edf1f2'
     },

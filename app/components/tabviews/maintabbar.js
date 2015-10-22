@@ -18,6 +18,7 @@ var Entry = require('../entryviews/entry');
 var Subscribable = require('Subscribable');
 var TabNavigator = require('react-native-tab-navigator');
 var Icon = require('react-native-vector-icons/Ionicons');
+var BlurView = require('react-native-blur').BlurView;
 
 var {
     Navigator,
@@ -32,6 +33,10 @@ var {
     } = React;
 
 var styles = StyleSheet.create({
+    bg: {
+      width:Dimensions.get('window').width,
+      height:39
+    },      
     tabBar:{
         height:68,
         flexDirection: 'row',
@@ -145,7 +150,7 @@ var MainTabBar = React.createClass({
                         onPress={() => this.setState({ selectedTab: 'settings' })}>
                         <Settings/>
                     </TabNavigator.Item>
-                </TabNavigator>
+                </TabNavigator>             
              </View>
         )
     }

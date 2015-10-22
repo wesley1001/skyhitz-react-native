@@ -13,6 +13,7 @@ var Subscribable = require('Subscribable');
 var Player = require('../player/player');
 var BlurView = require('react-native-blur').BlurView;
 var Dimensions = require('Dimensions');
+var Icon = require('react-native-vector-icons/Ionicons');
 
 var {
     StyleSheet,
@@ -288,7 +289,7 @@ var styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 2,
         shadowOpacity: 0.35,
-        
+
     }
 
 });
@@ -349,7 +350,8 @@ var Entry = React.createClass({
                 that.setState({
                     points: entryData.points,
                     likeCount: entryData.likeCount,
-                    commentCount: entryData.commentCount
+                    commentCount: entryData.commentCount,
+                    playerBackground: entryData.youtubeData.snippet.thumbnails.medium.url
                 });
             }
         });
@@ -375,9 +377,9 @@ var Entry = React.createClass({
     },
     renderLike(){
         if (this.state.liked) {
-            return <Image style={styles.likeImage} source={require('image!like-icon-blue')}/>;
+            return <Icon name="heart" size={26} color="#1dadff" style={styles.likeImage}/>;
         } else {
-            return <Image style={styles.likeImage} source={require('image!like-icon-grey')}/>;
+            return <Icon name="heart" size={26} color="#51585e" style={styles.likeImage}/>;
         }
     },
     renderLikers(){
@@ -564,96 +566,95 @@ var Entry = React.createClass({
     },
     render(){
         return (
-                <Image style={styles.bg} source={require('image!iosblur')}>
+            <Image style={styles.bg} source={{ uri : this.state.playerBackground }}>
+                <View style={styles.container}>
+                    <BlurView blurType="dark" style={styles.blur}>
 
-            <View style={styles.container}>
-                <BlurView blurType="dark" style={styles.blur}>
-
-                <NavBar downBtn={true} backBtn={false} fwdBtn={false} logoType={true} transparentBackground={true}
-                        menuBtn={true} menuPressFunc={this.showActionSheet}/>
-                <YouTube
-                    videoId={this.state.entryUid} // The YouTube video ID
-                    play={this.state.isPlaying}           // control playback of video with true/false
-                    hidden={false}        // control visiblity of the entire view
-                    playsInline={true}    // control whether the video should play inline
-                    onReady={(e)=>{this.setState({isReady: true})}}
-                    onChangeState={(e)=>{this.handleStateChange(e.state);Player.onChangeState(e.state)}}
-                    onChangeQuality={(e)=>{this.setState({quality: e.quality})}}
-                    onError={(e)=>{this.setState({error: e.error})}}
-                    onPlayTime={(e)=>{this.setState({playTime: e.playTime, progress:e.playTime/e.duration, duration:e.duration})}}
-                    style={styles.youtubePlayer}
-                    ref="youtubeplayer"
-                    />
-                <Slider
-                    value={this.state.progress}
-                    onValueChange={(value) => this.seekToSeconds(value)} trackStyle={styles.track}
-                    thumbStyle={styles.thumb}
-                    minimumTrackTintColor='white'
-                    />
-                <View style={styles.wrapper}>
-                    <View style={styles.row}>
-                        <View style={styles.titleWrap}>
-                            {this.renderEntryPrize()}
-                            <Text style={styles.entryName}>{EntryTitle.getSongTitle(this.state.title)}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.entryArtist}>{EntryTitle.getArtistName(this.state.title)}</Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.points}>{this.state.points == 0 ? "" : (this.state.points + " pts")}</Text>
-                    </View>
-                    <View style={styles.rowControls}>
-                        {this.renderLoop()}
-                        <TouchableOpacity style={styles.controlTouch}>
-                            <View style={styles.ctrlBtnContainer}>                        
-                                <Image style={styles.rewindBtn} source={require('image!rewindbtnwhite')}/>
-                            </View>
-                        </TouchableOpacity>
-                        {this.renderPlayBtn()}
-                        <TouchableOpacity style={styles.controlTouch}>
-                            <View style={styles.ctrlBtnContainer}>                                                
-                                <Image style={styles.forwardBtn} source={require('image!forwardbtnwhite')}/>
-                            </View>    
-                        </TouchableOpacity>
-                        {this.renderShuffle()}
-                    </View>
-
-                    <View>
-                        <View style={styles.bottomRowWrap}>
-                            <View style={styles.rowShare}>
-                                <Text style={styles.likedBy}>LIKED BY</Text>
-                                <View style={styles.likecomment}>
-                                    <TouchableOpacity style={styles.social}
-                                                      onPress={()=>Router.goToLikers(this.state.entryUid)}>
-                                        <Text style={styles.likesNum}>{this.state.likeCount}</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.social} onPress={this.likeUnlikeEntry}>
-                                        {this.renderLike()}
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.social}
-                                                      onPress={()=>Router.goToComments(this.state.entryUid)}>
-                                        <Text style={styles.commentNum}>{this.state.commentCount}</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.social}
-                                                      onPress={()=>Router.goToComments(this.state.entryUid)}>
-                                        <Image style={styles.commentImage} source={require('image!comment')}/>
-                                    </TouchableOpacity>
+                    <NavBar downBtn={true} backBtn={false} fwdBtn={false} logoType={true} transparentBackground={true}
+                            menuBtn={true} menuPressFunc={this.showActionSheet}/>
+                    <YouTube
+                        videoId={this.state.entryUid} // The YouTube video ID
+                        play={this.state.isPlaying}           // control playback of video with true/false
+                        hidden={false}        // control visiblity of the entire view
+                        playsInline={true}    // control whether the video should play inline
+                        onReady={(e)=>{this.setState({isReady: true})}}
+                        onChangeState={(e)=>{this.handleStateChange(e.state);Player.onChangeState(e.state)}}
+                        onChangeQuality={(e)=>{this.setState({quality: e.quality})}}
+                        onError={(e)=>{this.setState({error: e.error})}}
+                        onPlayTime={(e)=>{this.setState({playTime: e.playTime, progress:e.playTime/e.duration, duration:e.duration})}}
+                        style={styles.youtubePlayer}
+                        ref="youtubeplayer"
+                        />
+                    <Slider
+                        value={this.state.progress}
+                        onValueChange={(value) => this.seekToSeconds(value)} trackStyle={styles.track}
+                        thumbStyle={styles.thumb}
+                        minimumTrackTintColor='white'
+                        />
+                        <View style={styles.wrapper}>
+                            <View style={styles.row}>
+                                <View style={styles.titleWrap}>
+                                    {this.renderEntryPrize()}
+                                    <Text style={styles.entryName}>{EntryTitle.getSongTitle(this.state.title)}</Text>
                                 </View>
                             </View>
-                            <Divider/>
-                        </View>
-                        <View style={styles.bottomWrap}>
-                            <View style={styles.friendsRow}>
-                                {this.renderLikers()}
+                            <View style={styles.row}>
+                                <Text style={styles.entryArtist}>{EntryTitle.getArtistName(this.state.title)}</Text>
                             </View>
-                            {this.renderMoreLikers()}
+                            <View style={styles.row}>
+                                <Text style={styles.points}>{this.state.points == 0 ? "" : (this.state.points + " pts")}</Text>
+                            </View>
+                            <View style={styles.rowControls}>
+                                {this.renderLoop()}
+                                <TouchableOpacity style={styles.controlTouch}>
+                                    <View style={styles.ctrlBtnContainer}>                        
+                                        <Image style={styles.rewindBtn} source={require('image!rewindbtnwhite')}/>
+                                    </View>
+                                </TouchableOpacity>
+                                {this.renderPlayBtn()}
+                                <TouchableOpacity style={styles.controlTouch}>
+                                    <View style={styles.ctrlBtnContainer}>                                                
+                                        <Image style={styles.forwardBtn} source={require('image!forwardbtnwhite')}/>
+                                    </View>    
+                                </TouchableOpacity>
+                                {this.renderShuffle()}
+                            </View>
+
+                            <View>
+                                <View style={styles.bottomRowWrap}>
+                                    <View style={styles.rowShare}>
+                                        <Text style={styles.likedBy}>LIKED BY</Text>
+                                        <View style={styles.likecomment}>
+                                            <TouchableOpacity style={styles.social}
+                                                              onPress={()=>Router.goToLikers(this.state.entryUid)}>
+                                                <Text style={styles.likesNum}>{this.state.likeCount}</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.social} onPress={this.likeUnlikeEntry}>
+                                                {this.renderLike()}
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.social}
+                                                              onPress={()=>Router.goToComments(this.state.entryUid)}>
+                                                <Text style={styles.commentNum}>{this.state.commentCount}</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.social}
+                                                              onPress={()=>Router.goToComments(this.state.entryUid)}>
+                                                <Icon name="chatbubble" size={26} color="#51585e" style={styles.commentImage}/>                                                              
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    <Divider/>
+                                </View>
+                                <View style={styles.bottomWrap}>
+                                    <View style={styles.friendsRow}>
+                                        {this.renderLikers()}
+                                    </View>
+                                    {this.renderMoreLikers()}
+                                </View>
+                            </View>
                         </View>
-                    </View>
+                    </BlurView>
                 </View>
-                </BlurView>
-            </View>
-</Image>
+            </Image>
 
         )
     }

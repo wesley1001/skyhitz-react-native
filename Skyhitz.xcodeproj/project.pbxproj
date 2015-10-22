@@ -19,7 +19,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		3020FB291BD8680B001BE738 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 3020FB281BD8680B001BE738 /* main.jsbundle */; };
+		3020FB2B1BD875FA001BE738 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 3020FB2A1BD875FA001BE738 /* main.jsbundle */; };
 		3052ADD71BCB5AAD00266892 /* Avenir.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3052ADD61BCB5AAD00266892 /* Avenir.ttf */; };
 		3052ADD91BCB5B9000266892 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3052ADD81BCB5B9000266892 /* Ionicons.ttf */; };
 		30A50F391BCB5A27001A3D49 /* RNVectorIconsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A50F381BCB5A27001A3D49 /* RNVectorIconsManager.m */; };
@@ -182,7 +182,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = iOS/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		23CE8E92911DC0EA5249EEA5 /* Pods-Skyhitz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skyhitz.release.xcconfig"; path = "Pods/Target Support Files/Pods-Skyhitz/Pods-Skyhitz.release.xcconfig"; sourceTree = "<group>"; };
-		3020FB281BD8680B001BE738 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = iOS/main.jsbundle; sourceTree = "<group>"; };
+		3020FB2A1BD875FA001BE738 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = iOS/main.jsbundle; sourceTree = "<group>"; };
 		3052ADD61BCB5AAD00266892 /* Avenir.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Avenir.ttf; sourceTree = "<group>"; };
 		3052ADD81BCB5B9000266892 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		30A50F371BCB5A27001A3D49 /* RNVectorIconsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNVectorIconsManager.h; sourceTree = "<group>"; };
@@ -354,7 +354,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				D434FE361B86C43500AE33E8 /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				3020FB281BD8680B001BE738 /* main.jsbundle */,
+				3020FB2A1BD875FA001BE738 /* main.jsbundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				D416A7EF1B8E9E0100376C9C /* stripe.h */,
 				D416A7FB1B8E9EA600376C9C /* stripe.m */,
@@ -812,7 +812,7 @@
 				D434FE291B86C3F200AE33E8 /* Raleway-Light.ttf in Resources */,
 				3052ADD91BCB5B9000266892 /* Ionicons.ttf in Resources */,
 				3052ADD71BCB5AAD00266892 /* Avenir.ttf in Resources */,
-				3020FB291BD8680B001BE738 /* main.jsbundle in Resources */,
+				3020FB2B1BD875FA001BE738 /* main.jsbundle in Resources */,
 				D434FE2B1B86C3F200AE33E8 /* YTPlayerView-iframe-player.html in Resources */,
 				D434FE371B86C43500AE33E8 /* Images.xcassets in Resources */,
 				D434FE281B86C3F200AE33E8 /* Avenir.ttf in Resources */,

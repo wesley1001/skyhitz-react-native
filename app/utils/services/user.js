@@ -68,7 +68,9 @@ var User = {
                 if (error) {
                 } else {
                     LocalStorage.storeFirebaseToken(authData.token);
-                    if(authObj.provider === "google"){
+                    if(authObj.provider === "facebook"){
+                        LocalStorage.storeFacebookOauthToken(authObj.token);
+                    } else if(authObj.provider === "google"){
                         LocalStorage.storeGoogleOauthToken(authObj.token);
                     }
                     User.downloadUserData();
@@ -378,6 +380,9 @@ var User = {
     },
     logOut () {
         User.markUserAsLoggedOut();
+        LocalStorage.removeGoogleOauthToken();
+        LocalStorage.removeFacebookOauthToken();
+        LocalStorage.removeFirebaseToken();
         FirebaseRef.ref.unauth();
     },
     markUserAsLoggedOut (){

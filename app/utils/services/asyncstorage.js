@@ -59,7 +59,35 @@ var LocalStorage = {
         } catch (error) {
             console.log('AsyncStorage error: ' + error.message);
         }
-    }
+    },
+    async storeFacebookOauthToken(token) {
+        try {
+            await AsyncStorage.setItem('facebookOauthToken', token);
+            console.log('object stored');
+        } catch (error) {
+            console.log('object not stored');
+        }
+    },    
+    async removeFacebookOauthToken() {
+        try {
+            await AsyncStorage.removeItem('facebookOauthToken');
+            console.log('object stored');
+        } catch (error) {
+            console.log('object not stored');
+        }
+    },
+    async loadFacebookOauthToken() {
+        try {
+            var value = await AsyncStorage.getItem('facebookOauthToken');
+            if (value !== null){
+                return value;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.log('AsyncStorage error: ' + error.message);
+        }
+    }    
 };
 
 

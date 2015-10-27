@@ -340,7 +340,7 @@ var Entry = React.createClass({
     componentDidMount(){
         this.addListenerOn(Player.eventEmitter, 'loadVideo', this.loadVideo);
         this.addListenerOn(Player.eventEmitter, 'playVideo', this.playVideo);
-        this.addListenerOn(Player.eventEmitter, 'pauseVideo', this.pauseVideo);
+        this.addListenerOn(Player.eventEmitter, 'hardPauseVideo', this.pauseVideo);
     },
     getEntryInfo(entryUid){
         var that = this;

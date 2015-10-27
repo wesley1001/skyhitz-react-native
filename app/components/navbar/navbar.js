@@ -3,6 +3,7 @@
 var React = require('react-native');
 var BackBtn = require('./backbtn');
 var SettingsBtn = require('./settingsbtn');
+var LogoutBtn = require('./logoutbtn');
 var DownBtn = require('./downbtn');
 var FwdBtn = require('./fwdbtn');
 var LogoType = require('./logotype');
@@ -57,6 +58,7 @@ var NavBar = React.createClass({
           downBtn: this.props.downBtn ? this.props.downBtn : null,
           backBtn: this.props.backBtn ? this.props.backBtn : null,
           settingsBtn: this.props.settingsBtn ? this.props.settingsBtn : null,
+          logoutBtn: this.props.logoutBtn ? this.props.logoutBtn : null,
           backPressFunc: this.props.backPressFunc ? this.props.backPressFunc : null,
           logoType: this.props.logoType ? this.props.logoType : null,
           fwdBtn: this.props.fwdBtn ? this.props.fwdBtn : null,
@@ -82,7 +84,11 @@ var NavBar = React.createClass({
         return(
           <DownBtn/>
         )
-      } else {
+      }else if(this.state.logoutBtn === true){
+        return(
+          <LogoutBtn/>
+        )
+      }else {
           return(
               <View style={styles.emptyBtn}></View>
           )

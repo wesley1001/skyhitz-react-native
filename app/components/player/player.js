@@ -63,7 +63,7 @@ var Player = {
         }
     },
     playCurrentVideo(){
-        Player.eventEmitter.emit('hardPlayVideo');
+        Player.eventEmitter.emit('playVideo');
     },
     pauseCurrentVideo(){
         Player.eventEmitter.emit('hardPauseVideo');

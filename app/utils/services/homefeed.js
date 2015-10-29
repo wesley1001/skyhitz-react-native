@@ -1,6 +1,5 @@
 // Remember to change the url that points to the production firebase
 
-var Firebase = require('firebase');
 var FirebaseRef = require('../../utils/services/firebase-ref');
 var User = require('./user');
 var Promise = require('bluebird');

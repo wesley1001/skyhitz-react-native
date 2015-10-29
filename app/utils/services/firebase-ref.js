@@ -117,6 +117,12 @@ var Firebase = require('firebase'),
               return ref.child('/notificationInfo/index/data/' + uid);
             },
 
+            // Home Banner
+
+            homeBanner(){
+              return ref.child('stats/weekBanner');
+            },
+
             // Stripe
 
             userStripeCardData (uid) {

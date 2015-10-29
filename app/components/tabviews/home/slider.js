@@ -2,7 +2,8 @@
 
 var React = require('react-native');
 var Swiper = require('react-native-swiper');
-
+var FirebaseRef = require('../../../utils/services/firebase-ref');
+var TitleHelper = require('../../../utils/entrytitle');
 var {
     StyleSheet,
     View,
@@ -23,7 +24,7 @@ var styles = StyleSheet.create({
         alignItems: 'stretch'
     },
     overlay: {
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        backgroundColor: 'rgba(0,0,0,0.65)',
         flex: 1,
         justifyContent: 'center'
     },
@@ -45,60 +46,55 @@ var styles = StyleSheet.create({
 });
 
 var Slider = React.createClass({
-    render(){
 
+    getInitialState(){
+      return {
+          slides: {},
+          loading:false,
+          slidesLoaded:false
+      }
+    },
+    componentDidMount () {
+        this.getBanner()
+    },
+    getBanner(){
+        this.setState({loading:true});
+        FirebaseRef.homeBanner().once('value', (banner)=>{
+            console.log(banner.val())
+            if(banner.val() !== null){
+              this.setState({slides:banner.val(), loading:false, slidesLoaded:true})
+            }
+        })
+    },
+    renderSlide(slide){
+        console.log(slide)
         return(
-            <Swiper style={styles.swipperWrap} showsButtons={true} loop={true} showsPagination={false} autoplay={false} autoplayTimeout={4} height={200}>
-                <View style={styles.slide}>
-                    <Image source={{uri: 'https://yt3.ggpht.com/-HZc8Bqr_g3c/VCRkbmSvlPI/AAAAAAAAAC8/KoYAcAC7uNw/w2120-fcrop64=1,00005a57ffffa5a8-nd/PLAN-B-VEVO-MAIN-BANNER-2.jpg'}} style={styles.image}>
-                        <View style={styles.overlay}>
-                            <Text style={styles.copyText}>
-                                ARTIST ON THE RISE
-                            </Text>
-                            <Text style={styles.artistTitle}>
-                                PLAN B
-                            </Text>
-                        </View>
-                    </Image>
-                </View>
-                <View style={styles.slide}>
-                    <Image source={{uri: 'https://yt3.ggpht.com/-byO3AVvBA-8/UbYX80ThpqI/AAAAAAAAAAw/mOXcMlljaHI/w2120-fcrop64=1,00005a57ffffa5a8-nd/channels4_banner.jpg'}} style={styles.image}>
-                        <View style={styles.overlay}>
-                            <Text style={styles.copyText}>
-                                ARTIST ON THE RISE
-                            </Text>
-                            <Text style={styles.artistTitle}>
-                                PLAN B
-                            </Text>
-                        </View>
-                    </Image>
-                </View>
-                <View style={styles.slide}>
-                    <Image source={{uri: 'https://yt3.ggpht.com/-64n90etqL4o/VUJUj6mpj7I/AAAAAAAAADM/Btkwij677ck/w2120-fcrop64=1,00005a57ffffa5a8-nd/siropeyoutube.jpg'}} style={styles.image}>
-                        <View style={styles.overlay}>
-                            <Text style={styles.copyText}>
-                                ARTIST ON THE RISE
-                            </Text>
-                            <Text style={styles.artistTitle}>
-                                PLAN B
-                            </Text>
-                        </View>
-                    </Image>
-                </View>
-                <View style={styles.slide}>
-                    <Image source={{uri: 'https://yt3.ggpht.com/-64n90etqL4o/VUJUj6mpj7I/AAAAAAAAADM/Btkwij677ck/w2120-fcrop64=1,00005a57ffffa5a8-nd/siropeyoutube.jpg'}} style={styles.image}>
-                        <View style={styles.overlay}>
-                            <Text style={styles.copyText}>
-                                ARTIST ON THE RISE
-                            </Text>
-                            <Text style={styles.artistTitle}>
-                                PLAN B
-                            </Text>
-                        </View>
-                    </Image>
-                </View>
+          <View style={styles.slide}>
+              <Image source={{uri:slide.bannerUrl}} style={styles.image}>
+                  <View style={styles.overlay}>
+                      <Text style={styles.copyText}>
+                          {slide.awardTitle}
+                      </Text>
+                      <Text style={styles.artistTitle}>
+                          {TitleHelper.getNameUntilComma(slide.artistName)}
+                      </Text>
+                  </View>
+              </Image>
+          </View>
+        )
+    },
+    render(){
+        if(this.state.slidesLoaded === true){
+        return(
+            <Swiper style={styles.swipperWrap} showsButtons={true} loop={true} showsPagination={false} autoplay={false} autoplayTimeout={4} height={150}>
+                {Object.keys(this.state.slides).map((slide)=> this.renderSlide(this.state.slides[slide]))}
             </Swiper>
         )
+        }else{
+        return(
+          <View><Text>View</Text></View>
+        )
+        }
     }
 });
 

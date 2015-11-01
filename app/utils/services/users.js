@@ -18,6 +18,31 @@ var Users = {
                 }
             })
         })
+    },
+    checkIfUserExists(uid){
+        return new Promise(function(resolve, reject){
+            FirebaseRef.userData(uid).once('value',function(userSnap){
+                var user = userSnap.val();
+                if(user !== null){
+                    resolve(true)
+                }else{
+                    reject(false)
+                }
+            })
+        })
+    },
+    checkIfArtistUserExists(uid){
+        return new Promise(function(resolve, reject){
+            FirebaseRef.userChannel(uid).once('value',function(userSnap){
+                var user = userSnap.val();
+                console.log(user)
+                if(user !== null){
+                    resolve(true)
+                }else{
+                    resolve(false)
+                }
+            })
+        })
     }
 };
 

@@ -37,6 +37,13 @@ var Firebase = require('firebase'),
             userFollowing(uid){
                 return ref.child('followInfo/index/userFollows/' + uid);
             },
+            addArtist(uid){
+                return ref.child('appQueue/user/createArtist/tasks');
+            },
+            userChannel(channelId){
+                console.log(channelId)
+                return userInfoDataRef.orderByChild('channelId').equalTo(channelId);
+            },
 
             // Follow
 

@@ -9,6 +9,8 @@ var NavBar = require('../navbar/navbar');
 var EntryApi = require('../../utils/services/entry');
 var EntryTitle = require('../../utils/entrytitle');
 var User = require('../../utils/services/user');
+var Users = require('../../utils/services/users');
+var Artist = require('../../utils/services/artist');
 var Subscribable = require('Subscribable');
 var Player = require('../player/player');
 var BlurView = require('react-native-blur').BlurView;
@@ -317,12 +319,15 @@ var Entry = React.createClass({
         }
     },
     indexEntry(youtubeData){
+        console.log(youtubeData)
         EntryApi.indexEntry(youtubeData).then(() => {
             this.getEntryInfo(this.state.entryUid);
             this.getLikeInfo(this.state.entryUid);
         });
+        Artist.indexArtist(youtubeData);
     },
     loadVideo(args){
+        console.log(args)
         this.setState({entryUid: args.videoUid, title: args.videoTitle, isPlaying:true});
         if (args.youtubeData) {
             this.indexEntry(args.youtubeData);

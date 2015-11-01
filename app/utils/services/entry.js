@@ -57,6 +57,27 @@ var Entry = {
             });
         });
     },
+    indexArtist(youtubeData){
+        var that = this;
+        var entry = {};
+        entry.youtubeData = youtubeData;
+        entry.id = youtubeData.id.videoId;
+        return new Promise(function (resolve, reject) {
+            Entry.checkIfEntryExists(entry.id).then(function (bool) {
+                if (bool) {
+                    resolve();
+                } else {
+                    entry.uid = 'facebook:20001';
+                    youtubeApi.getSongStats(entry.id).then(function (stats) {
+                        entry.youtubeData.statistics = stats.items[0].statistics;
+                        FirebaseRef.addEntryQueue().push(entry, function (error) {
+                            error ? reject(error) : that.watchIfEntryWasIndexed(entry.id, resolve, reject);
+                        });
+                    });
+                }
+            });
+        });
+    },
     getLikers(entryUid){
         var likers = [];
         return new Promise(function (resolve, reject) {

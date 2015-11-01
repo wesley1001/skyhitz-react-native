@@ -4,11 +4,15 @@ var React = require('react-native');
 var Swiper = require('react-native-swiper');
 var FirebaseRef = require('../../../utils/services/firebase-ref');
 var TitleHelper = require('../../../utils/entrytitle');
+var HomeRouter = require('../../../utils/routers/home');
+
 var {
     StyleSheet,
     View,
     Text,
     Component,
+    TouchableOpacity,
+    ActivityIndicatorIOS,
     Image
     } = React;
 
@@ -42,6 +46,15 @@ var styles = StyleSheet.create({
     },
     image: {
         flex: 1
+    },
+    loader:{
+        paddingTop:10,
+        height:49,
+        flex:1,
+        alignSelf:'center'
+    },
+    imageWrap:{
+        flex:1
     }
 });
 
@@ -60,16 +73,15 @@ var Slider = React.createClass({
     getBanner(){
         this.setState({loading:true});
         FirebaseRef.homeBanner().once('value', (banner)=>{
-            console.log(banner.val())
             if(banner.val() !== null){
               this.setState({slides:banner.val(), loading:false, slidesLoaded:true})
             }
         })
     },
     renderSlide(slide){
-        console.log(slide)
         return(
           <View style={styles.slide}>
+              <TouchableOpacity onPress={() => {HomeRouter.goToProfile(slide.artistId)}} style={styles.imageWrap}>
               <Image source={{uri:slide.bannerUrl}} style={styles.image}>
                   <View style={styles.overlay}>
                       <Text style={styles.copyText}>
@@ -80,21 +92,20 @@ var Slider = React.createClass({
                       </Text>
                   </View>
               </Image>
+              </TouchableOpacity>
           </View>
         )
     },
     render(){
-        if(this.state.slidesLoaded === true){
-        return(
+      if(this.state.slidesLoaded === true){
+        return (
             <Swiper style={styles.swipperWrap} showsButtons={true} loop={true} showsPagination={false} autoplay={false} autoplayTimeout={4} height={150}>
                 {Object.keys(this.state.slides).map((slide)=> this.renderSlide(this.state.slides[slide]))}
             </Swiper>
         )
-        }else{
-        return(
-          <View><Text>View</Text></View>
-        )
-        }
+      }else{
+        return(<ActivityIndicatorIOS hidden='true' size='small' color="#1eaeff" style={styles.loader} />)
+      }
     }
 });
 

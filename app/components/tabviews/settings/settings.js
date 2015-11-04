@@ -497,7 +497,7 @@ var Settings = React.createClass({
     render(){
         return(
             <View style={styles.container}>
-                <NavBar backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>
+                <NavBar logoutBtn={true} backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>
                 <View style={styles.outerWrap}>
                 <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}>
                 <View style={styles.pageWrap}>

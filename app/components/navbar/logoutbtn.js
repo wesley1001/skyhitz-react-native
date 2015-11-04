@@ -54,7 +54,6 @@ var styles = StyleSheet.create({
         opacity:0.5
     },
     btnWrap:{
-        marginTop:-39,
         paddingBottom:2,
         paddingLeft: 14,
         width:70,

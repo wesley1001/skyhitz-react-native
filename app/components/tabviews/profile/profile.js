@@ -170,7 +170,7 @@ var Profile = React.createClass({
                     styles={styles.parallax}
                     header={(                      
                         <View>
-                            <NavBar logoutBtn={true} backBtn={false} fwdBtn={false} logoType={false} transparentBackground={true}/>
+                            <NavBar backBtn={false} fwdBtn={false} logoType={false} transparentBackground={true}/>
                             <View style={styles.topContainer}>
                                 <Image style={styles.profilepic} source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}} />
                                 <BlurView blurType="dark" style={styles.blur}>
@@ -178,7 +178,8 @@ var Profile = React.createClass({
                                         {this.state.username}
                                     </Text>
                                     <Text style={styles.followers}>
-                                        {this.getFollowersCount() == 0 ? this.userFollowersCount = 0 : this.userFollowersCount = this.getFollowersCount()} followers                                    </Text>
+                                        {this.getFollowersCount() == 0 ? this.userFollowersCount = 0 : this.userFollowersCount = this.getFollowersCount()} followers
+                                    </Text>
                                 </BlurView>
                             </View>
                                 <View style={styles.profileTabs}>

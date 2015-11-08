@@ -3,7 +3,7 @@
 
 var React = require('react-native');
 var HomeFeedDivider = require('../../helpers/homefeeddivider');
-var HomeFeedApi = require('../../../utils/services/homefeed');
+var Api = require('../../../utils/services/api');
 var User = require('../../../utils/services/user');
 var Time = require('../../../utils/time');
 var Slider = require('./slider');
@@ -127,42 +127,50 @@ var HomeFeed = React.createClass({
     getInitialState () {
         return {
             isLoading: true,
+            currentPage:0,
             notifications:[],
             noMoreData:false,
-            headerSections:[{slider:true},{header:true}],
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2
-            })
+            headerSections:[{slider:true},{header:true}]
         };
+    },
+    getNotificationsDataSource() {
+        var dataSource = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2
+        });
+        return dataSource.cloneWithRows(this.state.notifications);
     },
     componentDidMount () {
         this.getUserNotifications();
     },
     getUserNotifications(){
-        var that = this;
-        if(this.state.noMoreData === false){
-            this.setState({
+        var page_size = 15;
+        var last_key = '';
+        var params = '?page_size='+page_size+'&start_at='+last_key;
+        var url = Api.homeFeedUrl(User.getUid()) + params;
+
+           this.setState({
                 isLoading: true
             });
-            HomeFeedApi.getHomeNotifications(User.getUid()).then(function(data){
-                if(data === false){
-                    that.endOfData();
-                } else {
-                    data[0] = {slider:true};
-                    data[1] = {header:true};
-                    that.setState({
-                        isLoading: false,
-                        dataSource: that.state.dataSource.cloneWithRows(data)
-                    });
-                }
-            });
-        }
-    },
-    endOfData(){
-        this.setState({
-            isLoading: false,
-            noMoreData:true
-        });
+
+            fetch(url)
+              .then((data) => data.json())
+              .then((data) => {
+                  console.log(data);
+
+                  if(!last_key){
+                      data.unshift({header:true});
+                      data.unshift({slider:true});
+                  }
+
+                  this.setState({
+                      isLoading: false,
+                      notifications:this.state.notifications.concat(data)
+                  });
+
+              })
+              .catch((error) => {
+                  console.warn(error);
+              });
     },
     goToProfile (uid){
       //  console.log('going to profile page ' + uid);
@@ -354,7 +362,7 @@ var HomeFeed = React.createClass({
                 <NavBar backBtn={false} fwdBtn={false} logoType={true} transparentBackground={false}/>
                 <View style={styles.container}>
                      <ListView
-                        dataSource={this.state.dataSource}
+                        dataSource={this.getNotificationsDataSource()}
                         renderRow={this.renderRow}
                         automaticallyAdjustContentInsets={false}
                         onEndReached={this.onEndReached}

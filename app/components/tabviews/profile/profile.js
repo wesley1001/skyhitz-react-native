@@ -40,10 +40,14 @@ var styles = StyleSheet.create({
         backgroundColor: '#edf1f2',
     },
     topContainer:{
-        flexDirection:"column",
-        alignItems:"center",
-        justifyContent:"center",
-        backgroundColor: "transparent",
+        flexDirection:'column',
+        alignItems:'center',
+        justifyContent:'flex-start',
+        backgroundColor: 'transparent',
+    },
+    parallaxWrap:{
+        flexDirection:'column',
+        justifyContent:'flex-start'
     },
     blur: {
         width:Dimensions.get('window').width,
@@ -162,15 +166,14 @@ var Profile = React.createClass({
     render(){
         return(
             <View style={styles.container}>
-
                 <ParallaxView
                     backgroundSource={{uri:User.userData.largeAvatarUrl}}
                     windowHeight={175}
                     blur="dark"
                     styles={styles.parallax}
-                    header={(                      
-                        <View>
-                            <NavBar backBtn={false} fwdBtn={false} logoType={false} transparentBackground={true}/>
+                    header={(
+                        <View style={styles.parallaxWrap}>
+                            <NavBar backBtn={this.state.route.backBtn ? true: false} fwdBtn={false} logoType={false} transparentBackground={true}/>
                             <View style={styles.topContainer}>
                                 <Image style={styles.profilepic} source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}} />
                                 <BlurView blurType="dark" style={styles.blur}>
@@ -201,7 +204,7 @@ var Profile = React.createClass({
                                             : <Icon name="android-notifications" size={30} color="#555" style={styles.listIcon}/>}
                                     </TouchableOpacity>
                                 </View>
-                                <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer} style={styles.parallax}>                                
+                                <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer} style={styles.parallax}>
                                     {this.state.selectedTab === 0 ?
                                         <Playlists nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid}/>
                                         :null }
@@ -211,10 +214,10 @@ var Profile = React.createClass({
                                     {this.state.selectedTab === 2 ?
                                         <Notifications uid={this.state.uid} profileUid={this.state.profileUid}/>
                                         :null }
-                                </ScrollView>   
+                                </ScrollView>
                         </View>
                     )}
-                >            
+                >
                 </ParallaxView>
             </View>
         )

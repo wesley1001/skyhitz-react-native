@@ -26,7 +26,8 @@ var Router = {
     goToProfile(profileUid){
         Router.navigator.push({
             id: 'profile',
-            profileUid: profileUid
+            profileUid: profileUid,
+            backBtn:true
         })
     }
 };

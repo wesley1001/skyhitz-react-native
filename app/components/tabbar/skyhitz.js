@@ -54,7 +54,7 @@ var styles = StyleSheet.create({
     SkyhitzTab: {
         width:60,
         height:60,
-        borderWidth:2,
+        borderWidth:1,
         borderRadius:31,
         marginBottom:3,
         borderColor:'#1dadff',

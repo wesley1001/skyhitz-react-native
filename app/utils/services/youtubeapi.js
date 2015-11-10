@@ -14,13 +14,12 @@ var youtubeApi = {
 
     },
     searchChannel(q){
-        var url = 'https://www.googleapis.com/youtube/v3/search?part=id,snippet&maxResults=11&videoLicense=youtube&order=relevance&q='+q+'&type=video&videoCategoryId=10&key='+key;
+        var url = 'https://www.googleapis.com/youtube/v3/search?part=id,snippet&maxResults=5&order=relevance&q='+q+'&type=video&videoCategoryId=10&key='+key;
 
         return fetch(url).then((res) => res.json());
     },
     getChannels(q){
-
-        var url = 'https://www.googleapis.com/youtube/v3/channels?part=id,brandingSettings,contentDetails,contentOwnerDetails,invideoPromotion,snippet,statistics,topicDetails&id='+q+'&key='+key;
+        var url = 'https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id='+q+'&key='+key;
 
         return fetch(url).then((res) => res.json());
     },

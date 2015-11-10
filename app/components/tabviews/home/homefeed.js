@@ -143,7 +143,7 @@ var HomeFeed = React.createClass({
         this.getUserNotifications();
     },
     getUserNotifications(){
-        var page_size = 15;
+        var page_size = 10;
         var last_key = '';
         var params = '?page_size='+page_size+'&start_at='+last_key;
         var url = Api.homeFeedUrl(User.getUid()) + params;

@@ -5,6 +5,7 @@ var Router = require('../../../utils/services/router');
 var SearchBar = require('react-native-search-bar');
 var CustomNav = require('../../navbar/customnav');
 var youtubeApi = require('../../../utils/services/youtubeapi');
+var FirebaseRef = require('../../../utils/services/firebase-ref');
 var entryApi = require('../../../utils/services/entry');
 var Divider = require('../../helpers/searchdivider');
 var ScrollableTabView = require('react-native-scrollable-tab-view');
@@ -131,35 +132,46 @@ var Search = React.createClass({
     },
     searchUsers(q){
         var that = this;
-        youtubeApi.searchChannel(q).then(function (response) {
-            var channelIds = {};
-            for (var i = 0; i < response.items.length; i++) {
-                channelIds[response.items[i].snippet.channelId] = response.items[i].snippet.channelTitle;
-            }
-            var queryArr = [];
-            for (var property in channelIds) {
-                if (channelIds.hasOwnProperty(property)) {
-                    queryArr.push(property)
+        youtubeApi.searchChannel(q).then(function (res) {
+            var queryString = '';
+            for (var i = 0; i < res.items.length; i++) {
+                if(i == 0){
+                    queryString = queryString.concat(res.items[i].snippet.channelId)
+                }else{
+                    queryString = queryString.concat(',').concat(res.items[i].snippet.channelId)
                 }
             }
-            var queryString = queryArr.join(",");
             youtubeApi.getChannels(queryString).then(function (response) {
                 var finalArray = [];
-                for (var x = 0; x < response.items.length; x++) {
-                    response.items[x].snippet.channelTitle = channelIds[response.items[x].id];
-                    if (response.items[x].statistics.subscriberCount > 100000) {
-                        finalArray.push(response.items[x]);
+                for (var i = 0; i < response.items.length; i++) {
+                    response.items[i].snippet.channelTitle = res.items[i].snippet.channelTitle;
+                    if(response.items[i].statistics.subscriberCount > 10000){
+                        finalArray[response.items[i].id] = response.items[i]
                     }
                 }
-                // 700 subscribers and up
-                if (finalArray.length > 0) {
-                    that.setState({
-                        isLoading: false,
-                        communityDataSource: that.getCommunityDataSource(finalArray)
-                    });
+                if(q == ''){
+                    finalArray = []
                 }
+                that.setState({
+                    isLoading: false,
+                    communityDataSource: that.getCommunityDataSource(finalArray)
+                });
             })
         })
+    },
+    similar(a,b) {
+        var lengthA = a.length;
+        var lengthB = b.length;
+        var equivalency = 0;
+        var minLength = (a.length > b.length) ? b.length : a.length;
+        var maxLength = (a.length < b.length) ? b.length : a.length;
+        for(var i = 0; i < minLength; i++) {
+            if(a[i] == b[i]) {
+                equivalency++;
+            }
+        }
+        var weight = equivalency / maxLength;
+        return (weight * 100);
     },
     onChangeText(text){
         this.setState({

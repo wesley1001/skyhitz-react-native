@@ -126,7 +126,7 @@ var Header = React.createClass({
 var HomeFeed = React.createClass({
     getInitialState () {
         return {
-            isLoading: true,
+            isLoading: false,
             currentPage:0,
             notifications:[],
             noMoreData:false,
@@ -143,15 +143,17 @@ var HomeFeed = React.createClass({
         this.getUserNotifications();
     },
     getUserNotifications(){
-        var page_size = 10;
+        var page_size = 15;
         var last_key = '';
+        if(this.state.notifications.length > 0){
+            last_key = this.state.notifications[this.state.notifications.length - 1].notificationUid;
+            console.log(last_key)
+        }
         var params = '?page_size='+page_size+'&start_at='+last_key;
         var url = Api.homeFeedUrl(User.getUid()) + params;
-
-           this.setState({
-                isLoading: true
-            });
-
+        this.setState({
+            isLoading: true
+        });
             fetch(url)
               .then((data) => data.json())
               .then((data) => {
@@ -160,6 +162,8 @@ var HomeFeed = React.createClass({
                   if(!last_key){
                       data.unshift({header:true});
                       data.unshift({slider:true});
+                  }else{
+                      var item = data.splice(0,1)
                   }
 
                   this.setState({

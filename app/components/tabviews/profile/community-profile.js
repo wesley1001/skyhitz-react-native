@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react-native');
-// var Swiper = require('react-native-swiper');
 var NavBar = require('../../navbar/navbar');
 var HomeFeedDivider = require('../../helpers/homefeeddivider');
 var Playlists = require('./tabviews/playlists');
@@ -33,7 +32,7 @@ var {
 var styles = StyleSheet.create({
   container: {
     backgroundColor: '#edf1f2',
-    flex: 1,
+    flex: 1
   },
   parallax: {
     backgroundColor: '#edf1f2',
@@ -182,7 +181,7 @@ var Profile = React.createClass({
         <View style={styles.parallaxWrap}>
           <Image source={{uri:User.userData.largeAvatarUrl}} style={styles.menu}>
             <BlurView blurType="dark" style={styles.menu}>
-              <NavBar backBtn={this.state.route.backBtn ? true: false} fwdBtn={false} logoType={false}
+              <NavBar backBtn={this.state.route.backBtn ? true: false} backPressFunc={this.state.nav.jumpBack} fwdBtn={false} logoType={false}
                       transparentBackground={true}/>
               <View style={styles.topContainer}>
                 <Image style={styles.profilepic}

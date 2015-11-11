@@ -4,6 +4,10 @@ var EntryTitle = {
 
     getNameUntilComma(title){
 
+        if(!title){
+            return
+        }
+
         var yourString = title.split(',')[0] ? title.split(',')[0] : title; //replace with your string.
         var maxLength = 35; // maximum number of characters to extract
 
@@ -22,6 +26,10 @@ var EntryTitle = {
 
     },
     getArtistName(title){
+
+        if(!title){
+            return
+        }
 
         var yourString = title.split(' - ')[0] ? title.split(' - ')[0] : ''; //replace with your string.
         var maxLength = 35; // maximum number of characters to extract
@@ -42,6 +50,10 @@ var EntryTitle = {
     },
     getSongTitle(title){
 
+        if(!title){
+            return
+        }
+
         var yourString = title.split(' - ')[1] ? title.split(' - ')[1] : ''; //replace with your string.
         var maxLength = 35; // maximum number of characters to extract
 
@@ -60,6 +72,11 @@ var EntryTitle = {
 
     },
     getTrimmedTitle(title){
+
+        if(!title){
+            return
+        }
+
         var maxLength = 40; // maximum number of characters to extract
 
         //trim the string to the maximum length

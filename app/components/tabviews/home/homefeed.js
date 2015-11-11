@@ -157,7 +157,8 @@ var HomeFeed = React.createClass({
             fetch(url)
               .then((data) => data.json())
               .then((data) => {
-                  console.log(data);
+
+                  console.log(data)
 
                   if(!last_key){
                       data.unshift({header:true});
@@ -315,7 +316,7 @@ var HomeFeed = React.createClass({
                     </View>
                 );
                 break;
-            default:
+            case 5:
                 return (
                     <View style={styles.rowContainer}>
                         <View style={styles.row}>
@@ -339,6 +340,8 @@ var HomeFeed = React.createClass({
                         <HomeFeedDivider/>
                     </View>
                 );
+            default :
+                return null;
         }
 
     },

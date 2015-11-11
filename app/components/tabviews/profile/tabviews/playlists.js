@@ -15,7 +15,7 @@ var {
     TouchableOpacity,
     Image,
     PixelRatio,
-    ListView,
+    ScrollView,
     Component,
     ActivityIndicatorIOS
     } = React;
@@ -28,11 +28,12 @@ var styles = StyleSheet.create({
         marginLeft:10,
         marginRight:10
     },
-    playlistIconWrap:{
-
+    container:{
+        flex:1
     },
     header:{
         marginLeft:50,
+        height:50,
         paddingTop:10,
         paddingBottom:10,
         flexDirection:'row',
@@ -83,7 +84,13 @@ var styles = StyleSheet.create({
         height:49,
         flex:1,
         alignSelf:'center'
-    }    
+    },
+    footer:{
+        paddingTop:10,
+        height:49,
+        flex:1,
+        alignSelf:'center'
+    }
 });
 
 var Playlists = React.createClass({
@@ -169,18 +176,9 @@ var Playlists = React.createClass({
           )
         }
     },
-    renderFooter(){
-        if(!this.state.isLoading){
-            return(
-                <View style={styles.footer}></View>
-            );
-        }else{
-            return( <ActivityIndicatorIOS hidden='true' size='small' color="#1eaeff" style={styles.footer} /> );
-        }
-    },    
     render(){
         return(
-            <View style={styles.container}>
+            <ScrollView style={styles.container} automaticallyAdjustContentInsets={false}>
                 <View style={styles.header}>
                     <Text style={styles.headerText}>PLAYLISTS</Text>
                     <TouchableOpacity style={styles.addNew} onPress={Router.addNewList}>
@@ -192,13 +190,13 @@ var Playlists = React.createClass({
                 <Divider/>
                     {this.state.isLoading ? <ActivityIndicatorIOS style={styles.loading} size='small' color="#1eaeff" /> : 
                     <View>
-                        {this.renderFooter}
                         {this.state.lists.map((list) => this.renderUserLists(list))}
                         {this.renderFollowedListsHeader()}
                         {this.state.followedLists.map((list)=>this.renderFollowedLists(list))}
                     </View>
-                }
-            </View>
+                    }
+                <View style={styles.footer}></View>
+            </ScrollView>
         )
     }
 

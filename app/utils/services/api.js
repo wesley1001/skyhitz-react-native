@@ -9,6 +9,9 @@ var API_URL = require('../../config/env').API_URL;
 var Api = {
   homeFeedUrl(uid){
     return API_URL + '/feed/home/'+uid
+  },
+  profileFeedUrl(uid){
+    return API_URL + '/feed/profile/'+uid
   }
 };
 

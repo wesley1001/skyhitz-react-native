@@ -6,6 +6,7 @@ var ProfileFeed = require('../../../../utils/services/profilefeed');
 var User = require('../../../../utils/services/user');
 var Time = require('../../../../utils/time');
 var Router = require('../../../../utils/routers/profile');
+var Api = require('../../../../utils/services/api');
 
 var {
     StyleSheet,
@@ -124,7 +125,7 @@ var styles = StyleSheet.create({
 var Notifications = React.createClass({
     getInitialState(){
       return{
-          notificationsData:[],
+          notifications:[],
           uid: this.props.uid,
           loading:false,
           noMoreData:false
@@ -137,31 +138,38 @@ var Notifications = React.createClass({
         var dataSource = new ListView.DataSource({
             rowHasChanged:(row1,row2) => row1 !== row2
         });
-        return dataSource.cloneWithRows(this.state.notificationsData);
-    },
-    endOfData(){
-        this.setState({
-            isLoading: false,
-            noMoreData:true
-        });
+        return dataSource.cloneWithRows(this.state.notifications);
     },
     getNotifications(){
-        var that = this;
-        if(this.state.noMoreData === false){
-            this.setState({
-                isLoading: true
-            });
-            ProfileFeed.getProfileNotifications(this.state.uid).then(function(data){
-                if(data === false){
-                    that.endOfData();
-                }else{
-                    that.setState({
-                        isLoading: false,
-                        notificationsData: data
-                    });
-                }
-            });
+        var page_size = 15;
+        var last_key = '';
+        if(this.state.notifications.length > 0){
+            last_key = this.state.notifications[this.state.notifications.length - 1].notificationUid;
+            console.log(last_key)
         }
+        var params = '?page_size='+page_size+'&start_at='+last_key;
+        var url = Api.profileFeedUrl(User.getUid()) + params;
+        this.setState({
+            isLoading: true
+        });
+        fetch(url)
+          .then((data) => data.json())
+          .then((data) => {
+              console.log(data);
+
+              if(last_key){
+                data.splice(0,1)
+              }
+
+              this.setState({
+                  isLoading: false,
+                  notifications:this.state.notifications.concat(data)
+              });
+
+          })
+          .catch((error) => {
+              console.warn(error);
+          });
     },
     getFollowingYouException(item){
        return item.followingUsername === User.getUsername() ? 'you': item.followingUsername;

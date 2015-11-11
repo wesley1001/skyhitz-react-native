@@ -4,14 +4,14 @@ var React = require('react-native');
 var Swiper = require('react-native-swiper');
 var FirebaseRef = require('../../../utils/services/firebase-ref');
 var TitleHelper = require('../../../utils/entrytitle');
-var HomeRouter = require('../../../utils/routers/home');
+var Router = require('../../../utils/routers/home');
 
 var {
     StyleSheet,
     View,
     Text,
     Component,
-    TouchableOpacity,
+    TouchableWithoutFeedback,
     ActivityIndicatorIOS,
     Image
     } = React;
@@ -81,7 +81,7 @@ var Slider = React.createClass({
     renderSlide(slide){
         return(
           <View style={styles.slide}>
-              <TouchableOpacity onPress={() => {HomeRouter.goToProfile(slide.artistUid)}} style={styles.imageWrap}>
+              <TouchableWithoutFeedback onPress={() => {Router.goToProfile(slide.artistUid)}} style={styles.imageWrap}>
               <Image source={{uri:slide.bannerUrl}} style={styles.image}>
                   <View style={styles.overlay}>
                       <Text style={styles.copyText}>
@@ -92,7 +92,7 @@ var Slider = React.createClass({
                       </Text>
                   </View>
               </Image>
-              </TouchableOpacity>
+              </TouchableWithoutFeedback>
           </View>
         )
     },

@@ -126,7 +126,7 @@ var Notifications = React.createClass({
     getInitialState(){
       return{
           notifications:[],
-          uid: this.props.uid,
+          uid: this.props.uid ? this.props.uid : User.getUid(),
           loading:false,
           noMoreData:false
       }
@@ -148,7 +148,7 @@ var Notifications = React.createClass({
             console.log(last_key)
         }
         var params = '?page_size='+page_size+'&start_at='+last_key;
-        var url = Api.profileFeedUrl(User.getUid()) + params;
+        var url = Api.profileFeedUrl(this.state.uid) + params;
         this.setState({
             isLoading: true
         });
@@ -190,13 +190,11 @@ var Notifications = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.uid)}>
                                     <Text style={styles.link}>{item.followerUsername}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}> started following </Text>
-                                <TouchableOpacity  onPress={()=>this.goToProfile(item.followingUid)}>
-                                    <Text style={styles.link}>{this.getFollowingYouException(item)}</Text>
-                                </TouchableOpacity>
+                                <Text style={styles.link}>{this.getFollowingYouException(item)}</Text>
                                 <Text style={styles.text}>.</Text>
                                 <Text style={styles.timeText}> {Time.timeDifference(item.creationTimestamp)}</Text>
                             </View>
@@ -212,9 +210,7 @@ var Notifications = React.createClass({
                             <Image source={{uri:item.avatarUrl}} style={styles.profilePic}/>
                             <View style={styles.infoWrap}>
                                 <Image style={styles.logo} source={require('image!logo')}></Image>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
-                                </TouchableOpacity>
+                                <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 <Text style={styles.text}> added points to </Text>
                                 <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
                                     <Text style={styles.link}>a song</Text>
@@ -233,9 +229,7 @@ var Notifications = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
-                                </TouchableOpacity>
+                                <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 <Text style={styles.text}> released </Text>
                                 <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
                                     <Text style={styles.link}> a new song</Text>
@@ -254,15 +248,13 @@ var Notifications = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
-                                </TouchableOpacity>
+                                <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 <Text style={styles.text}> followed</Text>
                                 <TouchableOpacity onPress={()=>Router.goToList(item.listUid)}>
                                     <Text style={styles.link}> a playlist </Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>by </Text>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.listAdminUid)}>
+                                <TouchableOpacity onPress={()=>Router.goToProfile(item.listAdminUid)}>
                                     <Text style={styles.link}>{item.listAdminUsername}</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.text}>.</Text>
@@ -279,9 +271,7 @@ var Notifications = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{this.getOwnerYouException(item)}</Text>
-                                </TouchableOpacity>
+                                <Text style={styles.link}>{this.getOwnerYouException(item)}</Text>
                                 <Text style={styles.text}> created a new</Text>
                                 <TouchableOpacity onPress={()=>Router.goToList(item.listUid)}>
                                     <Text style={styles.link}> playlist</Text>
@@ -300,9 +290,7 @@ var Notifications = React.createClass({
                         <View style={styles.row}>
                             <Image style={styles.profilePic} source={{uri:item.avatarUrl}}/>
                             <View style={styles.infoWrap}>
-                                <TouchableOpacity onPress={()=>this.goToProfile(item.uid)}>
-                                    <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
-                                </TouchableOpacity>
+                                <Text style={styles.link}>{this.getUsernameYouException(item)}</Text>
                                 <Text style={styles.text}> added</Text>
                                 <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
                                     <Text style={styles.link}> a song</Text>

@@ -11,7 +11,7 @@ var Badges = require('./tabviews/badges');
 var Followers = require('./tabviews/followers');
 var Notifications = require('./tabviews/notifications');
 var User = require('../../../utils/services/user');
-var Router = require('../../../utils/services/router');
+var Router = require('../../../utils/routers/profile');
 var List = require('../../detailviews/list');
 
 var {
@@ -135,6 +135,8 @@ var styles = StyleSheet.create({
 
 var Main = React.createClass({
     renderScene (route, nav) {
+        Router.navigator = nav;
+        Router.route = route;
         if (route.id == 'list') {
             return <List nav={nav} route={route}/>;
         } else {

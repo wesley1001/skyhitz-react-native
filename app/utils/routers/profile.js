@@ -23,12 +23,11 @@ var Router = {
             listName:listName
         });
     },
-    goToProfile(entryUid){
-        /* Router.navigator.push({
+    goToProfile(profileUid){
+        Router.navigator.push({
          id:'profile',
-         entryUid:entryUid,
-         sceneConfig: Navigator.SceneConfigs.FloatFromBottom
-         }) */
+         profileUid:profileUid
+         })
     }
 };
 

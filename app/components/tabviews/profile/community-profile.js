@@ -4,6 +4,7 @@ var React = require('react-native');
 var NavBar = require('../../navbar/navbar');
 var HomeFeedDivider = require('../../helpers/homefeeddivider');
 var Playlists = require('./tabviews/playlists');
+var ArtistList = require('./tabviews/artist-list');
 var LogoType = require('../../navbar/logotype');
 var Badges = require('./tabviews/badges');
 var Followers = require('./tabviews/followers');
@@ -15,6 +16,7 @@ var List = require('../../detailviews/list');
 var Dimensions = require('Dimensions');
 var BlurView = require('react-native-blur').BlurView;
 var Icon = require('react-native-vector-icons/Ionicons');
+var Loading = require('../../../components/loaders/loadingctrl');
 
 var {
   StyleSheet,
@@ -128,6 +130,14 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'transparent'
+  },
+  banner:{
+    flex: 1
+  },
+  overlay: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    flex: 1,
+    justifyContent: 'center'
   }
 });
 
@@ -139,6 +149,8 @@ var Profile = React.createClass({
       selectedTab: 0,
       username: User.userData.username,
       followersCount: User.userData.followersCount,
+      bannerUrl:null,
+      userType:3,
       uid: User.getUid(),
       nav: this.props.nav,
       route: this.props.route
@@ -147,14 +159,25 @@ var Profile = React.createClass({
   getUserProfile(){
     if (this.state.profileUid) {
       Users.getUserData(this.state.profileUid).then((user)=> {
+        console.log(user)
         this.setState({
           avatarUrl: user.largeAvatarUrl,
           username: user.username,
           followersCount: user.followersCount,
-          uid: user.uid
-        })
+          uid: user.uid,
+          userType:user.userType,
+          bannerUrl:user.bannerUrl ? user.bannerUrl : null
+        });
+        // Loading.hide();
       })
+    } else {
+      this.setState({
+        userType:1
+      });
     }
+  },
+  componentWillMount(){
+    // Loading.show()
   },
   componentDidMount () {
     this.getUserProfile()
@@ -175,11 +198,11 @@ var Profile = React.createClass({
       return this.state.followersCount + ' Followers'
     }
   },
-  render(){
+  renderCommunityProfile(){
     return (
       <View style={styles.container}>
         <View style={styles.parallaxWrap}>
-          <Image source={{uri:User.userData.largeAvatarUrl}} style={styles.menu}>
+          <Image source={{uri:this.state.avatarUrl}} style={styles.menu}>
             <BlurView blurType="dark" style={styles.menu}>
               <NavBar backBtn={this.state.route.backBtn ? true: false} backPressFunc={this.state.nav.jumpBack} fwdBtn={false} logoType={false}
                       transparentBackground={true}/>
@@ -231,6 +254,63 @@ var Profile = React.createClass({
         </ScrollView>
       </View>
     )
+  },
+  renderArtistProfile(){
+    return (
+      <View style={styles.container}>
+        <View style={styles.parallaxWrap}>
+          <Image source={{uri:this.state.bannerUrl}} style={styles.banner} >
+            <View style={styles.overlay}>
+              <NavBar backBtn={this.state.route.backBtn ? true: false} backPressFunc={this.state.nav.jumpBack} fwdBtn={false} logoType={false}
+                      transparentBackground={true}/>
+              <View style={styles.topContainer}>
+                <Image style={styles.profilepic}
+                       source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}}/>
+                <BlurView blurType="dark" style={styles.blur}>
+                  <Text style={styles.name}>
+                    {this.state.username}
+                  </Text>
+                  <Text style={styles.followers}>
+                    {this.getFollowersCount()}
+                  </Text>
+                </BlurView>
+                </View>
+              </View>
+          </Image>
+        </View>
+        <View style={styles.profileTabs}>
+          <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(0)}}>
+            {this.state.selectedTab === 0 ?
+              <Icon name="android-list" size={30} color="#51585e" style={styles.listIcon}/>
+              : <Icon name="android-list" size={30} color="#555" style={styles.listIcon}/>}
+          </TouchableOpacity>
+          <View style={styles.horDivider}></View>
+          <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(1)}}>
+            {this.state.selectedTab === 1 ?
+              <Icon name="person-stalker" size={30} color="#51585e" style={styles.listIcon}/>
+              : <Icon name="person-stalker" size={30} color="#555" style={styles.listIcon}/>}
+          </TouchableOpacity>
+        </View>
+        <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}
+                    style={styles.parallax}>
+          {this.state.selectedTab === 0 ?
+            <ArtistList nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid}/>
+            : null }
+          {this.state.selectedTab === 1 ?
+            <Followers profileUid={this.state.profileUid}/>
+            : null }
+        </ScrollView>
+      </View>
+    )
+  },
+  render(){
+    if(this.state.userType == 1){
+      return this.renderCommunityProfile()
+    }else if(this.state.userType == 0){
+      return this.renderArtistProfile()
+    }else{
+      return ( <BlurView blurType="dark" style={styles.blur}></BlurView>)
+    }
   }
 });
 

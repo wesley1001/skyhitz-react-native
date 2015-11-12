@@ -32,7 +32,6 @@ var styles = StyleSheet.create({
 
 var Home = React.createClass({
     renderScene(route, nav){
-        console.log(route)
         Router.navigator = nav;
         Router.route = route;
         switch (route.id) {

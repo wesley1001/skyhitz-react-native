@@ -18,7 +18,7 @@ var {
 
 var styles = StyleSheet.create({
   container:{
-      backgroundColor:'rgba(41, 43, 51, 1)',
+      backgroundColor:'rgba(41, 43, 51, 0.99)',
       flexDirection:'row',
       justifyContent:'space-between',
       alignItems:'center',

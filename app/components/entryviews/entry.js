@@ -315,7 +315,8 @@ var Entry = React.createClass({
       points: 0,
       likeCount: 0,
       commentCount: 0,
-      likers: []
+      likers: [],
+      playerBackground:'https://yt3.ggpht.com/-RUjzA5bMm9k/VgvYHkyK_FI/AAAAAAAAAGs/gpsrZvLUNtc/w1280-fcrop64=1,32b75a57cd48a5a8-nd/DisclosureVEVO_banner.jpg'
     }
   },
   indexEntry(youtubeData){

@@ -255,7 +255,7 @@ var HomeFeed = React.createClass({
                   <Text style={styles.link}>{item.username}</Text>
                 </TouchableOpacity>
                 <Text style={styles.text}> released </Text>
-                <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
+                <TouchableOpacity onPress={()=>Player.playVideo(item.entryUid)}>
                   <Text style={styles.link}> a new song</Text>
                 </TouchableOpacity>
                 <Text style={styles.text}>.</Text>
@@ -276,7 +276,7 @@ var HomeFeed = React.createClass({
                   <Text style={styles.link}>{item.username}</Text>
                 </TouchableOpacity>
                 <Text style={styles.text}> followed</Text>
-                <TouchableOpacity onPress={()=>this.goToList(item.listUid)}>
+                <TouchableOpacity onPress={()=>Router.goToList(item.listUid)}>
                   <Text style={styles.link}> a playlist </Text>
                 </TouchableOpacity>
                 <Text style={styles.text}>by </Text>
@@ -322,7 +322,7 @@ var HomeFeed = React.createClass({
                   <Text style={styles.link}>{item.username}</Text>
                 </TouchableOpacity>
                 <Text style={styles.text}> added</Text>
-                <TouchableOpacity onPress={()=>this.goToEntry(item.entryUid)}>
+                <TouchableOpacity onPress={()=>Player.playVideo(item.entryUid)}>
                   <Text style={styles.link}> a song</Text>
                 </TouchableOpacity>
                 <Text style={styles.text}> to</Text>

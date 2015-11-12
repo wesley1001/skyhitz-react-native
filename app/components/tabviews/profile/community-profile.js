@@ -5,6 +5,7 @@ var NavBar = require('../../navbar/navbar');
 var HomeFeedDivider = require('../../helpers/homefeeddivider');
 var Playlists = require('./tabviews/playlists');
 var ArtistList = require('./tabviews/artist-list');
+var LoadingOverlay = require('../../loaders/loadingoverlay');
 var LogoType = require('../../navbar/logotype');
 var Badges = require('./tabviews/badges');
 var Followers = require('./tabviews/followers');
@@ -17,6 +18,7 @@ var Dimensions = require('Dimensions');
 var BlurView = require('react-native-blur').BlurView;
 var Icon = require('react-native-vector-icons/Ionicons');
 var Loading = require('../../../components/loaders/loadingctrl');
+var TimerMixin = require('react-timer-mixin');
 
 var {
   StyleSheet,
@@ -33,7 +35,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    backgroundColor: '#edf1f2',
+    backgroundColor:'rgba(41, 43, 51, 1)',
     flex: 1
   },
   parallax: {
@@ -142,10 +144,11 @@ var styles = StyleSheet.create({
 });
 
 var Profile = React.createClass({
+  mixins: [TimerMixin],
   getInitialState(){
     return {
       profileUid: this.props.route.profileUid ? this.props.route.profileUid : '',
-      avatarUrl: User.userData.largeAvatarUrl,
+      avatarUrl: this.props.route.profileUid ? 'placeholder' : User.userData.largeAvatarUrl,
       selectedTab: 0,
       username: User.userData.username,
       followersCount: User.userData.followersCount,
@@ -153,26 +156,38 @@ var Profile = React.createClass({
       userType:3,
       uid: User.getUid(),
       nav: this.props.nav,
-      route: this.props.route
+      route: this.props.route,
+      opacity:1,
+      isVisible:true
     }
   },
   getUserProfile(){
     if (this.state.profileUid) {
       Users.getUserData(this.state.profileUid).then((user)=> {
         console.log(user)
-        this.setState({
-          avatarUrl: user.largeAvatarUrl,
-          username: user.username,
-          followersCount: user.followersCount,
-          uid: user.uid,
-          userType:user.userType,
-          bannerUrl:user.bannerUrl ? user.bannerUrl : null
-        });
-        // Loading.hide();
+            this.setState({
+              avatarUrl: user.largeAvatarUrl,
+              username: user.username,
+              followersCount: user.followersCount,
+              uid: user.uid,
+              userType:user.userType,
+              bannerUrl:user.bannerUrl ? user.bannerUrl : null
+            });
+        this.setTimeout(
+          () => {
+            this.setState({
+              isVisible:false,
+              opacity:0
+            });
+          },
+          500
+        );
       })
     } else {
       this.setState({
-        userType:1
+        userType:1,
+        isVisible:false,
+        opacity:0
       });
     }
   },
@@ -252,6 +267,7 @@ var Profile = React.createClass({
             <Notifications uid={this.state.uid} profileUid={this.state.profileUid}/>
             : null }
         </ScrollView>
+        <LoadingOverlay isVisible={this.state.isVisible} opacity={this.state.opacity}/>
       </View>
     )
   },
@@ -281,8 +297,8 @@ var Profile = React.createClass({
         <View style={styles.profileTabs}>
           <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(0)}}>
             {this.state.selectedTab === 0 ?
-              <Icon name="android-list" size={30} color="#51585e" style={styles.listIcon}/>
-              : <Icon name="android-list" size={30} color="#555" style={styles.listIcon}/>}
+              <Icon name="ios-musical-notes" size={30} color="#51585e" style={styles.listIcon}/>
+              : <Icon name="ios-musical-notes" size={30} color="#555" style={styles.listIcon}/>}
           </TouchableOpacity>
           <View style={styles.horDivider}></View>
           <TouchableOpacity style={styles.tab} onPress={() => {this.selectTab(1)}}>
@@ -300,16 +316,15 @@ var Profile = React.createClass({
             <Followers profileUid={this.state.profileUid}/>
             : null }
         </ScrollView>
+        <LoadingOverlay isVisible={this.state.isVisible} opacity={this.state.opacity}/>
       </View>
     )
   },
   render(){
     if(this.state.userType == 1){
       return this.renderCommunityProfile()
-    }else if(this.state.userType == 0){
+    }else {
       return this.renderArtistProfile()
-    }else{
-      return ( <BlurView blurType="dark" style={styles.blur}></BlurView>)
     }
   }
 });

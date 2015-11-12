@@ -81,7 +81,7 @@ var Slider = React.createClass({
     renderSlide(slide){
         return(
           <View style={styles.slide}>
-              <TouchableWithoutFeedback onPress={() => {Router.goToProfile(slide.artistUid)}} style={styles.imageWrap}>
+              <TouchableWithoutFeedback onPress={() => {Router.goToProfile(slide.artistUid, slide.channelId)}} style={styles.imageWrap}>
               <Image source={{uri:slide.bannerUrl}} style={styles.image}>
                   <View style={styles.overlay}>
                       <Text style={styles.copyText}>

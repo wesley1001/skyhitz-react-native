@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var Profile = require('./community-profile');
+var Profile = require('./profile');
 var NavBar = require('../../navbar/navbar');
 var HomeFeedDivider = require('../../helpers/homefeeddivider');
 var Playlists = require('./tabviews/playlists');

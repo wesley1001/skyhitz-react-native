@@ -152,6 +152,7 @@ var Profile = React.createClass({
       selectedTab: 0,
       username: User.userData.username,
       followersCount: User.userData.followersCount,
+      channelId: this.props.route.channelId ? this.props.route.channelId : '',
       bannerUrl:null,
       userType:3,
       uid: User.getUid(),
@@ -170,6 +171,7 @@ var Profile = React.createClass({
               username: user.username,
               followersCount: user.followersCount,
               uid: user.uid,
+              channelId:user.channelId ? user.channelId : '',
               userType:user.userType,
               bannerUrl:user.bannerUrl ? user.bannerUrl : null
             });
@@ -310,7 +312,7 @@ var Profile = React.createClass({
         <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}
                     style={styles.parallax}>
           {this.state.selectedTab === 0 ?
-            <ArtistList nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid}/>
+            <ArtistList nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid} channelId={this.state.channelId}/>
             : null }
           {this.state.selectedTab === 1 ?
             <Followers profileUid={this.state.profileUid}/>

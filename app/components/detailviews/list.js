@@ -38,6 +38,9 @@ var styles = StyleSheet.create({
         flexWrap:'nowrap',
         marginTop:7
     },
+    listContainer:{
+        backgroundColor:'rgba(41, 43, 51, 1)'
+    },
     playlistIcon:{
         width:10.5,
         height:11.9
@@ -251,7 +254,7 @@ var Playlist = React.createClass({
     },
     render(){
         return(
-            <View>
+            <View style={styles.listContainer}>
                 <NavBar title={this.getListName()} backBtn={true} backPressFunc={this.goBack} />
                 <View style={styles.container}>
                     <ListView

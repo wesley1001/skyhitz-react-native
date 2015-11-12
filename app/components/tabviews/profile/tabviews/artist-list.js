@@ -9,6 +9,7 @@ var Router = require('../../../../utils/routers/profile');
 var Api = require('../../../../utils/services/api');
 var Player = require('../../../player/player');
 var EntryTitle = require('../../../../utils/entrytitle');
+var YoutubeApi = require('../../../../utils/services/youtubeapi');
 
 var {
   StyleSheet,
@@ -129,12 +130,14 @@ var ArtistList = React.createClass({
     return {
       entries: [],
       uid: this.props.uid ? this.props.uid : User.getUid(),
+      channelId:this.props.channelId,
       loading: false,
       noMoreData: false
     }
   },
   componentDidMount(){
-   // this.getEntries()
+    console.log(this.props.channelId)
+    this.getEntries()
   },
   getEntriesDataSource(){
     var dataSource = new ListView.DataSource({
@@ -143,53 +146,36 @@ var ArtistList = React.createClass({
     return dataSource.cloneWithRows(this.state.entries);
   },
   getEntries(){
-    var page_size = 15;
-    var last_key = '';
-    if (this.state.entries.length > 0) {
-      last_key = this.state.entries[this.state.entries.length - 1].notificationUid;
-      console.log(last_key)
-    }
-    var params = '?page_size=' + page_size + '&start_at=' + last_key;
-    var url = Api.profileFeedUrl(this.state.uid) + params;
+
     this.setState({
       isLoading: true
     });
-    fetch(url)
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
 
-        if (last_key) {
-          data.splice(0, 1)
-        }
+    YoutubeApi.videosInChannel(this.state.channelId).then((data)=>{
 
-        this.setState({
-          isLoading: false,
-          entries: this.state.entries.concat(data)
-        });
+      console.log(data.items)
 
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+     this.setState({entries:data.items, isLoading:false})
+
+    })
+
   },
   renderEntry(item){
     return(
       <View>
         <View  style={styles.rowWrap}>
           <View style={styles.row}>
-            <TouchableOpacity onPress={()=>{Player.playVideo(item.youtubeData.id.videoId, item.youtubeData.snippet.title);this.setList(itemId)}}>
+            <TouchableOpacity onPress={()=>{Player.playVideo(item.id.videoId, item.snippet.title)}}>
               <View style={styles.leftRowSection}>
-                <Image source={{uri:item.youtubeData.snippet.thumbnails.default.url}} style={styles.thumb}/>
+                <Image source={{uri:item.snippet.thumbnails.default.url}} style={styles.thumb}/>
                 <View style={styles.info}>
-                  <Text style={styles.title}>{EntryTitle.getSongTitle(item.youtubeData.snippet.title)}</Text>
-                  <Text style={[styles.searchArtistTitle,{color:(item.youtubeData.videoId == this.state.currentVideoId) ? 'rgba(29, 173, 255, 1)':'#51585e'}]}>{EntryTitle.getArtistName(item.youtubeData.snippet.title)}</Text>
+                  <Text style={styles.title}>{EntryTitle.getSongTitle(item.snippet.title)}</Text>
+                  <Text style={styles.searchArtistTitle}>{EntryTitle.getArtistName(item.snippet.title)}</Text>
                 </View>
               </View>
             </TouchableOpacity>
             <View style={styles.rightSection}>
-              <Text style={styles.points}>{this.formatPoints(item.points)}</Text>
-              <ThreeDots onPress={()=>this.showActionSheetTopList(item)}/>
+
             </View>
           </View>
         </View>

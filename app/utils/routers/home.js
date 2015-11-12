@@ -23,10 +23,11 @@ var Router = {
             listName: listName
         });
     },
-    goToProfile(profileUid){
+    goToProfile(profileUid, channelId){
         Router.navigator.push({
             id: 'profile',
             profileUid: profileUid,
+            channelId: channelId,
             backBtn:true
         })
     }

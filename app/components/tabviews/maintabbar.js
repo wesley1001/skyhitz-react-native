@@ -103,7 +103,8 @@ var MainTabBar = React.createClass({
             isHidden:true,
             opacity: new Animated.Value(0),
             pan: new Animated.ValueXY(),
-            tabBarPosition: new Animated.Value(0)
+            tabBarPosition: new Animated.Value(0),
+            notificationCount:0
         }
     },
     render(){
@@ -114,7 +115,7 @@ var MainTabBar = React.createClass({
                         selected={this.state.selectedTab === 'home'}
                         renderIcon={() => <Icon name="android-home" size={28} color="#ccc" style={styles.tabIcon}/>}
                         renderSelectedIcon={() => <Icon name="android-home" size={28} color="#eee" style={styles.tabIcon}/>}
-                        badgeText="1"
+                        badgeText={this.state.notificationCount}
                         onPress={() => this.setState({ selectedTab: 'home' })}>
                         <Home/>
                     </TabNavigator.Item>

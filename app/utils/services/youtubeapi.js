@@ -48,6 +48,13 @@ var youtubeApi = {
 
         return fetch(url).then((res) => res.json());
 
+    },
+    videosInChannel(channelId){
+
+        var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId='+channelId+'&key='+key;
+
+        return fetch(url).then((res) => res.json());
+
     }
 };
 

@@ -4,7 +4,7 @@ var React = require('react-native');
 var HomeFeedDivider = require('../../helpers/homefeeddivider');
 var HomeFeed = require('./homefeed');
 var Router = require('../../../utils/routers/home');
-var Profile = require('../profile/community-profile');
+var Profile = require('../profile/profile');
 var List = require('../../detailviews/list');
 
 var {

@@ -1,9 +1,9 @@
 'use strict';
 
 var React = require('react-native');
-var Router = require('../../../utils/routers/profile');
-var Profile = require('./profile');
-var List = require('../../detailviews/list');
+var Router = require('../../../utils/routers/search');
+var Profile = require('../profile/profile');
+var Search = require('../search/search');
 
 var {
   StyleSheet,
@@ -23,11 +23,11 @@ var Main = React.createClass({
   renderScene (route, nav) {
     Router.navigator = nav;
     Router.route = route;
-    if (route.id == 'list') {
-      return <List nav={nav} route={route}/>;
+    if (route.id == 'profile') {
+      return <Profile nav={nav} route={route}/>;
     } else {
       return (
-        <Profile nav={nav} route={route}/>
+        <Search nav={nav} route={route}/>
       )
     }
   },

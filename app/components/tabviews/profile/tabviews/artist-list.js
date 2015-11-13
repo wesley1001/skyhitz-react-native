@@ -174,9 +174,6 @@ var ArtistList = React.createClass({
                 </View>
               </View>
             </TouchableOpacity>
-            <View style={styles.rightSection}>
-
-            </View>
           </View>
         </View>
         <Divider style={styles.horDivider}/>

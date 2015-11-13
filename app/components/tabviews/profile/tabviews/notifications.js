@@ -128,8 +128,7 @@ var Notifications = React.createClass({
     return {
       notifications: [],
       uid: this.props.uid ? this.props.uid : User.getUid(),
-      loading: false,
-      noMoreData: false
+      loading: false
     }
   },
   componentDidMount(){
@@ -151,7 +150,7 @@ var Notifications = React.createClass({
     var params = '?page_size=' + page_size + '&start_at=' + last_key;
     var url = Api.profileFeedUrl(this.state.uid) + params;
     this.setState({
-      isLoading: true
+      loading: true
     });
     fetch(url)
       .then((data) => data.json())
@@ -163,7 +162,7 @@ var Notifications = React.createClass({
         }
 
         this.setState({
-          isLoading: false,
+          loading: false,
           notifications: this.state.notifications.concat(data)
         });
 
@@ -309,7 +308,7 @@ var Notifications = React.createClass({
     }
   },
   renderFooter(){
-    if (!this.state.isLoading) {
+    if (!this.state.loading) {
       return (
         <View style={styles.footer}></View>
       );
@@ -320,7 +319,7 @@ var Notifications = React.createClass({
   onEndReached () {
 
     this.setState({
-      isLoading: true
+      loading: true
     });
     this.getNotifications();
   },

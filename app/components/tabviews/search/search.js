@@ -3,15 +3,9 @@
 var React = require('react-native');
 var Router = require('../../../utils/routers/search');
 var SearchBar = require('react-native-search-bar');
-var CustomNav = require('../../navbar/customnav');
 var YoutubeApi = require('../../../utils/services/youtubeapi');
-var entryApi = require('../../../utils/services/entry');
-var Divider = require('../../helpers/searchdivider');
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 var CustomTabBar = require('./customtabs');
-var Dimensions = require('Dimensions');
-var windowSize = Dimensions.get('window');
-var EntryTitle = require('../../../utils/entrytitle');
 var Player = require('../../player/player');
 var YoutubeRowEntry = require('../../minicomponents/youtube-row-entry');
 var YoutubeRowUser = require('../../minicomponents/youtube-row-user');
@@ -52,7 +46,7 @@ var Search = React.createClass({
     return {
       entries: [],
       users: [],
-      selectedSearchTab: 0,
+      selectedTab: 0,
       lastQuery: '',
       loading: false
     }
@@ -120,7 +114,7 @@ var Search = React.createClass({
     this.setState({
       lastQuery: text
     });
-    if (this.state.selectedSearchTab == 0) {
+    if (this.state.selectedTab == 0) {
       this.searchEntries(text);
     } else {
       this.searchUsers(text);
@@ -133,7 +127,7 @@ var Search = React.createClass({
       this.searchUsers(this.state.lastQuery);
     }
     this.setState({
-      selectedSearchTab: i.i
+      selectedTab: i.i
     });
   },
   renderEntryRow (entry){

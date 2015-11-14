@@ -2,25 +2,16 @@
 
 var React = require('react-native');
 var Divider = require('../../../helpers/homefeeddivider');
-var ProfileFeed = require('../../../../utils/services/profilefeed');
-var User = require('../../../../utils/services/user');
-var Time = require('../../../../utils/time');
-var Router = require('../../../../utils/routers/profile');
-var Api = require('../../../../utils/services/api');
 var Player = require('../../../player/player');
-var EntryTitle = require('../../../../utils/entrytitle');
 var YoutubeApi = require('../../../../utils/services/youtubeapi');
+var YoutubeRowEntry = require('../../../minicomponents/youtube-row-entry');
 
 var {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
-  Image,
-  PixelRatio,
   ListView,
-  ActivityIndicatorIOS,
-  Component
+  ActivityIndicatorIOS
   } = React;
 
 var styles = StyleSheet.create({
@@ -29,6 +20,9 @@ var styles = StyleSheet.create({
   },
   rowContainer: {
     backgroundColor: '#edf1f2'
+  },
+  listview: {
+    flex: 1
   },
   row: {
     flexDirection: 'row',
@@ -129,10 +123,11 @@ var ArtistList = React.createClass({
   getInitialState(){
     return {
       entries: [],
-      uid: this.props.uid ? this.props.uid : User.getUid(),
+      uid: this.props.uid,
       channelId:this.props.channelId,
       loading: false,
-      noMoreData: false
+      noMoreData: false,
+      pageToken: null
     }
   },
   componentDidMount(){
@@ -148,52 +143,36 @@ var ArtistList = React.createClass({
   getEntries(){
 
     this.setState({
-      isLoading: true
+      loading: true
     });
+    console.log('get entries')
 
-    YoutubeApi.videosInChannel(this.state.channelId).then((data)=>{
+    YoutubeApi.videosInChannel(this.state.channelId, this.state.pageToken).then((data)=>{
 
       console.log(data.items)
 
-     this.setState({entries:data.items, isLoading:false})
+     this.setState({entries:this.state.entries.concat(data.items), loading:false, pageToken: data.nextPageToken})
 
     })
 
   },
-  renderEntry(item){
+  renderEntry(entry){
     return(
-      <View>
-        <View  style={styles.rowWrap}>
-          <View style={styles.row}>
-            <TouchableOpacity onPress={()=>{Player.playVideo(item.id.videoId, item.snippet.title)}}>
-              <View style={styles.leftRowSection}>
-                <Image source={{uri:item.snippet.thumbnails.default.url}} style={styles.thumb}/>
-                <View style={styles.info}>
-                  <Text style={styles.title}>{EntryTitle.getSongTitle(item.snippet.title)}</Text>
-                  <Text style={styles.searchArtistTitle}>{EntryTitle.getArtistName(item.snippet.title)}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Divider style={styles.horDivider}/>
-      </View>
+      <YoutubeRowEntry entry={entry} />
     );
   },
   renderFooter(){
-    if (!this.state.isLoading) {
+    if (!this.state.loading) {
       return (
         <View style={styles.footer}></View>
       );
     } else {
-      return ( <ActivityIndicatorIOS size='small' color="#1eaeff" style={styles.footer}/> );
+      return (<ActivityIndicatorIOS size='small' color="#1eaeff" style={styles.footer}/>);
     }
   },
-  onEndReached () {
-    this.setState({
-      isLoading: true
-    });
-    this.getNotifications();
+  loadMore() {
+    console.log('end reached')
+    this.getEntries();
   },
   render(){
     return (
@@ -206,9 +185,10 @@ var ArtistList = React.createClass({
           dataSource={this.getEntriesDataSource()}
           renderRow={this.renderEntry}
           automaticallyAdjustContentInsets={false}
-          onEndReached={this.onEndReached}
           style={styles.listview}
           renderFooter={this.renderFooter}
+          onEndReached={this.loadMore}
+          onEndReachedThreshold={2}
           />
       </View>
     )

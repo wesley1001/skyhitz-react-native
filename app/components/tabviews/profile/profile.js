@@ -44,9 +44,29 @@ var styles = StyleSheet.create({
   },
   topContainer: {
     flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
+  },
+  topHeader:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  followText:{
+    textAlign:'center',
+    color:'white',
+    paddingTop:5,
+    paddingBottom:5
+  },
+  profileInfo:{
+    marginTop:-60,
+    marginLeft:20,
+    flex:1
+  },
+  textInfo:{
+    color:'white',
+    marginTop:10,
+    marginBottom:10
   },
   parallaxWrap: {
     flexDirection: 'column',
@@ -67,10 +87,20 @@ var styles = StyleSheet.create({
     borderRadius: 80 / PixelRatio.get(),
     width: 80,
     height: 80,
+    marginLeft:40,
     marginBottom: 20,
     marginTop: -40,
     borderWidth: 1,
     borderColor: 'white',
+  },
+  followBtn:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
+    borderColor:'white',
+    borderWidth:1,
+    borderRadius: 4,
+    width:150
   },
   name: {
     fontFamily: "Avenir",
@@ -151,6 +181,7 @@ var Profile = React.createClass({
       avatarUrl: this.props.route.profileUid ? 'placeholder' : User.userData.largeAvatarUrl,
       selectedTab: 0,
       username: User.userData.username,
+      name:User.userData.name,
       followersCount: User.userData.followersCount,
       channelId: this.props.route.channelId ? this.props.route.channelId : '',
       bannerUrl:null,
@@ -169,6 +200,7 @@ var Profile = React.createClass({
             this.setState({
               avatarUrl: user.largeAvatarUrl,
               username: user.username,
+              name:user.name,
               followersCount: user.followersCount,
               uid: user.uid,
               channelId:user.channelId ? user.channelId : '',
@@ -224,8 +256,16 @@ var Profile = React.createClass({
               <NavBar backBtn={this.state.route.backBtn ? true: false} backPressFunc={this.state.nav.jumpBack} fwdBtn={false} logoType={false}
                       transparentBackground={true}/>
               <View style={styles.topContainer}>
+                <View style={styles.topHeader}>
                 <Image style={styles.profilepic}
                        source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}}/>
+                  <View style={styles.profileInfo}>
+                    <Text style={styles.textInfo}>{this.state.name}</Text>
+                    <View style={styles.followBtn}>
+                      <Text style={styles.followText}>+ Follow</Text>
+                    </View>
+                  </View>
+                  </View>
                 <BlurView blurType="dark" style={styles.blur}>
                   <Text style={styles.name}>
                     {this.state.username}
@@ -282,8 +322,17 @@ var Profile = React.createClass({
               <NavBar backBtn={this.state.route.backBtn ? true: false} backPressFunc={this.state.nav.jumpBack} fwdBtn={false} logoType={false}
                       transparentBackground={true}/>
               <View style={styles.topContainer}>
-                <Image style={styles.profilepic}
-                       source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}}/>
+                <View style={styles.topHeader}>
+                  <Image style={styles.profilepic}
+                         source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}}/>
+                  <View style={styles.profileInfo}>
+                    <Text style={styles.textInfo}>{this.state.name}</Text>
+                    <View style={styles.followBtn}>
+                      <Icon name="plus" size={20} color="white" style={styles.listIcon}/>
+                      <Text style={styles.followText}>Follow</Text>
+                    </View>
+                  </View>
+                </View>
                 <BlurView blurType="dark" style={styles.blur}>
                   <Text style={styles.name}>
                     {this.state.username}
@@ -292,7 +341,7 @@ var Profile = React.createClass({
                     {this.getFollowersCount()}
                   </Text>
                 </BlurView>
-                </View>
+              </View>
               </View>
           </Image>
         </View>

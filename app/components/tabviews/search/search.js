@@ -9,6 +9,8 @@ var CustomTabBar = require('./customtabs');
 var Player = require('../../player/player');
 var YoutubeRowEntry = require('../../minicomponents/youtube-row-entry');
 var YoutubeRowUser = require('../../minicomponents/youtube-row-user');
+var Dimensions = require('Dimensions');
+var windowSize = Dimensions.get('window');
 
 var {
   StyleSheet,

@@ -125,7 +125,7 @@ var Header = React.createClass({
 var HomeFeed = React.createClass({
   getInitialState () {
     return {
-      isLoading: false,
+      loading: false,
       currentPage: 0,
       notifications: [],
       noMoreData: false,
@@ -151,7 +151,7 @@ var HomeFeed = React.createClass({
     var params = '?page_size=' + page_size + '&start_at=' + last_key;
     var url = Api.homeFeedUrl(User.getUid()) + params;
     this.setState({
-      isLoading: true
+      loading: true
     });
     fetch(url)
       .then((data) => data.json())
@@ -165,7 +165,7 @@ var HomeFeed = React.createClass({
         }
 
         this.setState({
-          isLoading: false,
+          loading: false,
           notifications: this.state.notifications.concat(data)
         });
 
@@ -342,7 +342,7 @@ var HomeFeed = React.createClass({
 
   },
   renderFooter(){
-    if (!this.state.isLoading) {
+    if (!this.state.loading) {
       return (
         <View style={styles.footer}></View>
       );
@@ -351,11 +351,12 @@ var HomeFeed = React.createClass({
     }
   },
   onEndReached () {
-    if (this.state.isLoading) {
+    console.log('end reached')
+    if (this.state.loading) {
       return;
     }
     this.setState({
-      isLoading: true
+      loading: true
     });
     this.getUserNotifications();
   },
@@ -372,7 +373,6 @@ var HomeFeed = React.createClass({
             style={styles.listview}
             renderFooter={this.renderFooter}
             />
-
         </View>
       </View>
     );

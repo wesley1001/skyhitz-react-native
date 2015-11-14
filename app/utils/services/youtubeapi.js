@@ -49,9 +49,13 @@ var youtubeApi = {
         return fetch(url).then((res) => res.json());
 
     },
-    videosInChannel(channelId){
+    videosInChannel(channelId, pageToken){
 
-        var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId='+channelId+'&key='+key;
+        var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId='+channelId+'&maxResults='+50+'&order=viewCount&type=video&videoCategoryId=10&key='+key;
+
+        if(pageToken){
+            url = url.concat('&pageToken='+pageToken)
+        }
 
         return fetch(url).then((res) => res.json());
 

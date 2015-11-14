@@ -141,6 +141,7 @@ var Notifications = React.createClass({
     return dataSource.cloneWithRows(this.state.notifications);
   },
   getNotifications(){
+    console.log('notifications called')
     var page_size = 15;
     var last_key = '';
     if (this.state.notifications.length > 0) {
@@ -317,6 +318,8 @@ var Notifications = React.createClass({
     }
   },
   onEndReached () {
+
+    console.log('end reached')
 
     this.setState({
       loading: true

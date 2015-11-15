@@ -326,31 +326,6 @@ var User = {
             });
         });
     },
-    getFollowers(uid){
-        var followers = [];
-        return new Promise(function(resolve, reject){
-            FirebaseRef.userFollowers(uid).once('value', function (snapshot) {
-                if (snapshot.val() !== null) {
-                    var followersUid = snapshot.val();
-                    var followersLength = Object.keys(followersUid).length;
-                    for (var prop in followersUid) {
-                        if (followersUid.hasOwnProperty(prop)) {
-                            FirebaseRef.userData(prop).once('value', function (follower) {
-                                if (follower.val() !== null) {
-                                    followers[follower.val().uid] = follower.val();
-                                }
-                                if (followersLength == Object.keys(followers).length) {
-                                    resolve(followers);
-                                }
-                            });
-                        }
-                    }
-                }
-            }, function (error) {
-                error ? reject(error) : '';
-            });
-        });
-    },
     getUsername () {
         return User.userData.username;
     },

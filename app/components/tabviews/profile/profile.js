@@ -303,7 +303,7 @@ var Profile = React.createClass({
             <Playlists nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid}/>
             : null }
           {this.state.selectedTab === 1 ?
-            <Followers profileUid={this.state.profileUid}/>
+            <Followers profileUid={this.state.profileUid} nav={this.state.nav} route={this.state.route}/>
             : null }
           {this.state.selectedTab === 2 ?
             <Notifications uid={this.state.uid} profileUid={this.state.profileUid}/>
@@ -364,7 +364,7 @@ var Profile = React.createClass({
             <ArtistList nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid} channelId={this.state.channelId}/>
             : null }
           {this.state.selectedTab === 1 ?
-            <Followers profileUid={this.state.profileUid}/>
+            <Followers profileUid={this.state.profileUid} nav={this.state.nav} route={this.state.route}/>
             : null }
         </ScrollView>
         <LoadingOverlay isVisible={this.state.isVisible} opacity={this.state.opacity}/>

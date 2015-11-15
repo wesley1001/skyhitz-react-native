@@ -141,7 +141,6 @@ var Notifications = React.createClass({
     return dataSource.cloneWithRows(this.state.notifications);
   },
   getNotifications(){
-    console.log('notifications called')
     var page_size = 15;
     var last_key = '';
     if (this.state.notifications.length > 0) {
@@ -156,21 +155,14 @@ var Notifications = React.createClass({
     fetch(url)
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
-
         if (last_key) {
           data.splice(0, 1)
         }
-
         this.setState({
           loading: false,
           notifications: this.state.notifications.concat(data)
         });
-
       })
-      .catch((error) => {
-        console.warn(error);
-      });
   },
   getFollowingYouException(item){
     return item.followingUsername === User.getUsername() ? 'you' : item.followingUsername;

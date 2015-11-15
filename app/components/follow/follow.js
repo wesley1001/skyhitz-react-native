@@ -42,7 +42,6 @@ var Follow = React.createClass({
         }
     },
     follow(){
-
         if(this.state.follow === false){
             this.setState({follow:true});
             FollowService.followUser(this.state.user);

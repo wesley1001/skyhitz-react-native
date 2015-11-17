@@ -4,7 +4,7 @@ var React = require('react-native');
 var EntryTitle = require('../../utils/entrytitle');
 var Player = require('../player/player');
 var Divider = require('../helpers/searchdivider');
-var Follow = require('../follow/follow');
+var FollowBtn = require('../minicomponents/follow-btn');
 
 var {
   StyleSheet,
@@ -101,7 +101,7 @@ var FollowerRow = React.createClass({
               </View>
             </TouchableOpacity>
             <View style={styles.rightSection}>
-              <Follow following={this.state.user.following} user={this.state.user}/>
+              <FollowBtn user={this.state.user}/>
             </View>
           </View>
         </View>

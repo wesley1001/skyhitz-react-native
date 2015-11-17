@@ -5,6 +5,7 @@ var Swiper = require('react-native-swiper');
 var FirebaseRef = require('../../../utils/services/firebase-ref');
 var TitleHelper = require('../../../utils/entrytitle');
 var Router = require('../../../utils/routers/home');
+var Api = require('../../../utils/services/api');
 
 var {
     StyleSheet,
@@ -78,10 +79,19 @@ var Slider = React.createClass({
             }
         })
     },
+    goToProfile(slide){
+        var url = Api.getUser(slide.artistUid);
+        fetch(url)
+          .then((data) => data.json())
+          .then((user) => {
+              console.log(user)
+              Router.goToProfile(user)
+          });
+    },
     renderSlide(slide){
         return(
           <View style={styles.slide}>
-              <TouchableWithoutFeedback onPress={() => {Router.goToProfile(slide.artistUid, slide.channelId)}} style={styles.imageWrap}>
+              <TouchableWithoutFeedback onPress={() => {this.goToProfile(slide)}} style={styles.imageWrap}>
               <Image source={{uri:slide.bannerUrl}} style={styles.image}>
                   <View style={styles.overlay}>
                       <Text style={styles.copyText}>

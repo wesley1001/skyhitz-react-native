@@ -145,14 +145,9 @@ var ArtistList = React.createClass({
     this.setState({
       loading: true
     });
-    console.log('get entries')
 
     YoutubeApi.videosInChannel(this.state.channelId, this.state.pageToken).then((data)=>{
-
-      console.log(data.items)
-
      this.setState({entries:this.state.entries.concat(data.items), loading:false, pageToken: data.nextPageToken})
-
     })
 
   },

@@ -4,6 +4,7 @@ var React = require('react-native');
 var Router = require('../../../utils/routers/profile');
 var Profile = require('./profile');
 var List = require('../../detailviews/list');
+var User = require('../../../utils/services/user');
 
 var {
   StyleSheet,
@@ -27,7 +28,7 @@ var Main = React.createClass({
       return <List nav={nav} route={route}/>;
     } else {
       return (
-        <Profile nav={nav} route={route}/>
+        <Profile nav={nav} route={route} user={User.userData}/>
       )
     }
   },

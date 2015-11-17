@@ -16,6 +16,9 @@ var Api = {
   },
   getFollowers(uid){
     return API_URL + '/followers/' + uid + '?requester_uid=' + User.getUid();
+  },
+  getUser(uid){
+    return API_URL + '/users/' + uid + '?requester_uid=' + User.getUid();
   }
 };
 

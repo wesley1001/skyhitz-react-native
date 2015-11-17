@@ -19,6 +19,7 @@ var BlurView = require('react-native-blur').BlurView;
 var Icon = require('react-native-vector-icons/Ionicons');
 var Loading = require('../../../components/loaders/loadingctrl');
 var TimerMixin = require('react-timer-mixin');
+var FollowBtn = require('../../minicomponents/follow-btn');
 
 var {
   StyleSheet,
@@ -51,12 +52,6 @@ var styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'center'
-  },
-  followText:{
-    textAlign:'center',
-    color:'white',
-    paddingTop:5,
-    paddingBottom:5
   },
   profileInfo:{
     marginTop:-60,
@@ -92,15 +87,6 @@ var styles = StyleSheet.create({
     marginTop: -40,
     borderWidth: 1,
     borderColor: 'white',
-  },
-  followBtn:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    borderColor:'white',
-    borderWidth:1,
-    borderRadius: 4,
-    width:150
   },
   name: {
     fontFamily: "Avenir",
@@ -177,59 +163,13 @@ var Profile = React.createClass({
   mixins: [TimerMixin],
   getInitialState(){
     return {
-      profileUid: this.props.route.profileUid ? this.props.route.profileUid : '',
-      avatarUrl: this.props.route.profileUid ? 'placeholder' : User.userData.largeAvatarUrl,
       selectedTab: 0,
-      username: User.userData.username,
-      name:User.userData.name,
-      followersCount: User.userData.followersCount,
-      channelId: this.props.route.channelId ? this.props.route.channelId : '',
-      bannerUrl:null,
-      userType:3,
-      uid: User.getUid(),
       nav: this.props.nav,
       route: this.props.route,
-      opacity:1,
-      isVisible:true
+      opacity:0,
+      isVisible:false,
+      user: this.props.route.user ?  this.props.route.user : User.userData
     }
-  },
-  getUserProfile(){
-    if (this.state.profileUid) {
-      Users.getUserData(this.state.profileUid).then((user)=> {
-        console.log(user)
-            this.setState({
-              avatarUrl: user.largeAvatarUrl,
-              username: user.username,
-              name:user.name,
-              followersCount: user.followersCount,
-              uid: user.uid,
-              channelId:user.channelId ? user.channelId : '',
-              userType:user.userType,
-              bannerUrl:user.bannerUrl ? user.bannerUrl : null
-            });
-        this.setTimeout(
-          () => {
-            this.setState({
-              isVisible:false,
-              opacity:0
-            });
-          },
-          500
-        );
-      })
-    } else {
-      this.setState({
-        userType:1,
-        isVisible:false,
-        opacity:0
-      });
-    }
-  },
-  componentWillMount(){
-    // Loading.show()
-  },
-  componentDidMount () {
-    this.getUserProfile()
   },
   selectTab(tabIndex){
     this.setState({
@@ -237,38 +177,36 @@ var Profile = React.createClass({
     });
   },
   getFollowersCount(){
-    if(this.state.followersCount == 0){
+    if(this.state.user.followersCount == 0){
       return ''
     }
-    if(this.state.followersCount == 1){
+    if(this.state.user.followersCount == 1){
       return '1 Follower'
     }
-    if(this.state.followerCount > 1){
-      return this.state.followersCount + ' Followers'
+    if(this.state.user.followerCount > 1){
+      return this.state.user.followersCount + ' Followers'
     }
   },
   renderCommunityProfile(){
     return (
       <View style={styles.container}>
         <View style={styles.parallaxWrap}>
-          <Image source={{uri:this.state.avatarUrl}} style={styles.menu}>
+          <Image source={{uri:this.state.user.largeAvatarUrl}} style={styles.menu}>
             <BlurView blurType="dark" style={styles.menu}>
               <NavBar backBtn={this.state.route.backBtn ? true: false} backPressFunc={this.state.nav.jumpBack} fwdBtn={false} logoType={false}
                       transparentBackground={true}/>
               <View style={styles.topContainer}>
                 <View style={styles.topHeader}>
                 <Image style={styles.profilepic}
-                       source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}}/>
+                       source={{uri:this.state.user.largeAvatarUrl}}/>
                   <View style={styles.profileInfo}>
-                    <Text style={styles.textInfo}>{this.state.name}</Text>
-                    <View style={styles.followBtn}>
-                      <Text style={styles.followText}>+ Follow</Text>
-                    </View>
+                    <Text style={styles.textInfo}>{this.state.user.name}</Text>
+                    <FollowBtn user={this.state.user} size="large"/>
                   </View>
                   </View>
                 <BlurView blurType="dark" style={styles.blur}>
                   <Text style={styles.name}>
-                    {this.state.username}
+                    {this.state.user.username}
                   </Text>
                   <Text style={styles.followers}>
                     {this.getFollowersCount()}
@@ -300,13 +238,13 @@ var Profile = React.createClass({
         <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}
                     style={styles.parallax}>
           {this.state.selectedTab === 0 ?
-            <Playlists nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid}/>
+            <Playlists nav={this.state.nav} route={this.state.route} profileUid={this.state.user.uid}/>
             : null }
           {this.state.selectedTab === 1 ?
-            <Followers profileUid={this.state.profileUid} nav={this.state.nav} route={this.state.route}/>
+            <Followers profileUid={this.state.user.uid} nav={this.state.nav} route={this.state.route}/>
             : null }
           {this.state.selectedTab === 2 ?
-            <Notifications uid={this.state.uid} profileUid={this.state.profileUid}/>
+            <Notifications uid={this.state.uid} profileUid={this.state.user.uid}/>
             : null }
         </ScrollView>
         <LoadingOverlay isVisible={this.state.isVisible} opacity={this.state.opacity}/>
@@ -317,25 +255,22 @@ var Profile = React.createClass({
     return (
       <View style={styles.container}>
         <View style={styles.parallaxWrap}>
-          <Image source={{uri:this.state.bannerUrl}} style={styles.banner} >
+          <Image source={{uri:this.state.user.bannerUrl}} style={styles.banner} >
             <View style={styles.overlay}>
               <NavBar backBtn={this.state.route.backBtn ? true: false} backPressFunc={this.state.nav.jumpBack} fwdBtn={false} logoType={false}
                       transparentBackground={true}/>
               <View style={styles.topContainer}>
                 <View style={styles.topHeader}>
                   <Image style={styles.profilepic}
-                         source={this.state.avatarUrl == "placeholder" ? require('image!avatar'):{uri:this.state.avatarUrl}}/>
+                         source={{uri:this.state.user.largeAvatarUrl}}/>
                   <View style={styles.profileInfo}>
-                    <Text style={styles.textInfo}>{this.state.name}</Text>
-                    <View style={styles.followBtn}>
-                      <Icon name="plus" size={20} color="white" style={styles.listIcon}/>
-                      <Text style={styles.followText}>Follow</Text>
-                    </View>
+                    <Text style={styles.textInfo}>{this.state.user.name}</Text>
+                    <FollowBtn user={this.state.user} size="large"/>
                   </View>
                 </View>
                 <BlurView blurType="dark" style={styles.blur}>
                   <Text style={styles.name}>
-                    {this.state.username}
+                    {this.state.user.username}
                   </Text>
                   <Text style={styles.followers}>
                     {this.getFollowersCount()}
@@ -361,10 +296,10 @@ var Profile = React.createClass({
         <ScrollView automaticallyAdjustContentInsets={false} contentContainerStyle={styles.contentContainer}
                     style={styles.parallax}>
           {this.state.selectedTab === 0 ?
-            <ArtistList nav={this.state.nav} route={this.state.route} profileUid={this.state.profileUid} channelId={this.state.channelId}/>
+            <ArtistList nav={this.state.nav} route={this.state.route} profileUid={this.state.user.uid} channelId={this.state.user.channelId}/>
             : null }
           {this.state.selectedTab === 1 ?
-            <Followers profileUid={this.state.profileUid} nav={this.state.nav} route={this.state.route}/>
+            <Followers profileUid={this.state.user.uid} nav={this.state.nav} route={this.state.route}/>
             : null }
         </ScrollView>
         <LoadingOverlay isVisible={this.state.isVisible} opacity={this.state.opacity}/>
@@ -372,7 +307,7 @@ var Profile = React.createClass({
     )
   },
   render(){
-    if(this.state.userType == 1){
+    if(this.state.user.userType == 1){
       return this.renderCommunityProfile()
     }else {
       return this.renderArtistProfile()

@@ -19,6 +19,12 @@ var Api = {
   },
   getUser(uid){
     return API_URL + '/users/' + uid + '?requester_uid=' + User.getUid();
+  },
+  topList(){
+    return API_URL + '/toplist';
+  },
+  hotLists(){
+    return API_URL + '/hotlists';
   }
 };
 

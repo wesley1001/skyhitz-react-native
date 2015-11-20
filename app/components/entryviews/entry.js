@@ -328,6 +328,7 @@ var Entry = React.createClass({
     Artist.indexArtist(youtubeData);
   },
   loadVideo(args){
+    console.log(args)
     if (!args.videoTitle) {
       this.setState({entryUid: args.videoUid, isPlaying: true});
     } else {

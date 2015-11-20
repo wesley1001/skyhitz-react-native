@@ -62,7 +62,7 @@ var YoutubeRowEntry = React.createClass({
   render(){
     return (
       <View>
-        <TouchableOpacity onPress={()=> Player.playVideo(this.state.entry.id.videoId, this.state.entry.snippet.title)} style={styles.rowWrap}>
+        <TouchableOpacity onPress={()=> Player.playVideo(this.state.entry.id.videoId, this.state.entry.snippet.title, this.state.entry)} style={styles.rowWrap}>
           <View style={styles.row}>
             <Image source={{uri:this.state.entry.snippet.thumbnails.default.url}} style={styles.thumb}/>
             <View style={styles.info}>

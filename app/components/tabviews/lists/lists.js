@@ -211,8 +211,8 @@ var Lists = React.createClass({
   getHotLists(){
     var page_size = 15;
     var last_key = '';
-    if (this.state.topList.length > 0) {
-      last_key = this.state.topList[this.state.hotLists.length - 1].relevance;
+    if (this.state.hotLists.length > 0) {
+      last_key = this.state.hotLists[this.state.hotLists.length - 1].relevance;
       last_key = -last_key;
       console.log(last_key)
     }
@@ -235,7 +235,7 @@ var Lists = React.createClass({
         }
         this.setState({
           loading: false,
-          topList: this.state.hotLists.concat(data)
+          hotLists: this.state.hotLists.concat(data)
         });
       })
   },
@@ -307,9 +307,9 @@ var Lists = React.createClass({
       <View>
         <View style={styles.rowWrap}>
           <View style={styles.row}>
-            <TouchableOpacity onPress={()=>Router.goToList(item.listUid, item.name)}>
+            <TouchableOpacity onPress={()=>Router.goToList(item.id, item.name)}>
               <View style={styles.leftRowSection}>
-                <Image source={item.avatar == "" ? require('image!avatar'):{uri:item.avatar.small}}
+                <Image source={item.avatar == "" ? require('image!avatar'):{uri:item.imageUrl}}
                        style={styles.listCover}/>
                 <View style={styles.info}>
                   <Text style={styles.title}>{item.name}</Text>

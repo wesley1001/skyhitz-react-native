@@ -16,6 +16,7 @@ var entryApi = require('../../utils/services/entry');
 var EntryTitle = require('../../utils/entrytitle');
 var Icon = require('react-native-vector-icons/Ionicons');
 var Loader = require('../../components/loaders/loadingctrl');
+var Artist = require('../../utils/services/artist');
 
 var {
   StyleSheet,
@@ -209,6 +210,7 @@ var CreateList = React.createClass({
     this.setState({entries: newArr})
   },
   indexEntry(entry){
+    Artist.indexArtist(entry);
     entryApi.indexEntry(entry);
   },
   createList(){
